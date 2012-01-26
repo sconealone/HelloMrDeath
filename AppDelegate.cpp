@@ -6,7 +6,7 @@
 //  Copyright UBC 2012. All rights reserved.
 //
 
-#include "UntitledAppDelegate.h"
+#include "AppDelegate.h"
 
 #include "cocos2d.h"
 #include "HelloWorldScene.h"

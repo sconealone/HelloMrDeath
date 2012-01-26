@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class GameOverLayer : public cocos2d::CCColorLayer
+class GameOverLayer : public cocos2d::CCLayerColor
 {
 public:
     LAYER_NODE_FUNC(GameOverLayer);

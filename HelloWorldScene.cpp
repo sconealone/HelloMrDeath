@@ -44,7 +44,7 @@ CCScene* HelloWorld::scene()
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
-    if ( !CCColorLayer::initWithColor( ccc4(0,0,0,0) ) )	{
+    if ( !CCLayerColor::initWithColor( ccc4(0,0,0,0) ) )	{
 		return false;
 	}
 	

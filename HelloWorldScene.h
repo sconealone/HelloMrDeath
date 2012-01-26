@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class HelloWorld : public cocos2d::CCColorLayer
+class HelloWorld : public cocos2d::CCLayerColor
 {
 public:
 	
