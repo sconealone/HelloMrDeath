@@ -66,7 +66,11 @@ bool HelloWorld::init()
 	this->addChild(pMenu, 1);
 	
 	background = CCSprite::spriteWithFile("background.png");
-	background->setPosition(ccp(275,180));
+	float screenWidth = CCDirector::sharedDirector()->getWinSize().width;
+	float screenHeight = CCDirector::sharedDirector()->getWinSize().height;
+	float screenCentreX = screenWidth / 2;
+	float screenCentreY = screenHeight / 2;
+	background->setPosition(ccp(screenCentreX, screenCentreY));
 	this->addChild(background, 0);
 	
 	CCSize size = CCDirector::sharedDirector()->getWinSize();
@@ -209,9 +213,10 @@ void HelloWorld::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 	float velocity = 100/1; // 100pixel/sec
 	float realMoveDuration = length/velocity;
 	
-	
+	float screenWidth = CCDirector::sharedDirector()->getWinSize().width;
+
 	// player moves to the right if click on death's right-hand side
-	if (!isClickOnPlayer(location.x, location.y) && location.x > player_x && player_x < 480 ) {
+	if (!isClickOnPlayer(location.x, location.y) && location.x > player_x && player_x < screenWidth ) {
 		player->setFlipX(false);
 		player->runAction(CCSequence::actions(CCMoveTo::actionWithDuration(realMoveDuration, realDest),  NULL));
 	}

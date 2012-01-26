@@ -31,9 +31,11 @@ bool AppDelegate::initInstance()
 
         // Initialize OpenGLView instance, that release by CCDirector when application terminate.
         // The HelloWorld is designed as HVGA.
+		const int SCREEN_HEIGHT = 768;
+		const int SCREEN_WIDTH = 1024;
         CCEGLView * pMainWnd = new CCEGLView();
         CC_BREAK_IF(! pMainWnd
-            || ! pMainWnd->Create(TEXT("cocos2d: Hello World"), 320, 480));
+            || ! pMainWnd->Create(TEXT("Hello, Mr. Death"), SCREEN_HEIGHT, SCREEN_WIDTH));
 
 #endif  // CC_PLATFORM_WIN32
         
