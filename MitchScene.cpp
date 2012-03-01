@@ -66,7 +66,7 @@ bool HelloWorld::init()
 		const float DEATH_SPRITE_HEIGHT = 150;
 		CCSprite* deathSprite = CCSprite::spriteWithFile("death_sprite.png", CCRect(0, 0, DEATH_SPRITE_WIDTH, DEATH_SPRITE_HEIGHT));
 		CCSize windowSize = CCDirector::sharedDirector()->getWinSize();
-		const int GROUND_OFFSET = 50;
+		const int GROUND_OFFSET = 65;
 		// the coordinates start from the bottom left corner of the sprite
 		// If I want the centre of Mr. Death to start at the first third of the screen, then I need to offset his sprite to the left by half of its width.
 		deathSprite->setPosition(ccp(windowSize.width / 3 - deathSprite->getContentSize().width / 2, deathSprite->getContentSize().height / 2 + GROUND_OFFSET));
@@ -105,7 +105,9 @@ bool HelloWorld::init()
 	
 	tileMap = CCTMXTiledMap::tiledMapWithTMXFile("test_tile_map.tmx");
 	tiledBg = tileMap->layerNamed("Background");
-	
+	metaLayer = tileMap->layerNamed("Meta");
+	metaLayer->setIsVisible(false);
+
 	this->addChild(tileMap, -1);
 
 	// not entirely sure what an object group is yet
@@ -143,6 +145,7 @@ bool HelloWorld::init()
 
     return bRet;
 }
+
 
 HelloWorld::HelloWorld():_watermelons(NULL){
 	isTouchingMrDeath = false;
@@ -292,11 +295,33 @@ void HelloWorld::deathDidFinishMoving(CCNode* sender)
 	isMrDeathMoving  = false;
 }
 
+/**
+ * TODO: add direction detection so that Mr. Death doesn't get stuck on collidable objects
+ */
 void HelloWorld::moveMrDeath(bool forward)
 {
+	bool isInContactWithVerticalWall = false;
+	CCPoint tileCoord = positionToTileCoord(mrDeathSprite->getPosition());
+	int tileGid = metaLayer->tileGIDAt(tileCoord);
+	if (tileGid)
+	{
+		CCMutableDictionary<string, CCString*>* properties = tileMap->propertiesForGID(tileGid);
+		if (properties)
+		{
+			CCString* collision = properties->objectForKey("Collidable");
+			if (collision && !collision->toStdString().compare("true"))
+			{
+				isInContactWithVerticalWall = true;
+			}
+		}
+	}
+	
+	if (isInContactWithVerticalWall)
+	{
+		return;
+	}		
 	if (!isMrDeathMoving 
 		&& (	(mrDeathSprite->getPosition().x - mrDeathSprite->getContentSize().width/2 >= 0 && !forward)
-			//||	(mrDeathSprite->getPosition().x + mrDeathSprite->getContentSize().width/2 <= CCDirector::sharedDirector()->getWinSize().width && forward)	))
 			||	(	(mrDeathSprite->getPosition().x + mrDeathSprite->getContentSize().width/2 
 						<= tileMap->getTileSize().width*tileMap->getMapSize().width)
 						&& forward)	))
@@ -494,3 +519,17 @@ void HelloWorld::setViewpointCentre()
 	pMenu->setPosition(ccp(pMenu->getPosition().x + dx, pMenu->getPosition().y + dy));
 	this->setPosition(viewPoint);
 }
+
+CCPoint HelloWorld::positionToTileCoord(CCPoint position)
+{
+	// Can't use toGl() because it does it for the window size, but there's a lot of the map that's not shown in the window
+	int directionMultiplier = (isMrDeathFacingRight) ? 1 : -1;
+	CCPoint frontEdgePosition = ccp(position.x + directionMultiplier*mrDeathSprite->getContentSize().width/2,
+		position.y - mrDeathSprite->getContentSize().height/2);
+	int x = frontEdgePosition.x / tileMap->getTileSize().width; // divide position by width of a tile.
+	// mapSize is measured in tiles, so we are gettingthe pixels
+	int yPositionOnMap = tileMap->getMapSize().height * tileMap->getTileSize().height - frontEdgePosition.y;
+	int y = yPositionOnMap / tileMap->getTileSize().height;
+	return ccp(x,y);
+}
+

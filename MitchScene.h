@@ -43,6 +43,7 @@ private:
 	*/
 	void setViewpointCentre();
 
+
 	/**
 	 * Adds a target to the scene for Mr. Death to attack.
 	 */
@@ -69,6 +70,8 @@ private:
 	 */
 	void swapSprites(cocos2d::CCSprite* spriteToMakeInvisible, cocos2d::CCSprite* spriteToMakeVisible);
 
+	cocos2d::CCPoint positionToTileCoord(cocos2d::CCPoint position);
+
 	static const int ATTACK_TAG = 0;
 	static const int WATERMELON_TAG = 1;
 	static const int BG_TAG = 2;
@@ -85,6 +88,7 @@ private:
 	// tiled map editor test
 	cocos2d::CCTMXTiledMap* tileMap;
 	cocos2d::CCTMXLayer* tiledBg;
+	cocos2d::CCTMXLayer* metaLayer;
 
 protected:
 	cocos2d::CCMutableArray<cocos2d::CCSprite*> *_watermelons;
