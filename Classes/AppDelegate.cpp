@@ -31,12 +31,10 @@ bool AppDelegate::initInstance()
 		// Initialize OpenGLView instance, that release by CCDirector when application terminate.
 		// The HelloWorld is designed as HVGA.
 		CCEGLView * pMainWnd = new CCEGLView();
-		const int IPAD_WIDTH = 1024;
-		const int IPAD_HEIGHT = 768;
-		const int IPHONE_WIDTH = 960;
-		const int IPHONE_HEIGHT = 640;
+		const int IPHONE_WIDTH = 480;
+		const int IPHONE_HEIGHT = 320;
 		CC_BREAK_IF(! pMainWnd
-				|| ! pMainWnd->Create(TEXT("Hello Mr. Death Sandbox"), IPHONE_WIDTH, IPHONE_HEIGHT));
+				|| ! pMainWnd->Create(TEXT("Hello Mr. Death: the Game"), IPHONE_WIDTH, IPHONE_HEIGHT));
 
 #endif  // CC_PLATFORM_WIN32
 
