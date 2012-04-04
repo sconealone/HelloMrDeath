@@ -46,7 +46,38 @@ private:
 	 */
 	void checkInput();
 
+	/**
+	 * Centres the camera (the game layer)
+	 */
+	void centreCamera();
+
 	// fields
+	typedef cocos2d::CCLayer super;
+	/**
+	 * The game layer is the layer where we will add our background
+	 * and characters
+	 */
+	cocos2d::CCLayer* gameLayer;
+
+	/**
+	 * This is the layer where we put our menu and buttons
+	 */
+	cocos2d::CCLayer* controlLayer;
+
+	/**
+	 * Holds all the enemies that are on the screen
+	 */
+	cocos2d::CCMutableArray<Enemy>* enemies;
+
+	/**
+	 * The physics world
+	 */
+	b2World* world;
+
+	/**
+	 * Mr. Death!
+	 */
+	MrDeath* death;
 
 
 }
