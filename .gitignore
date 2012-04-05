@@ -1,4 +1,4 @@
-# Compiled source #
+ompiled source #
 ###################
 *.com
 *.class
@@ -50,3 +50,12 @@ Thumbs.db
 *win32*
 *.cd
 *.swp
+
+#Olive's xcode stuff
+build
+Info.plist
+ios
+libs
+LICENSE*
+*.pch
+*.xcodeproj
