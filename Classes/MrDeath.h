@@ -3,7 +3,7 @@
 
 #include "Character.h"
 
-class MrDeath {
+class MrDeath : public Character {
 public:
 
 	// Special Attack for Mr. Death

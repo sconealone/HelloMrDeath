@@ -83,6 +83,6 @@ private:
 	MrDeath* death;
 
 
-}
+};
 
 #endif // define LEVEL_H
