@@ -1,13 +1,11 @@
 #include "AppDelegate.h"
 
 #include "cocos2d.h"
-#include "SimpleAudioEngine.h"
-using namespace CocosDenshion;
-#include "B2Test.h"
-#include "OpeningScene.h"
-#include "HelloWorldScene.h"
+#include "Level.h"
 
 #include "CCEGLView.h"
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
