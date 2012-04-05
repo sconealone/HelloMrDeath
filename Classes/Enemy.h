@@ -3,7 +3,7 @@
 
 #include "Character.h"
 
-class MrDeath {
+class Enemy {
 public:
 
 	// Update to see if collision with Mr. Death
