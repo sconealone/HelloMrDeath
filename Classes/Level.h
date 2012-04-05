@@ -1,12 +1,15 @@
 #pragma once
 #ifndef LEVEL_H
 #define LEVEL_H
+#define TIMESTEP 1.0f/60.0f
 
 #include "cocos2d.h"
 #include "Box2D.h"
 #include "Character.h"
 #include "MrDeath.h"
 #include "Enemy.h"
+class Enemy;
+class MrDeath;
 
 class Level: public cocos2d::CCLayer {
 public:
@@ -67,7 +70,7 @@ private:
 	/**
 	 * Holds all the enemies that are on the screen
 	 */
-	cocos2d::CCMutableArray<Enemy>* enemies;
+	cocos2d::CCMutableArray<Enemy*>* enemies;
 
 	/**
 	 * The physics world
