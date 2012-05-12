@@ -53,6 +53,17 @@ float tilesToMetres(float tileNumber) {
 	return tileNumber * PIXELS_PER_TILE / PIXELS_PER_METRE;
 }
 
+/**
+ * Takes a y-coordinate from a system that has the origin fixed at the top-left
+ * (like Tiled) and converts it to a y-coordinate from a system that has the 
+ * origin at the bottom-left (like Box2D, cocos2d).
+ * If the two systems are superimposed over each other, the points should 
+ * be at the same spot.
+ */
+float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
+	return height - yCoord;
+}
+
 bool Level::isPlatform(CCPoint tileCoord) {
 	return platformLayer->tileGIDAt(tileCoord);
 }
@@ -68,8 +79,8 @@ void Level::initPlatformsFromTiledMap() {
 				}
 				int width = tilesToMetres(lastColumn - j);
 				int height = tilesToMetres(1);
-				float centerX = tilesToMetres(i + 0.5f);
-				float centerY = tilesToMetres(j) + height / 2.0f;
+				float centerY = tilesToMetres(coordsFromTopToCoordsFromBottom(i, mapSize.height) + 0.5f);
+				float centerX = tilesToMetres(j) + height / 2.0f;
 				createPlatformBody(width, height, i, j);
 				j = lastColumn;
 			}
