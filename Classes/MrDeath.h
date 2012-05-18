@@ -3,15 +3,24 @@
 
 #include "Character.h"
 
-class MrDeath : public Character {
+class MrDeath  {
 public:
-
+	
+	// constructor
+	
+	MrDeath();
+	
+	// Attack
+	void attackAnimation();
+	
 	// Special Attack for Mr. Death
 	void specialAttack();
 
 	// Jump function for Mr. Death
 	void jump();
 
+
+	
 };
 
 #endif
