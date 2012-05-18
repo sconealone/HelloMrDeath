@@ -17,18 +17,10 @@ CCSprite *death;
 MrDeath::MrDeath(){
 	
 	
-	death = CCSprite::spriteWithSpriteFrameName("death1.png");
+	
 	
 	death-> setPosition(ccp(200,200));
 	
-}
-
-
-
-
-//cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("death.plist");
-
-void MrDeath::attackAnimation(){
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("death.plist");
 	CCSpriteBatchNode *deathSpritSheet = cocos2d::CCSpriteBatchNode::spriteSheetWithFile("death.png");
 	
@@ -40,6 +32,8 @@ void MrDeath::attackAnimation(){
 	deathAnimFrames->addObject(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("death4.png"));
 	deathAnimFrames->addObject(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("death1.png"));
 	
+	death = CCSprite::spriteWithSpriteFrameName("death1.png");
+	
 	CCAnimation *attackAnim = CCAnimation::animationWithFrames(deathAnimFrames);
 	
 	CCAction *attackAction = CCAnimate::actionWithAnimation(attackAnim, false);
@@ -47,6 +41,15 @@ void MrDeath::attackAnimation(){
 	death->runAction(attackAction);
 	
 	deathSpritSheet-> addChild(death, 1);
+}
+
+
+
+
+//cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("death.plist");
+
+void MrDeath::attackAnimation(){
+
 	
 }
 
