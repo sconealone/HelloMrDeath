@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="../../../../../../../../Program Files (x86)/Tiled/examples/perspective_walls.tsx"/>
+ <tileset firstgid="17" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="../../../../../../../../cocos2d-x/Death/Death/Resources/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <tileset firstgid="65" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="meta_tiles.png" width="67" height="34"/>
+ </tileset>
+ <layer name="Floor" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDxhhwUPNXlLMGez2YlNHDKamWSPBXgBMohQf
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="30" height="24">
+  <object name="HeroSpawn" x="67" y="199" width="150" height="150"/>
+ </objectgroup>
+ <layer name="Meta" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDzhhwfSyFx+fVLOIdT+17SXWHGLtxRYf+OIIn5+xyREyjxSAz15K9NPDXgDTWAsX
+  </data>
+ </layer>
+</map>

@@ -4,6 +4,7 @@ using namespace cocos2d;
 Level::Level() {
 	gameLayer = NULL;
 	controlLayer = NULL;
+	platformLayer = NULL;
 	enemies = NULL;
 	world = NULL;
 	death = NULL;
