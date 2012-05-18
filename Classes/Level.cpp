@@ -16,7 +16,9 @@ bool Level::init() {
 	bool initSuccessful = false;
 	
 	// flag to detect memory leaks
+	#if	(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	#endif
 
 	do {
 		CC_BREAK_IF(!super::init());
