@@ -23,6 +23,12 @@ bool Level::init() {
 	do {
 		CC_BREAK_IF(!super::init());
 		
+		gameLayer = CCLayer::node();
+		
+		this->addChild(gameLayer, 0);
+		
+		MrDeath *player = new MrDeath();
+		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
 	} while (0);
@@ -35,11 +41,14 @@ CCScene* Level::scene() {
 	do {
 		scene = CCScene::node();
 		CC_BREAK_IF(!scene);
+		
 		Level* layer = Level::node();
+		
 		CC_BREAK_IF(!layer);
 		scene->addChild(layer);
 	} while(0);
 	return scene;
+
 }
 
 void Level::update(float dt) {
