@@ -54,6 +54,26 @@ private:
 	 */
 	void centreCamera();
 
+	/**
+	 * Initializes the platforms from a tiledmap and adds them to the world
+	 */ 
+	void initPlatformsFromTiledMap();
+	
+	/**
+	 * True if there is a platform at this tile coordinate
+	 * Checks if the GID is non-zero at that tile coord
+	 * A 0 GID indicates an empty tile
+	 * Assumes only platform tiles are in the platform tile layer
+	 */
+	bool isPlatform(cocos2d::CCPoint tileCoord);
+
+	/**
+	 * Creates the box2d body for a platform and adds
+	 * it to the world.
+	 */
+	void createPlatformBody(float width, float height, float centerX, float centerY);
+
+
 	// fields
 	typedef cocos2d::CCLayer super;
 	/**
@@ -82,7 +102,18 @@ private:
 	 */
 	MrDeath* death;
 
+	
+	cocos2d::CCTMXLayer* backgroundLayer;
 
+	/**
+	 * The tiled map should be initialized in init
+	 */
+	cocos2d::CCTMXTiledMap *tiledMap;
+
+	/**
+	 * A meta layer for determining if things are platforms
+	 */
+	cocos2d::CCTMXLayer* platformLayer;
 };
 
 #endif // define LEVEL_H
