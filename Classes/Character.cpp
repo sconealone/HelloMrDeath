@@ -6,7 +6,6 @@ Character::Character() {
 	hpValue = 0;
 	sprite = NULL;
 	body = NULL;
-	referenceCount = 0;
 	batchNode = NULL;
 	moveLeftAction = NULL;
 	moveRightAction = NULL;
@@ -101,12 +100,10 @@ void Character::initBody() {
 	body->CreateFixture(&fixDef);
 }
 
-Character* Character::createCharacterWithNameInLevel(string name, Level* level) {
-	Character* myChar = new Character;
+Character* Character::initCharacterWithNameInLevel(Character* myChar, string name, Level* level) {
 	myChar->level = level;
 	myChar->initSprite(name);
 	myChar->initBody();
-	++(myChar->referenceCount);
 	return myChar;
 }
 
@@ -122,16 +119,6 @@ void Character::moveRight() {
 	sprite->runAction(moveRightAction);
 }
 
-void Character::retain() {
-	++referenceCount;
-}
-
-void Character::release() {
-	--referenceCount;
-	if (referenceCount <= 0) {
-		delete this;
-	}
-}
 
 void Character::initActions() {
 }

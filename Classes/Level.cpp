@@ -11,6 +11,7 @@ Level::Level() {
 }
 
 Level::~Level() {
+	delete death;
 	delete world;
 }
 
@@ -73,10 +74,11 @@ void Level::initWorldBorders()
 void Level::initPC() {
 	
 		// TODO: test
-		Character* playerCharacter = Character::createCharacterWithNameInLevel("death",this);
-		CCSprite* player = playerCharacter->getSprite();
+		death = new Character;
+		death = Character::initCharacterWithNameInLevel(death,"death",this);
+		CCSprite* player = death->getSprite();
 		gameLayer->addChild(player, 0);
-		playerCharacter->setPosition(ccp(100.0f, 100.0f));
+		death->setPosition(ccp(100.0f, 100.0f));
 		
 		//playerCharacter->getBatchNode()->addChild(player, 1);
 }

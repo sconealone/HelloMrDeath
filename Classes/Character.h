@@ -22,14 +22,19 @@ class Level;
 class Character 
 {
 public:
+	Character();
+
+	virtual ~Character();
 	/**
 	Initializes a new character.
 	By default calls the initSprite and initBody methods.
+	@param myChar a reference to an initialized character
 	@param name should be the same name used to name all
+	@param level a reference to the level the character will exist in
 	the character's sprites and plist and sprite sheets.
 	eg name.plist, name.png, name1.png
 	*/
-	static Character* createCharacterWithNameInLevel(string name, Level* level);
+	static Character* initCharacterWithNameInLevel(Character* myChar, string name, Level* level);
 
 	Level* getLevel(){return level;}
 
@@ -41,9 +46,6 @@ public:
 
 	cocos2d::CCSpriteBatchNode* getBatchNode(){return batchNode;}
 	
-	void retain();
-
-	void release();
 
 	/**
 	The position of the character in the world, in metres
@@ -77,9 +79,6 @@ protected:
 	int attackValue;
 	int hpValue;
 
-	Character();
-
-	~Character();
 	
 
 	 /**
@@ -103,7 +102,6 @@ protected:
 	cocos2d::CCAction* attackAction;
 
 private:
-	int referenceCount;
 	Level* level;
 	cocos2d::CCPoint position;
 	
