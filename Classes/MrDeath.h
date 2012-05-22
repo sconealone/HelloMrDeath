@@ -1,4 +1,4 @@
-#ifdef TESTING
+
 #ifndef MRDEATH_H
 #define MRDEATH_H
 
@@ -19,9 +19,9 @@ public:
 
 	virtual void attack();
 
+	virtual Character* initCharacterWithNameInWorld(Character* myChar, string name, b2World* world);
 
 private:
-	
+	virtual void initActions2();
 };
-#endif
 #endif

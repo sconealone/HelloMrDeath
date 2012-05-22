@@ -79,15 +79,15 @@ CCAction* Character::initAction(string spriteName, int numFrames, bool loop) {
 
 void Character::initBody() {
 	CCSize size = sprite->getContentSize();
-	float height = Level::pixelsToMetres(size.height);
-	float width = Level::pixelsToMetres(size.width);
+	float height = MDUtil::pixelsToMetres(size.height);
+	float width = MDUtil::pixelsToMetres(size.width);
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(0.0f,0.0f);
 	bodyDef.fixedRotation = true;
 	bodyDef.userData = this;
-	body = level->getWorld()->CreateBody(&bodyDef);
+	body = world->CreateBody(&bodyDef);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(width,height);
@@ -100,8 +100,8 @@ void Character::initBody() {
 	body->CreateFixture(&fixDef);
 }
 
-Character* Character::initCharacterWithNameInLevel(Character* myChar, string name, Level* level) {
-	myChar->level = level;
+Character* Character::initCharacterWithNameInWorld(Character* myChar, string name, b2World* world) {
+	myChar->world = world;
 	myChar->initSprite(name);
 	myChar->initBody();
 	myChar->initActions();
@@ -122,13 +122,10 @@ void Character::moveRight() {
 
 
 void Character::initActions() {
-	// TODO: placeholder
-	CCAction* action = initAction("death", 4, true);
-	sprite->runAction(action);
 }
 
 void Character::setPosition(CCPoint pos) {
 	position = pos;
 	sprite->setPosition(position);
-	body->SetTransform(b2Vec2(Level::pixelsToMetres(position.x),Level::pixelsToMetres(position.y)),body->GetAngle());
+	body->SetTransform(b2Vec2(MDUtil::pixelsToMetres(position.x),MDUtil::pixelsToMetres(position.y)),body->GetAngle());
 }

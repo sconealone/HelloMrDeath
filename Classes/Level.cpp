@@ -63,9 +63,9 @@ void Level::initWorldBorders()
 	b2Vec2 verticies[numCorners];
 	const float OFFSCREEN_OFFSET = 10.0f;
 	verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
-	verticies[1].Set(0.0f, Level::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
-	verticies[2].Set(Level::pixelsToMetres(winSize.width), Level::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
-	verticies[3].Set(Level::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
+	verticies[1].Set(0.0f, MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
+	verticies[2].Set(MDUtil::pixelsToMetres(winSize.width), MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
+	verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
 	
 	b2ChainShape borderBox;
 	borderBox.CreateChain(verticies, numCorners);
@@ -76,8 +76,8 @@ void Level::initWorldBorders()
 void Level::initPC() {
 	
 		// TODO: test
-		death = new Character;
-		death = Character::initCharacterWithNameInLevel(death,"death",this);
+		death = new MrDeath;
+		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
 		death->setPosition(ccp(100.0f, 100.0f));
 		
@@ -105,17 +105,6 @@ void Level::update(float dt) {
 
 
 /**
- * Converts a size in tiles to a size in metres
- */
-float Level::tilesToMetres(float tileNumber) {
-	return tileNumber * PIXELS_PER_TILE / PIXELS_PER_METRE;
-}
-
-float Level::pixelsToMetres(float px) {
-	return px / PIXELS_PER_METRE;
-}
-
-/**
  * Takes a y-coordinate from a system that has the origin fixed at the top-left
  * (like Tiled) and converts it to a y-coordinate from a system that has the 
  * origin at the bottom-left (like Box2D, cocos2d).
@@ -139,10 +128,10 @@ void Level::initPlatformsFromTiledMap() {
 				while (lastColumn < mapSize.width && isPlatform(ccp(i,lastColumn))) {
 					++lastColumn;
 				}
-				float width = tilesToMetres((float)lastColumn - j);
-				float height = tilesToMetres(1.0f);
-				float centerY = tilesToMetres(coordsFromTopToCoordsFromBottom((float)i, mapSize.height) + 0.5f);
-				float centerX = tilesToMetres((float)j) + height / 2.0f;
+				float width = MDUtil::tilesToMetres((float)lastColumn - j);
+				float height = MDUtil::tilesToMetres(1.0f);
+				float centerY = MDUtil::tilesToMetres(coordsFromTopToCoordsFromBottom((float)i, mapSize.height) + 0.5f);
+				float centerX = MDUtil::tilesToMetres((float)j) + height / 2.0f;
 				createPlatformBody(width, height, (float)i, (float)j);
 				j = lastColumn;
 			}

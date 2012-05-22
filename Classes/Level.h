@@ -5,12 +5,10 @@
 
 #include "cocos2d.h"
 #include "Box2D.h"
-#include "Character.h"
 #include "MrDeath.h"
-#include "Enemy.h"
+#include "MDUtil.h"
 
 class Character;
-class Enemy;
 class MrDeath;
 
 class Level: public cocos2d::CCLayer {
@@ -43,15 +41,6 @@ public:
 	 */
 	virtual void update(float dt);
 
-	/**
-	Converts tiles to metres, according to the game world.
-	*/
-	static float tilesToMetres(float tiles);
-
-	/**
-	Converts pixels ot metres, according to the game world.
-	*/
-	static float pixelsToMetres(float px);
 
 	
 	/**
@@ -140,9 +129,6 @@ private:
 	Initializes the player character.
 	*/
 	void initPC();
-	
-	static const int PIXELS_PER_TILE = 32;
-	static const int PIXELS_PER_METRE = 64; // placeholder
 };
 
 #endif // define LEVEL_H

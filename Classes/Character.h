@@ -5,14 +5,12 @@
 #include <CCMutableDictionary.h>
 #include "Box2D.h"
 #include "SimpleAudioEngine.h"
-#include "Level.h"
+#include "MDUtil.h"
 #include <string>
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include <windows.h>
 #endif
-
-class Level;
 
 /**
  * The Character is a sprite with a physics body
@@ -27,16 +25,15 @@ public:
 	virtual ~Character();
 	/**
 	Initializes a new character.
-	By default calls the initSprite and initBody methods.
-	@param myChar a reference to an initialized character
+	By default calls the initSprite and initBody methods
 	@param name should be the same name used to name all
 	@param level a reference to the level the character will exist in
 	the character's sprites and plist and sprite sheets.
 	eg name.plist, name.png, name1.png
 	*/
-	static Character* initCharacterWithNameInLevel(Character* myChar, string name, Level* level);
+	virtual Character* initCharacterWithNameInWorld(Character* myChar,string name, b2World* world);
 
-	Level* getLevel(){return level;}
+	b2World* getWorld(){return world;}
 
 	// Attack value for each character
 	int getAttackValue(){return attackValue;}
@@ -102,7 +99,7 @@ protected:
 	cocos2d::CCAction* attackAction;
 
 private:
-	Level* level;
+	b2World* world;
 	cocos2d::CCPoint position;
 	
 	cocos2d::CCSpriteBatchNode* batchNode;
