@@ -11,8 +11,10 @@ Level::Level() {
 }
 
 Level::~Level() {
-	delete death;
 	delete world;
+	world = NULL;
+	delete death;
+	death = NULL;
 }
 
 bool Level::init() {
@@ -76,11 +78,10 @@ void Level::initPC() {
 		// TODO: test
 		death = new Character;
 		death = Character::initCharacterWithNameInLevel(death,"death",this);
-		CCSprite* player = death->getSprite();
-		gameLayer->addChild(player, 0);
+		gameLayer->addChild(death->getBatchNode(), 0);
 		death->setPosition(ccp(100.0f, 100.0f));
 		
-		//playerCharacter->getBatchNode()->addChild(player, 1);
+		death->getBatchNode()->addChild(death->getSprite(), 1);
 }
 
 CCScene* Level::scene() {

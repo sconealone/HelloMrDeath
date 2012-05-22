@@ -13,7 +13,6 @@ Character::Character() {
 }
 
 Character::~Character() {
-	CC_SAFE_RELEASE_NULL(sprite);
 }
 
 /**
@@ -55,12 +54,13 @@ void Character::initSprite(string name) {
 
 	string batchNodeStr = myAppend(name, ".png");
 	this->batchNode = cocos2d::CCSpriteBatchNode::batchNodeWithFile(batchNodeStr.c_str());
-	
+
 	string spriteName = myAppend(name, "1");
 	spriteName += ".png";
 	sprite = CCSprite::spriteWithSpriteFrameName(spriteName.c_str());
 }
 
+// TODO: add the loop logic
 CCAction* Character::initAction(string spriteName, int numFrames, bool loop) {
 	CCMutableArray<CCSpriteFrame *> *animationFrames = new CCMutableArray<cocos2d::CCSpriteFrame *>;
 	for (int i = 0; i < numFrames; ++i) {
@@ -69,7 +69,7 @@ CCAction* Character::initAction(string spriteName, int numFrames, bool loop) {
 		animationFrames->addObject((CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str())));
 	}
 	
-	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames);
+	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, 0.1f);
 	CCAction *action = CCAnimate::actionWithAnimation(animation, true);
 	
 	delete animationFrames;
@@ -104,6 +104,7 @@ Character* Character::initCharacterWithNameInLevel(Character* myChar, string nam
 	myChar->level = level;
 	myChar->initSprite(name);
 	myChar->initBody();
+	myChar->initActions();
 	return myChar;
 }
 
@@ -121,6 +122,9 @@ void Character::moveRight() {
 
 
 void Character::initActions() {
+	// TODO: placeholder
+	CCAction* action = initAction("death", 4, true);
+	sprite->runAction(action);
 }
 
 void Character::setPosition(CCPoint pos) {
