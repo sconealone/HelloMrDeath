@@ -61,9 +61,9 @@ void Level::initWorldBorders()
 	b2Vec2 verticies[numCorners];
 	const float OFFSCREEN_OFFSET = 10.0f;
 	verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
-	verticies[1].Set(0.0f, winSize.height / PIXELS_PER_METRE + OFFSCREEN_OFFSET);
-	verticies[2].Set(winSize.width / PIXELS_PER_METRE, winSize.height / PIXELS_PER_METRE + OFFSCREEN_OFFSET);
-	verticies[3].Set(winSize.width / PIXELS_PER_METRE, -OFFSCREEN_OFFSET);
+	verticies[1].Set(0.0f, Level::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
+	verticies[2].Set(Level::pixelsToMetres(winSize.width), Level::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
+	verticies[3].Set(Level::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
 	
 	b2ChainShape borderBox;
 	borderBox.CreateChain(verticies, numCorners);
