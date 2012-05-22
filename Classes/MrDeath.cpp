@@ -25,8 +25,6 @@ void MrDeath::jump(){
 void MrDeath::attack() {
 	if (!isAttacking) {
 		isAttacking = true;
-		//CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(level,callfuncN_selector(MrDeath::attackStop));
-		//sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL));
 		sprite->runAction(attackAction);
 	}
 }
@@ -49,8 +47,9 @@ void MrDeath::stopMoving() {
 
 void MrDeath::initActions() {
 	attackAction = initAction("death", 4, true);
+	attackAction->setDuration(4*0.1f);
 	CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(level,callfuncN_selector(MrDeath::attackStop));
-	sprite->runAction(CCSequence::actions(attackAction, /*attackDone,*/ NULL));
+	sprite->runAction(attackAction);
 }
 
 CCPoint b2VecToCCPoint(b2Vec2 vec) {

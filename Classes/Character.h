@@ -21,7 +21,6 @@ class Character
 {
 public:
 	Character();
-
 	virtual ~Character();
 	/**
 	Initializes a new character.
