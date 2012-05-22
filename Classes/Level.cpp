@@ -10,7 +10,9 @@ Level::Level() {
 	death = NULL;
 }
 
-Level::~Level() {}
+Level::~Level() {
+	delete world;
+}
 
 bool Level::init() {
 	bool initSuccessful = false;
@@ -26,14 +28,57 @@ bool Level::init() {
 		gameLayer = CCLayer::node();
 		
 		this->addChild(gameLayer, 0);
-		
-		MrDeath *player = new MrDeath();
+
+		initWorld();
+
+		initPC();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
 	} while (0);
 	CC_ASSERT(initSuccessful);
 	return initSuccessful;
+}
+
+void Level::initWorld() {
+	const float GRAVITY = -100.0f;
+	b2Vec2 gravity = b2Vec2(0.0f, GRAVITY);
+	bool doSleep = true;
+	world = new b2World(gravity);
+	world->SetAllowSleeping(doSleep);
+	initWorldBorders();
+}
+
+
+void Level::initWorldBorders()
+{
+	b2BodyDef borderBodyDef;
+	borderBodyDef.type = b2_staticBody;
+	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+	b2Body *body = world->CreateBody(&borderBodyDef);
+	const int numCorners = 4;
+	b2Vec2 verticies[numCorners];
+	const float OFFSCREEN_OFFSET = 10.0f;
+	verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
+	verticies[1].Set(0.0f, winSize.height / PIXELS_PER_METRE + OFFSCREEN_OFFSET);
+	verticies[2].Set(winSize.width / PIXELS_PER_METRE, winSize.height / PIXELS_PER_METRE + OFFSCREEN_OFFSET);
+	verticies[3].Set(winSize.width / PIXELS_PER_METRE, -OFFSCREEN_OFFSET);
+	
+	b2ChainShape borderBox;
+	borderBox.CreateChain(verticies, numCorners);
+	body->CreateFixture(&borderBox, 0.0f);
+	
+}
+
+void Level::initPC() {
+	
+		// TODO: test
+		Character* playerCharacter = Character::createCharacterWithNameInLevel("death",this);
+		CCSprite* player = playerCharacter->getSprite();
+		gameLayer->addChild(player, 0);
+		playerCharacter->setPosition(ccp(100.0f, 100.0f));
+		
+		//playerCharacter->getBatchNode()->addChild(player, 1);
 }
 
 CCScene* Level::scene() {
@@ -59,10 +104,12 @@ void Level::update(float dt) {
 /**
  * Converts a size in tiles to a size in metres
  */
-float tilesToMetres(float tileNumber) {
-	const int PIXELS_PER_TILE = 32;
-	const int PIXELS_PER_METRE = 64; // placeholder
+float Level::tilesToMetres(float tileNumber) {
 	return tileNumber * PIXELS_PER_TILE / PIXELS_PER_METRE;
+}
+
+float Level::pixelsToMetres(float px) {
+	return px / PIXELS_PER_METRE;
 }
 
 /**
@@ -77,7 +124,7 @@ float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
 }
 
 bool Level::isPlatform(CCPoint tileCoord) {
-	return platformLayer->tileGIDAt(tileCoord);
+	return platformLayer->tileGIDAt(tileCoord) ? true : false;
 }
 
 void Level::initPlatformsFromTiledMap() {
@@ -89,11 +136,11 @@ void Level::initPlatformsFromTiledMap() {
 				while (lastColumn < mapSize.width && isPlatform(ccp(i,lastColumn))) {
 					++lastColumn;
 				}
-				int width = tilesToMetres(lastColumn - j);
-				int height = tilesToMetres(1);
-				float centerY = tilesToMetres(coordsFromTopToCoordsFromBottom(i, mapSize.height) + 0.5f);
-				float centerX = tilesToMetres(j) + height / 2.0f;
-				createPlatformBody(width, height, i, j);
+				float width = tilesToMetres((float)lastColumn - j);
+				float height = tilesToMetres(1.0f);
+				float centerY = tilesToMetres(coordsFromTopToCoordsFromBottom((float)i, mapSize.height) + 0.5f);
+				float centerX = tilesToMetres((float)j) + height / 2.0f;
+				createPlatformBody(width, height, (float)i, (float)j);
 				j = lastColumn;
 			}
 		}

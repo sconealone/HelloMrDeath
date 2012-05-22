@@ -8,6 +8,8 @@
 #include "Character.h"
 #include "MrDeath.h"
 #include "Enemy.h"
+
+class Character;
 class Enemy;
 class MrDeath;
 
@@ -40,6 +42,22 @@ public:
 	 * updating the enemy AI, checking for input
 	 */
 	virtual void update(float dt);
+
+	/**
+	Converts tiles to metres, according to the game world.
+	*/
+	static float tilesToMetres(float tiles);
+
+	/**
+	Converts pixels ot metres, according to the game world.
+	*/
+	static float pixelsToMetres(float px);
+
+	
+	/**
+	 * The physics world
+	 */
+	CC_SYNTHESIZE(b2World*,world,World);
 
 private:
 	// functions
@@ -90,17 +108,13 @@ private:
 	/**
 	 * Holds all the enemies that are on the screen
 	 */
-	cocos2d::CCMutableArray<Enemy*>* enemies;
+	cocos2d::CCMutableArray<Character*>* enemies;
 
-	/**
-	 * The physics world
-	 */
-	b2World* world;
 
 	/**
 	 * Mr. Death!
 	 */
-	MrDeath* death;
+	Character* death;
 
 	
 	cocos2d::CCTMXLayer* backgroundLayer;
@@ -114,6 +128,21 @@ private:
 	 * A meta layer for determining if things are platforms
 	 */
 	cocos2d::CCTMXLayer* platformLayer;
+
+	/**
+	Initializes the physics world.
+	*/
+	void initWorld();
+
+	void initWorldBorders();
+
+	/**
+	Initializes the player character.
+	*/
+	void initPC();
+	
+	static const int PIXELS_PER_TILE = 32;
+	static const int PIXELS_PER_METRE = 64; // placeholder
 };
 
 #endif // define LEVEL_H

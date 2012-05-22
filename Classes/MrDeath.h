@@ -1,26 +1,27 @@
+#ifdef TESTING
 #ifndef MRDEATH_H
 #define MRDEATH_H
 
 #include "Character.h"
 
-class MrDeath  {
+class Character;
+class Level;
+
+class MrDeath : public Character {
 public:
-	
-	// constructor
-	
-	MrDeath();
-	
-	// Attack
-	void attackAnimation();
-	
-	// Special Attack for Mr. Death
-	void specialAttack();
 
 	// Jump function for Mr. Death
 	void jump();
 
+	virtual void moveLeft();
 
+	virtual void moveRight();
+
+	virtual void attack();
+
+
+private:
 	
 };
-
+#endif
 #endif
