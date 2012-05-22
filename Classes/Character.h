@@ -57,9 +57,18 @@ public:
 	// Move right function for characters
 	virtual void moveRight();
 
+	virtual void stopMoving();
+
 	// Attack function for characters
 	virtual void attack();
 	
+	/**
+	Tells the character what to do on the next tick.
+	For example, update could tell the character to 
+	check it's physics body, and update its position accordingly,
+	or it could use its AI to decide where  to move.
+	*/
+	virtual void update() = 0;
 
 	/**
 	The sprite that is the visual representation of the character
@@ -90,13 +99,14 @@ protected:
 	 * starting from 1
 	 * @param loop is if you want the animation to loop or not.
 	 */
-	 static cocos2d::CCAction* initAction(string name, int numFrames, bool loop);
+	 static cocos2d::CCFiniteTimeAction* initAction(string name, int numFrames, bool loop);
 	 
 	cocos2d::CCAction* moveLeftAction;
 
 	cocos2d::CCAction* moveRightAction;
 
-	cocos2d::CCAction* attackAction;
+	cocos2d::CCFiniteTimeAction* attackAction;
+	cocos2d::CCAction* standStillAction;
 
 private:
 	b2World* world;
@@ -127,10 +137,11 @@ private:
 
 	/**
 	Initializes all the actions you may need.
-	You should initialize attack, moveLeft, and moveRight.
+	You should initialize stand still (default),
+	attack, moveLeft, and moveRight.
 	By default they do nothing.
 	*/
-	virtual void initActions();
+	virtual void initActions() = 0;
 };
 
 #endif

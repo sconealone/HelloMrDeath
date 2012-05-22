@@ -5,10 +5,11 @@
 #include "Character.h"
 
 class Character;
-class Level;
+class CCLayer;
 
 class MrDeath : public Character {
 public:
+	MrDeath(cocos2d::CCLayer* level);
 
 	// Jump function for Mr. Death
 	void jump();
@@ -17,11 +18,31 @@ public:
 
 	virtual void moveRight();
 
+	virtual void stopMoving();
+
 	virtual void attack();
 
-	virtual Character* initCharacterWithNameInWorld(Character* myChar, string name, b2World* world);
+	bool getIsAttacking(){return isAttacking;}
+
+	/**
+	Updates Mr Death.
+	Checks for collisions with enemies, and
+	readjusts Mr Death's position based on
+	his velocity.
+	*/
+	virtual void update();
 
 private:
-	virtual void initActions2();
+	virtual void initActions();
+
+	void checkCollisions();
+
+	bool isAttacking;
+	bool isMoving;
+	bool isJumping;
+
+	void attackStop();
+
+	cocos2d::CCLayer* level;
 };
 #endif

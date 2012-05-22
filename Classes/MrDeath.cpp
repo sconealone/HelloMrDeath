@@ -10,7 +10,12 @@
 
 using namespace cocos2d;
 
-
+MrDeath::MrDeath(cocos2d::CCLayer* level) : Character(){
+	this->level = level;
+	isAttacking = false;
+	isMoving = false;
+	isJumping = false;
+}
 
 
 void MrDeath::jump(){
@@ -18,7 +23,20 @@ void MrDeath::jump(){
 }
 
 void MrDeath::attack() {
+	if (!isAttacking) {
+		isAttacking = true;
+		//CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(level,callfuncN_selector(MrDeath::attackStop));
+		//sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL));
+		sprite->runAction(attackAction);
+	}
 }
+
+
+void MrDeath::attackStop() {
+	isAttacking = false;
+	// resume previous animation
+}
+
 
 void MrDeath::moveLeft() {
 }
@@ -26,17 +44,23 @@ void MrDeath::moveLeft() {
 void MrDeath::moveRight() {
 }
 
-void MrDeath::initActions2() {
-	
-	// TODO: placeholder
-	CCAction* action = initAction("death", 4, true);
-	sprite->runAction(action);
-
+void MrDeath::stopMoving() {
 }
 
+void MrDeath::initActions() {
+	attackAction = initAction("death", 4, true);
+	CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(level,callfuncN_selector(MrDeath::attackStop));
+	sprite->runAction(CCSequence::actions(attackAction, /*attackDone,*/ NULL));
+}
 
-Character* MrDeath::initCharacterWithNameInWorld(Character* myChar, string name, b2World* world) {
-	Character::initCharacterWithNameInWorld(myChar, name, world);
-	((MrDeath*)myChar)->initActions2();
-	return myChar;
+CCPoint b2VecToCCPoint(b2Vec2 vec) {
+	return ccp(vec.x, vec.y);
+}
+
+void MrDeath::update() {
+	setPosition(b2VecToCCPoint(body->GetPosition()));
+	checkCollisions();
+}
+
+void MrDeath::checkCollisions() {
 }

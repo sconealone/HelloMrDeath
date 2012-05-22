@@ -76,7 +76,7 @@ void Level::initWorldBorders()
 void Level::initPC() {
 	
 		// TODO: test
-		death = new MrDeath;
+		death = new MrDeath(this);
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
 		death->setPosition(ccp(100.0f, 100.0f));
@@ -100,7 +100,7 @@ CCScene* Level::scene() {
 }
 
 void Level::update(float dt) {
-
+	checkInput();
 }
 
 
@@ -146,3 +146,54 @@ void Level::createPlatformBody(float width, float height, float centerX, float c
 	b2Vec2 center(centerX, centerY);
 	platform.SetAsBox(width, height, center, 0.0f);
 }
+
+void Level::checkInput() {
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	checkKeyboard();
+	#else // is iOS
+	checkTouches();
+	#endif
+}
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+void Level::checkKeyboard() {
+	const short KEY_UP = (short) 0x8000;
+
+	// VK codes
+	const int W = 0x57;
+	const int A = 0x41;
+	const int D = 0x44;
+	const int R = 0x52;
+	short wasJumpPressed = GetKeyState(W);
+	short wasLeftPressed = GetKeyState(A);
+	short wasRightPressed = GetKeyState(D);
+	short wasAttackPressed = GetKeyState(R);
+	// vertical movement is handled seperately from horizontal
+	if (KEY_UP & wasJumpPressed) {
+		death->jump();
+	}
+	if (KEY_UP & wasAttackPressed) {
+		death->attack();
+	}
+	if (KEY_UP & wasLeftPressed & wasRightPressed)
+	{
+		// do nothing, don't press keys at the same time doofus
+	}
+	else if (KEY_UP & wasLeftPressed)
+	{
+		death->moveLeft();
+	}
+	else if (KEY_UP & wasRightPressed)
+	{
+		death->moveRight();
+	}
+	else
+	{
+		death->stopMoving();
+	}
+
+}
+#else
+void Level::checkTouches() {
+}
+#endif

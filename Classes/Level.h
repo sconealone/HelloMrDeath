@@ -56,6 +56,20 @@ private:
 	 */
 	void checkInput();
 
+	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	/**
+	Checks the keyboard for key presses, and
+	translates them into game commands
+	*/
+	void checkKeyboard();
+	#else
+	/**
+	Checks for button touches and translates
+	them into game commands
+	*/
+	void checkTouches();
+	#endif
+
 	/**
 	 * Centres the camera (the game layer)
 	 */
@@ -103,7 +117,7 @@ private:
 	/**
 	 * Mr. Death!
 	 */
-	Character* death;
+	MrDeath* death;
 
 	
 	cocos2d::CCTMXLayer* backgroundLayer;

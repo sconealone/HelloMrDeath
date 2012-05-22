@@ -61,7 +61,7 @@ void Character::initSprite(string name) {
 }
 
 // TODO: add the loop logic
-CCAction* Character::initAction(string spriteName, int numFrames, bool loop) {
+CCFiniteTimeAction* Character::initAction(string spriteName, int numFrames, bool loop) {
 	CCMutableArray<CCSpriteFrame *> *animationFrames = new CCMutableArray<cocos2d::CCSpriteFrame *>;
 	for (int i = 0; i < numFrames; ++i) {
 		string frameName = myAppend(spriteName, itostr(i + 1));
@@ -70,7 +70,7 @@ CCAction* Character::initAction(string spriteName, int numFrames, bool loop) {
 	}
 	
 	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, 0.1f);
-	CCAction *action = CCAnimate::actionWithAnimation(animation, true);
+	CCFiniteTimeAction *action = CCAnimate::actionWithAnimation(animation, true);
 	
 	delete animationFrames;
 
@@ -109,19 +109,15 @@ Character* Character::initCharacterWithNameInWorld(Character* myChar, string nam
 }
 
 void Character::attack() {
-	sprite->runAction(attackAction);
 }
 
 void Character::moveLeft() {
-	sprite->runAction(moveLeftAction);
 }
 
 void Character::moveRight() {
-	sprite->runAction(moveRightAction);
 }
 
-
-void Character::initActions() {
+void Character::stopMoving() {
 }
 
 void Character::setPosition(CCPoint pos) {
