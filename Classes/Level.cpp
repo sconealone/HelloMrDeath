@@ -37,12 +37,10 @@ bool Level::init() {
 		gameLayer->setIsTouchEnabled(true);
 		this->setIsTouchEnabled(true);
 
-
 		initButtons();
-
 		initWorld();
-
 		initPC();
+		initBg();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
@@ -81,10 +79,22 @@ void Level::initWorldBorders()
 	
 }
 
+
+
+void Level::initBg() {
+	CCParticleSystem* emitter;
+	emitter = CCParticleRain::node();
+	emitter->setTexture(CCTextureCache::sharedTextureCache()->addImage("attack_released.png"));
+	emitter->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2, CCDirector::sharedDirector()->getWinSize().height));
+	this->addChild(emitter);
+}
+
+
+
 void Level::initPC() {
 	
 		// TODO: test
-		death = new MrDeath(this);
+		death = new MrDeath(gameLayer);
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
 		death->setPosition(ccp(100.0f, 100.0f));

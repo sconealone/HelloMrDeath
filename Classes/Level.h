@@ -102,7 +102,7 @@ private:
 	Initializes the physics world.
 	*/
 	void initWorld();
-
+	void initBg();
 	void initWorldBorders();
 
 	/**

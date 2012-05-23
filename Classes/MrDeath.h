@@ -9,7 +9,7 @@ class CCLayer;
 
 class MrDeath : public Character {
 public:
-	MrDeath(cocos2d::CCLayer* level);
+	MrDeath(cocos2d::CCLayer* layer);
 
 	virtual ~MrDeath();
 
@@ -45,6 +45,6 @@ private:
 
 	void attackStop();
 
-	cocos2d::CCLayer* level;
+	cocos2d::CCLayer* layer;
 };
 #endif

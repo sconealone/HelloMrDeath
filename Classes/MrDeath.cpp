@@ -10,8 +10,8 @@
 
 using namespace cocos2d;
 
-MrDeath::MrDeath(cocos2d::CCLayer* level) : Character(){
-	this->level = level;
+MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
+	this->layer = layer;
 	isAttacking = false;
 	isMoving = false;
 	isJumping = false;
@@ -29,12 +29,13 @@ void MrDeath::attack() {
 	if (!isAttacking) {
 		isAttacking = true;
 		CCFiniteTimeAction* attackAction = initAction(attackAnimation, false);
-		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(level,callfuncN_selector(MrDeath::attackStop));
+		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
 		//sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL)); // this line causes the program to crash, the error is %esp is not saved
 		sprite->runAction(attackAction);
 		attackAction->release();
 		isAttacking = false;
 	}
+	
 }
 
 
