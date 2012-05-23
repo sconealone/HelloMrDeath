@@ -23,6 +23,8 @@ public:
 	 */
 	virtual bool init();
 
+	CCLayer* getGameLayer() {return gameLayer;}
+
 	/**
 	 * Returns the scene.  The Level is added
 	 * to the scene.

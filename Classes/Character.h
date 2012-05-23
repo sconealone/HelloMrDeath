@@ -87,25 +87,42 @@ protected:
 	
 
 	 /**
-	 * Initializes the animation for a sprite action.  
-	 * Pure virtual function.
+	 * Initializes the action for a sprite animation.  
+	 * The action will be retained.  You must release the memory
+	 * when you are done.
+
+	 The action is separate from the the animation because the idea
+	 is to create the animation only once and save it, but to create
+	 a new action every time you want it to be run.
+
 	 * @pre sprite is already initialized
-	 * @param name must be the name of
-	 * the files.
-	 * eg. name.plist, name.png, name1.png
+	 * @param the animation to run
 	 * @param numFrames will be the number of frames.
 	 * There must be a file for each frame, numbered 
 	 * starting from 1
 	 * @param loop is if you want the animation to loop or not.
 	 */
-	 static cocos2d::CCFiniteTimeAction* initAction(string name, int numFrames, bool loop);
+	 static cocos2d::CCFiniteTimeAction* initAction(cocos2d::CCAnimation* animation, bool loop);
 	 
-	cocos2d::CCAction* moveLeftAction;
+	 /**
+	 Initializes an animation
+	 The animation will be retained. You must releae the memory.
 
-	cocos2d::CCAction* moveRightAction;
+	 The animation is seperate from the action because the idea is to 
+	 initialize all the animations at the beginning of the level, and 
+	 then to create a new action every time you want to run it.
 
-	cocos2d::CCFiniteTimeAction* attackAction;
-	cocos2d::CCAction* standStillAction;
+	 @param name the name of the files. i.e. name.plist, name1.png, name.png. 
+	 Individual frames must be numbered starting from 1.
+	 @param numFrames the number of frames that the animation will last for
+	 @param loop whether or not the animation should loop or not.
+	 */
+	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames);
+
+	cocos2d::CCAnimation* moveLeftAnimation;
+	cocos2d::CCAnimation* moveRightAnimation;
+	cocos2d::CCAnimation* standStillAnimation;
+	cocos2d::CCAnimation* attackAnimation;
 
 private:
 	b2World* world;
@@ -140,7 +157,7 @@ private:
 	attack, moveLeft, and moveRight.
 	By default they do nothing.
 	*/
-	virtual void initActions() = 0;
+	virtual void initAnimations() = 0;
 };
 
 #endif

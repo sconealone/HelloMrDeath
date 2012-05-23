@@ -7,9 +7,10 @@ Character::Character() {
 	sprite = NULL;
 	body = NULL;
 	batchNode = NULL;
-	moveLeftAction = NULL;
-	moveRightAction = NULL;
-	attackAction = NULL;
+	moveLeftAnimation = NULL;
+	moveRightAnimation = NULL;
+	attackAnimation = NULL;
+	standStillAnimation = NULL;
 }
 
 Character::~Character() {
@@ -60,8 +61,7 @@ void Character::initSprite(string name) {
 	sprite = CCSprite::spriteWithSpriteFrameName(spriteName.c_str());
 }
 
-// TODO: add the loop logic
-CCFiniteTimeAction* Character::initAction(string spriteName, int numFrames, bool loop) {
+CCAnimation* Character::initAnimation(string spriteName, int numFrames) {
 	CCMutableArray<CCSpriteFrame *> *animationFrames = new CCMutableArray<cocos2d::CCSpriteFrame *>;
 	for (int i = 0; i < numFrames; ++i) {
 		string frameName = myAppend(spriteName, itostr(i + 1));
@@ -69,11 +69,23 @@ CCFiniteTimeAction* Character::initAction(string spriteName, int numFrames, bool
 		animationFrames->addObject((CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str())));
 	}
 	
-	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, 0.1f);
-	CCFiniteTimeAction *action = CCAnimate::actionWithAnimation(animation, true);
-	
+	const float FRAMETIME = 0.1f;
+	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, FRAMETIME);
 	delete animationFrames;
+	animation->retain();
+	return animation;
+}
 
+
+
+CCFiniteTimeAction* Character::initAction(CCAnimation* animation, bool loop) {
+	CCActionInterval *action = CCAnimate::actionWithAnimation(animation, true);
+	//ccTime duration = animation->getDelay() * numFrames;
+	//action->setDuration(duration);
+	if (loop) {
+		action = CCRepeatForever::actionWithAction(action);
+	}
+	action->retain();
 	return action;
 }
 
@@ -104,7 +116,7 @@ Character* Character::initCharacterWithNameInWorld(Character* myChar, string nam
 	myChar->world = world;
 	myChar->initSprite(name);
 	myChar->initBody();
-	myChar->initActions();
+	myChar->initAnimations();
 	return myChar;
 }
 

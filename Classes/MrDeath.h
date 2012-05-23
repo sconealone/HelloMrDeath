@@ -11,6 +11,8 @@ class MrDeath : public Character {
 public:
 	MrDeath(cocos2d::CCLayer* level);
 
+	virtual ~MrDeath();
+
 	// Jump function for Mr. Death
 	void jump();
 
@@ -33,7 +35,7 @@ public:
 	virtual void update();
 
 private:
-	virtual void initActions();
+	virtual void initAnimations();
 
 	void checkCollisions();
 
