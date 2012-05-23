@@ -1,3 +1,4 @@
+
 #include "Level.h"
 using namespace cocos2d;
 
@@ -29,8 +30,13 @@ bool Level::init() {
 		CC_BREAK_IF(!super::init());
 		
 		gameLayer = CCLayer::node();
-		
+		controlLayer = CCLayer::node();
+		this->addChild(controlLayer,1);
+		controlLayer->setIsTouchEnabled(true);
+
 		this->addChild(gameLayer, 0);
+
+		initButtons();
 
 		initWorld();
 
@@ -147,11 +153,24 @@ void Level::createPlatformBody(float width, float height, float centerX, float c
 	platform.SetAsBox(width, height, center, 0.0f);
 }
 
+void Level::initButtons() {
+	leftbutton = CCSprite::spriteWithFile("left_pressed.png");
+
+	leftbutton->setPosition(ccp(50,50));
+
+	controlLayer->addChild(leftbutton);
+
+	rightbutton = CCSprite::spriteWithFile("right_pressed.png");
+
+	rightbutton->setPosition(ccp(100,50));
+
+	controlLayer->addChild(rightbutton);
+
+}
+
 void Level::checkInput() {
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	checkKeyboard();
-	#else // is iOS
-	checkTouches();
 	#endif
 }
 
@@ -173,7 +192,7 @@ void Level::checkKeyboard() {
 		death->jump();
 	}
 	if (KEY_UP & wasAttackPressed) {
-		death->attack();
+		//death->attack();
 	}
 	if (KEY_UP & wasLeftPressed & wasRightPressed)
 	{
@@ -193,7 +212,5 @@ void Level::checkKeyboard() {
 	}
 
 }
-#else
-void Level::checkTouches() {
-}
 #endif
+

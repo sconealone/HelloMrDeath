@@ -132,6 +132,16 @@ private:
 	 */
 	cocos2d::CCTMXLayer* platformLayer;
 
+	cocos2d::CCSprite *leftbutton;
+
+	cocos2d::CCSprite *rightbutton;
+
+	/**
+	Initializes the buttons that will be used to
+	control the game.
+	*/
+	void initButtons();
+
 	/**
 	Initializes the physics world.
 	*/
