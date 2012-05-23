@@ -28,18 +28,16 @@ void MrDeath::jump(){
 void MrDeath::attack() {
 	if (!isAttacking) {
 		isAttacking = true;
-		CCFiniteTimeAction* attackAction = initAction(attackAnimation, false);
+		attackAction = initAction(attackAnimation, false);
 		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
-		//sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL)); // this line causes the program to crash, the error is %esp is not saved
-		sprite->runAction(attackAction);
+		sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL));
 		attackAction->release();
-		isAttacking = false;
 	}
 	
 }
 
 
-void MrDeath::attackStop() {
+void MrDeath::attackStop(CCNode* sender) {
 	isAttacking = false;
 	// resume previous animation
 }

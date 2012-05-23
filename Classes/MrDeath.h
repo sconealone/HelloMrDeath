@@ -38,12 +38,12 @@ private:
 	virtual void initAnimations();
 
 	void checkCollisions();
-
+	
 	bool isAttacking;
 	bool isMoving;
 	bool isJumping;
-
-	void attackStop();
+	
+	void attackStop(cocos2d::CCNode* sender);
 
 	cocos2d::CCLayer* layer;
 };

@@ -124,6 +124,8 @@ protected:
 	cocos2d::CCAnimation* standStillAnimation;
 	cocos2d::CCAnimation* attackAnimation;
 
+	cocos2d::CCFiniteTimeAction* attackAction;
+
 private:
 	b2World* world;
 	cocos2d::CCPoint position;
