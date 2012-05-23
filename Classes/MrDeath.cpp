@@ -26,7 +26,7 @@ void MrDeath::jump(){
 }
 
 void MrDeath::attack() {
-	if (!isAttacking) {
+	if (true) {
 		isAttacking = true;
 		attackAction = initAction(attackAnimation, false);
 		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
@@ -35,7 +35,6 @@ void MrDeath::attack() {
 	}
 	
 }
-
 
 void MrDeath::attackStop(CCNode* sender) {
 	isAttacking = false;
