@@ -31,10 +31,12 @@ bool Level::init() {
 		
 		gameLayer = CCLayer::node();
 		controlLayer = CCLayer::node();
+		this->addChild(gameLayer, 0);
 		this->addChild(controlLayer,1);
 		controlLayer->setIsTouchEnabled(true);
+		gameLayer->setIsTouchEnabled(true);
+		this->setIsTouchEnabled(true);
 
-		this->addChild(gameLayer, 0);
 
 		initButtons();
 
@@ -110,6 +112,14 @@ void Level::update(float dt) {
 }
 
 
+void Level::ccTouchEnded(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent) {
+	CCPoint loc = pTouch->locationInView(pTouch->view());
+	loc = CCDirector::sharedDirector()->convertToGL(loc);
+	exit(0);
+
+}
+
+
 /**
  * Takes a y-coordinate from a system that has the origin fixed at the top-left
  * (like Tiled) and converts it to a y-coordinate from a system that has the 
@@ -173,6 +183,8 @@ void Level::checkInput() {
 	checkKeyboard();
 	#endif
 }
+
+
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 void Level::checkKeyboard() {

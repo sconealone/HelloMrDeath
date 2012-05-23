@@ -41,6 +41,7 @@ public:
 	 */
 	virtual void update(float dt);
 
+	virtual void ccTouchEnded(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
 
 	
 	/**
@@ -62,12 +63,6 @@ private:
 	translates them into game commands
 	*/
 	void checkKeyboard();
-	#else
-	/**
-	Checks for button touches and translates
-	them into game commands
-	*/
-	void checkTouches();
 	#endif
 
 	/**
@@ -93,6 +88,28 @@ private:
 	 * it to the world.
 	 */
 	void createPlatformBody(float width, float height, float centerX, float centerY);
+
+	
+	/**
+	Initializes the buttons that will be used to
+	control the game.
+	*/
+	void initButtons();
+
+	/**
+	Initializes the physics world.
+	*/
+	void initWorld();
+
+	void initWorldBorders();
+
+	/**
+	Initializes the player character.
+	*/
+	void initPC();
+
+
+
 
 
 	// fields
@@ -136,23 +153,6 @@ private:
 
 	cocos2d::CCSprite *rightbutton;
 
-	/**
-	Initializes the buttons that will be used to
-	control the game.
-	*/
-	void initButtons();
-
-	/**
-	Initializes the physics world.
-	*/
-	void initWorld();
-
-	void initWorldBorders();
-
-	/**
-	Initializes the player character.
-	*/
-	void initPC();
 };
 
 #endif // define LEVEL_H
