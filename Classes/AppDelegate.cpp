@@ -4,6 +4,7 @@
 #include "CCEGLView.h"
 #include "SimpleAudioEngine.h"
 
+USING_NS_CC;
 
 AppDelegate::AppDelegate() {}
 
@@ -48,7 +49,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	// enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.
 //     pDirector->enableRetinaDisplay(true);
-
+	
+	// lanscape mode
+	pDirector->setDeviceOrientation(kCCDeviceOrientationLandscapeLeft);
+	
     // turn on display FPS
     pDirector->setDisplayFPS(true);
 
