@@ -15,7 +15,7 @@ class Level: public cocos2d::CCLayer {
 public:
 	Level();
 	~Level();
-
+	
 	/**
 	 * Initializes the level
 	 * creating the floor, platforms, background,
@@ -44,7 +44,8 @@ public:
 	virtual void update(float dt);
 
 	virtual void ccTouchEnded(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
-
+	
+	void passingAction();
 	
 	/**
 	 * The physics world

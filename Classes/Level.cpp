@@ -218,7 +218,7 @@ void Level::initButtons() {
 	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_released.png",
 														  "special_pressed.png",
 														  this,
-														  menu_selector(MrDeath::specialattack));
+														  menu_selector(Level::passingAction));
 	specialbutton->setPosition(ccp(400,40));
 	CCMenu *sMenu = CCMenu::menuWithItems(specialbutton, NULL);
 	sMenu->setPosition(CCPointZero);
@@ -228,12 +228,15 @@ void Level::initButtons() {
 
 }
 
+void Level::passingAction(){
+	death->specialattack();
+}
+
 void Level::checkInput() {
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	checkKeyboard();
 	#endif
 }
-
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
