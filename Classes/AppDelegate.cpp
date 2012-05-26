@@ -23,8 +23,8 @@ bool AppDelegate::initInstance()
 		// Initialize OpenGLView instance, that release by CCDirector when application terminate.
 		// The HelloWorld is designed as HVGA.
 		cocos2d::CCEGLView * pMainWnd = new cocos2d::CCEGLView();
-		const int IPHONE_WIDTH = 480;
-		const int IPHONE_HEIGHT = 320;
+		const int IPHONE_WIDTH = 320;
+		const int IPHONE_HEIGHT = 480;
 		CC_BREAK_IF(! pMainWnd
 				|| ! pMainWnd->Create(TEXT("Hello Mr. Death: the Game"), IPHONE_WIDTH, IPHONE_HEIGHT));
 

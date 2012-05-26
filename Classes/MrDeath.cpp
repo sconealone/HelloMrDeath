@@ -15,10 +15,14 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	isAttacking = false;
 	isMoving = false;
 	isJumping = false;
+	attackStartupAnimation = NULL;
+	jumpAnimation = NULL;
 }
 
 MrDeath::~MrDeath() {
-	attackAnimation->release();
+	CC_SAFE_RELEASE_NULL(standStillAnimation);
+	CC_SAFE_RELEASE_NULL(attackStartupAnimation);
+	CC_SAFE_RELEASE_NULL(attackAnimation);
 }
 
 void MrDeath::jump(){
@@ -26,24 +30,31 @@ void MrDeath::jump(){
 }
 
 void MrDeath::attack() {
-	if (true) {
-		isAttacking = true;
+	if (!isAttacking) {
+		CCFiniteTimeAction* attackStartAction = initAction(attackStartupAnimation, false);
 		attackAction = initAction(attackAnimation, false);
+		CCFiniteTimeAction* attackBegin = CCCallFuncN::actionWithTarget(layer, callfuncN_selector(MrDeath::attackStart));
 		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
-		sprite->runAction(CCSequence::actions(attackAction, attackDone, NULL));
+		
+		sprite->runAction(CCSequence::actions(attackStartAction, attackBegin, attackAction, attackDone, CCAnimate::actionWithAnimation(standStillAnimation, false),NULL));
 		attackAction->release();
+		attackStartAction->release();
 	}
-	
+}
+
+void MrDeath::attackStart(CCNode* sender) {
+	isAttacking = true;
 }
 
 void MrDeath::attackStop(CCNode* sender) {
 	isAttacking = false;
-	// resume previous animation
+	stopMoving();
 }
 
 void MrDeath::specialattack(){
 	// to be implemented
 }
+
 
 void MrDeath::moveLeft() {
 }
@@ -55,7 +66,9 @@ void MrDeath::stopMoving() {
 }
 
 void MrDeath::initAnimations() {
-	attackAnimation = initAnimation("death", 4);
+	attackStartupAnimation = initAnimation("death", 1, 2);
+	attackAnimation = initAnimation("death", 2, 3);
+	standStillAnimation = initAnimation("death", 1);
 }
 
 CCPoint b2VecToCCPoint(b2Vec2 vec) {

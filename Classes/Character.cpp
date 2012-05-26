@@ -62,14 +62,19 @@ void Character::initSprite(string name) {
 }
 
 CCAnimation* Character::initAnimation(string spriteName, int numFrames) {
+	return initAnimation(spriteName, numFrames, 1);
+}
+
+CCAnimation* Character::initAnimation(string spriteName, int numFrames, int startFrame) {
+	
 	CCMutableArray<CCSpriteFrame *> *animationFrames = new CCMutableArray<cocos2d::CCSpriteFrame *>;
-	for (int i = 0; i < numFrames; ++i) {
-		string frameName = myAppend(spriteName, itostr(i + 1));
+	for (int i = startFrame; i < numFrames + startFrame; ++i) {
+		string frameName = myAppend(spriteName, itostr(i));
 		frameName += ".png";
 		animationFrames->addObject((CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str())));
 	}
 	
-	const float FRAMETIME = 0.1f;
+	const float FRAMETIME = 5 * 1.0f / 60.0f;
 	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, FRAMETIME);
 	delete animationFrames;
 	animation->retain();
@@ -79,7 +84,7 @@ CCAnimation* Character::initAnimation(string spriteName, int numFrames) {
 
 
 CCFiniteTimeAction* Character::initAction(CCAnimation* animation, bool loop) {
-	CCActionInterval *action = CCAnimate::actionWithAnimation(animation, true);
+	CCActionInterval *action = CCAnimate::actionWithAnimation(animation, false);
 	//ccTime duration = animation->getDelay() * numFrames;
 	//action->setDuration(duration);
 	if (loop) {
