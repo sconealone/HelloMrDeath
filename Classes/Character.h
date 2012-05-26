@@ -115,9 +115,9 @@ protected:
 	 @param name the name of the files. i.e. name.plist, name1.png, name.png. 
 	 Individual frames must be numbered starting from 1.
 	 @param numFrames the number of frames that the animation will last for
-	 @param loop whether or not the animation should loop or not.
 	 */
 	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames);
+	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames, int startFrame);
 
 	cocos2d::CCAnimation* moveLeftAnimation;
 	cocos2d::CCAnimation* moveRightAnimation;

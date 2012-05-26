@@ -44,7 +44,10 @@ private:
 	bool isJumping;
 	
 	void attackStop(cocos2d::CCNode* sender);
+	void attackStart(cocos2d::CCNode* sender);
 
 	cocos2d::CCLayer* layer;
+	cocos2d::CCAnimation* attackStartupAnimation;
+	cocos2d::CCAnimation* jumpAnimation;
 };
 #endif

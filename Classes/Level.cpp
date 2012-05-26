@@ -214,7 +214,9 @@ void Level::checkKeyboard() {
 		death->jump();
 	}
 	if (KEY_UP & wasAttackPressed) {
+		
 		death->attack();
+		
 	}
 	if (KEY_UP & wasLeftPressed & wasRightPressed)	{
 		// do nothing, don't press keys at the same time doofus
