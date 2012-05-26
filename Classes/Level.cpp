@@ -1,5 +1,8 @@
-
+#include <stdlib.h>
+#include <iostream>
 #include "Level.h"
+
+using namespace std;
 using namespace cocos2d;
 
 Level::Level() {
@@ -25,9 +28,12 @@ bool Level::init() {
 	#if	(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	#endif
+	
 
+	
 	do {
 		CC_BREAK_IF(!super::init());
+		
 		
 		gameLayer = CCLayer::node();
 		controlLayer = CCLayer::node();
@@ -46,6 +52,7 @@ bool Level::init() {
 		initSuccessful = true;
 	} while (0);
 	CC_ASSERT(initSuccessful);
+	
 	return initSuccessful;
 }
 
@@ -60,7 +67,7 @@ void Level::initWorld() {
 
 
 void Level::initWorldBorders()
-{
+{	
 	b2BodyDef borderBodyDef;
 	borderBodyDef.type = b2_staticBody;
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -98,7 +105,7 @@ void Level::initPC() {
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
 		death->setPosition(ccp(100.0f, 100.0f));
-		
+//		
 		death->getBatchNode()->addChild(death->getSprite(), 1);
 }
 
@@ -106,9 +113,11 @@ CCScene* Level::scene() {
 	CCScene* scene = NULL;
 	do {
 		scene = CCScene::node();
+
 		CC_BREAK_IF(!scene);
 		
 		Level* layer = Level::node();
+	
 		
 		CC_BREAK_IF(!layer);
 		scene->addChild(layer);
@@ -174,17 +183,48 @@ void Level::createPlatformBody(float width, float height, float centerX, float c
 }
 
 void Level::initButtons() {
+	// left button implementation
 	leftbutton = CCSprite::spriteWithFile("left_pressed.png");
-
-	leftbutton->setPosition(ccp(50,50));
-
+	leftbutton->setPosition(ccp(50,40));
 	controlLayer->addChild(leftbutton);
 
+	// right button implementation
 	rightbutton = CCSprite::spriteWithFile("right_pressed.png");
-
-	rightbutton->setPosition(ccp(100,50));
-
+	rightbutton->setPosition(ccp(100,40));
 	controlLayer->addChild(rightbutton);
+	
+	
+	// attack button implementation
+	attackbutton = CCMenuItemImage::itemFromNormalImage("attack_released.png",
+														"attack_pressed.png",
+														this,
+														menu_selector(MrDeath::attack));
+	attackbutton->setPosition(ccp(450,90));
+	CCMenu *aMenu = CCMenu::menuWithItems(attackbutton, NULL);
+	aMenu->setPosition(CCPointZero);
+	controlLayer->addChild(aMenu, 1);
+	
+	// jump button implementation
+	jumpbutton = CCMenuItemImage::itemFromNormalImage("jump_released.png",
+													  "jump_pressed.png",
+													  this,
+													  menu_selector(MrDeath::jump));
+	jumpbutton->setPosition(ccp(450,40));
+	CCMenu *jMenu = CCMenu::menuWithItems(jumpbutton, NULL);
+	jMenu->setPosition(CCPointZero);
+	controlLayer->addChild(jMenu, 1);
+	
+	// special attack button
+	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_released.png",
+														  "special_pressed.png",
+														  this,
+														  menu_selector(MrDeath::specialattack));
+	specialbutton->setPosition(ccp(400,40));
+	CCMenu *sMenu = CCMenu::menuWithItems(specialbutton, NULL);
+	sMenu->setPosition(CCPointZero);
+	controlLayer->addChild(sMenu, 1);
+	
+													
 
 }
 

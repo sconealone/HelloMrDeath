@@ -154,6 +154,12 @@ private:
 	cocos2d::CCSprite *leftbutton;
 
 	cocos2d::CCSprite *rightbutton;
+	
+	cocos2d::CCMenuItemImage *attackbutton;
+	
+	cocos2d::CCMenuItemImage *jumpbutton;
+	
+	cocos2d::CCMenuItemImage *specialbutton;
 
 };
 

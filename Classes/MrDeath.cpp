@@ -41,6 +41,9 @@ void MrDeath::attackStop(CCNode* sender) {
 	// resume previous animation
 }
 
+void MrDeath::specialattack(){
+	// to be implemented
+}
 
 void MrDeath::moveLeft() {
 }
