@@ -45,6 +45,8 @@ private:
 	bool isMoving;
 	bool isJumping;
 	
+	int soulGauge;
+	
 	void attackStop(cocos2d::CCNode* sender);
 	void attackStart(cocos2d::CCNode* sender);
 
