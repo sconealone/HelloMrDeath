@@ -35,7 +35,8 @@ void MrDeath::attack() {
 		attackAction = initAction(attackAnimation, false);
 		CCFiniteTimeAction* attackBegin = CCCallFuncN::actionWithTarget(layer, callfuncN_selector(MrDeath::attackStart));
 		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
-		sprite->runAction(CCSequence::actions(attackStartAction, attackBegin, attackAction, attackDone, NULL));
+		
+		sprite->runAction(CCSequence::actions(attackStartAction, attackBegin, attackAction, attackDone, CCAnimate::actionWithAnimation(standStillAnimation, false),NULL));
 		attackAction->release();
 		attackStartAction->release();
 	}
@@ -51,6 +52,7 @@ void MrDeath::attackStop(CCNode* sender) {
 }
 
 
+
 void MrDeath::moveLeft() {
 }
 
@@ -58,7 +60,6 @@ void MrDeath::moveRight() {
 }
 
 void MrDeath::stopMoving() {
-	sprite->runAction(CCAnimate::actionWithAnimation(standStillAnimation, true));
 }
 
 void MrDeath::initAnimations() {

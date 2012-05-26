@@ -74,7 +74,7 @@ CCAnimation* Character::initAnimation(string spriteName, int numFrames, int star
 		animationFrames->addObject((CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(frameName.c_str())));
 	}
 	
-	const float FRAMETIME = 0.1f;
+	const float FRAMETIME = 5 * 1.0f / 60.0f;
 	CCAnimation *animation = CCAnimation::animationWithFrames(animationFrames, FRAMETIME);
 	delete animationFrames;
 	animation->retain();
