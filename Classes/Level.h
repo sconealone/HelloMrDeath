@@ -42,6 +42,8 @@ public:
 	 * updating the enemy AI, checking for input
 	 */
 	virtual void update(float dt);
+	
+	virtual void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
 
 	virtual void ccTouchEnded(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent);
 	
@@ -115,7 +117,12 @@ private:
 	void specialAttack(cocos2d::CCObject* sender);
 	void jump(cocos2d::CCObject* sender);
 
-
+	/**
+	 A set of boolean to check whether the touch is on the buttons
+	 **/
+	
+	bool isRightArrow(int x, int y);
+	bool isLeftArrow(int x, int y);
 
 	// fields
 	typedef cocos2d::CCLayer super;
@@ -163,6 +170,11 @@ private:
 	cocos2d::CCMenuItemImage *jumpbutton;
 	
 	cocos2d::CCMenuItemImage *specialbutton;
+	
+	/**
+	 * A boolean for whether the player is touching
+	 **/
+	bool isTouching;
 
 };
 
