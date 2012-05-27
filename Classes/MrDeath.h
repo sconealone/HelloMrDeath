@@ -3,7 +3,7 @@
 #define MRDEATH_H
 
 #include "Character.h"
-#define MR_DEATH_SPEED 15.0f // TODO: placeholder
+#define MR_DEATH_SPEED 8.0f // TODO: placeholder
 class Character;
 class CCLayer;
 

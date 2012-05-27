@@ -12,6 +12,7 @@ Level::Level() {
 	enemies = NULL;
 	world = NULL;
 	death = NULL;
+	isTouching = false;
 }
 
 Level::~Level() {
@@ -178,21 +179,19 @@ void Level::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
 	
 	isTouching = true;
 	
-	if (isRightArrow(location)) {
+	if (isRightArrow(location) && isLeftArrow(location)) {
+		// do nothing. don't press arrows at the same time.
+	} else if (isRightArrow(location)) {
 		death->moveRight();
-	}
-	if (isLeftArrow(location)) {
+	} else if (isLeftArrow(location)) {
 		death->moveLeft();
 	}
 	
 }
 
-void Level::ccTouchEnded(cocos2d::CCTouch* pTouch, cocos2d::CCEvent* pEvent) {
+void Level::ccTouchesEnded(CCSet* pTouches, CCEvent* pEvent) {
 	isTouching = false;
-	CCPoint loc = pTouch->locationInView(pTouch->view());
-	loc = CCDirector::sharedDirector()->convertToGL(loc);
-	exit(0);
-
+	death->stopMoving();
 }
 
 
@@ -336,17 +335,19 @@ void Level::checkKeyboard() {
 	if (KEY_UP & wasSpecialPressed) {
 		death->specialAttack();
 	}
-	if (KEY_UP & wasLeftPressed & wasRightPressed)	{
-		// do nothing, don't press keys at the same time doofus
-	}
-	else if (KEY_UP & wasLeftPressed)	{
-		death->moveLeft();
-	}
-	else if (KEY_UP & wasRightPressed)	{
-		death->moveRight();
-	}
-	else	{
-		death->stopMoving();
+	if (!isTouching) {
+		if (KEY_UP & wasLeftPressed & wasRightPressed)	{
+			// do nothing, don't press keys at the same time doofus
+		}
+		else if (KEY_UP & wasLeftPressed)	{
+			death->moveLeft();
+		}
+		else if (KEY_UP & wasRightPressed)	{
+			death->moveRight();
+		}
+		else	{
+			death->stopMoving();
+		}
 	}
 
 }
