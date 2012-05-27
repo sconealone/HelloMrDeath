@@ -194,12 +194,17 @@ void Level::initButtons() {
 	controlLayer->addChild(rightbutton);
 	
 	
+	CCPoint specialPos = ccp(450,40);
+	CCPoint jumpPos = ccp(450,40);
+	CCPoint  attackPos = ccp(400,90);
+
+
 	// attack button implementation
 	attackbutton = CCMenuItemImage::itemFromNormalImage("attack_released.png",
 														"attack_pressed.png",
 														this,
-														menu_selector(MrDeath::attack));
-	attackbutton->setPosition(ccp(450,90));
+														menu_selector(Level::attack));
+	attackbutton->setPosition(attackPos);
 	CCMenu *aMenu = CCMenu::menuWithItems(attackbutton, NULL);
 	aMenu->setPosition(CCPointZero);
 	controlLayer->addChild(aMenu, 1);
@@ -208,18 +213,18 @@ void Level::initButtons() {
 	jumpbutton = CCMenuItemImage::itemFromNormalImage("jump_released.png",
 													  "jump_pressed.png",
 													  this,
-													  menu_selector(MrDeath::jump));
-	jumpbutton->setPosition(ccp(450,40));
+													  menu_selector(Level::jump));
+	jumpbutton->setPosition(jumpPos);
 	CCMenu *jMenu = CCMenu::menuWithItems(jumpbutton, NULL);
 	jMenu->setPosition(CCPointZero);
 	controlLayer->addChild(jMenu, 1);
 	
 	// special attack button
-	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_released.png",
-														  "special_pressed.png",
+	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_attack_released.png",
+														  "special_attack_pressed.png",
 														  this,
-														  menu_selector(Level::passingAction));
-	specialbutton->setPosition(ccp(400,40));
+														  menu_selector(Level::specialAttack));
+	specialbutton->setPosition(specialPos);
 	CCMenu *sMenu = CCMenu::menuWithItems(specialbutton, NULL);
 	sMenu->setPosition(CCPointZero);
 	controlLayer->addChild(sMenu, 1);
@@ -228,8 +233,16 @@ void Level::initButtons() {
 
 }
 
-void Level::passingAction(){
-	death->specialattack();
+void Level::attack(CCObject* sender){
+	death->attack();
+}
+
+void Level::specialAttack(CCObject* sender) {
+	death->specialAttack();
+}
+
+void Level::jump(CCObject* sender) {
+	death->jump();
 }
 
 void Level::checkInput() {

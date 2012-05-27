@@ -51,7 +51,7 @@ void MrDeath::attackStop(CCNode* sender) {
 	stopMoving();
 }
 
-void MrDeath::specialattack(){
+void MrDeath::specialAttack(){
 	// to be implemented
 }
 

@@ -24,7 +24,7 @@ public:
 
 	virtual void attack();
 	
-	virtual void specialattack();
+	virtual void specialAttack();
 
 	bool getIsAttacking(){return isAttacking;}
 

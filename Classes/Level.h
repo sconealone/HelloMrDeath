@@ -111,7 +111,9 @@ private:
 	*/
 	void initPC();
 
-
+	void attack(cocos2d::CCObject* sender);
+	void specialAttack(cocos2d::CCObject* sender);
+	void jump(cocos2d::CCObject* sender);
 
 
 
