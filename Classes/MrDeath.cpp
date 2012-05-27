@@ -59,6 +59,30 @@ void MrDeath::attackStop(CCNode* sender) {
 void MrDeath::specialAttack(){
 	
 	cout << "special attack!" << endl;
+	
+	CCParticleSystem* soultest;
+	soultest = CCParticleExplosion::node();
+	soultest->setEmitterMode(kCCParticleModeRadius);
+	soultest->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
+	soultest->setAngleVar(360.0f);
+	soultest->setLife(2.0f);
+	soultest->setStartRadius(sprite->getContentSize().height/2);
+	soultest->setEndRadius(3*sprite->getContentSize().height);
+	ccColor4F color;
+	color.r = 0.0f;
+	color.b = 0xD;
+	color.g = 0.0f;
+	color.a = 1.0f;
+
+	ccColor4F endColor;
+	color.r = 0x0;
+	color.b = 0xB;
+	color.a = 0.0f;
+	color.a = 1.0f;
+	soultest->setStartColor(color);
+	soultest->setEndColor(endColor);
+	soultest->setPosition(MDUtil::toCCPoint(position));
+	layer->addChild(soultest);
 }
 
 

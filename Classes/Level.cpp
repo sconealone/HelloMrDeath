@@ -94,6 +94,8 @@ void Level::initBg() {
 	emitter->setTexture(CCTextureCache::sharedTextureCache()->addImage("attack_released.png"));
 	emitter->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2, CCDirector::sharedDirector()->getWinSize().height));
 	this->addChild(emitter);
+
+	
 }
 
 

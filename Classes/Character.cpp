@@ -137,8 +137,14 @@ void Character::moveRight() {
 void Character::stopMoving() {
 }
 
-void Character::setPosition(CCPoint pos) {
+void Character::setPosition(b2Vec2 &pos) {
 	position = pos;
-	sprite->setPosition(position);
-	body->SetTransform(b2Vec2(MDUtil::pixelsToMetres(position.x),MDUtil::pixelsToMetres(position.y)),body->GetAngle());
+	sprite->setPosition(ccp(MDUtil::metresToPixels(pos.x), MDUtil::metresToPixels(pos.y)));
+	body->SetTransform(position,body->GetAngle());
+}
+
+void Character::setPosition(CCPoint &pos) {
+	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
+	sprite->setPosition(pos);
+	body->SetTransform(position, body->GetAngle());
 }
