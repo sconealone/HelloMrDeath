@@ -121,8 +121,10 @@ private:
 	 A set of boolean to check whether the touch is on the buttons
 	 **/
 	
-	bool isRightArrow(int x, int y);
-	bool isLeftArrow(int x, int y);
+	bool isRightArrow(float x, float y);
+	bool isRightArrow(cocos2d::CCPoint& point);
+	bool isLeftArrow(float x, float y);
+	bool isLeftArrow(cocos2d::CCPoint& point);
 
 	// fields
 	typedef cocos2d::CCLayer super;

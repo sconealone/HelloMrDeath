@@ -133,25 +133,26 @@ void Level::update(float dt) {
 	checkInput();
 }
 
-bool Level::isRightArrow(int x, int y){
-	if (x >= rightbutton->getPosition().x-25 &&
+bool Level::isRightArrow(float x, float y){
+	return (x >= rightbutton->getPosition().x-25 &&
 		x <= rightbutton->getPosition().x+25 &&
 		y >= rightbutton->getPosition().y-15 &&
-		y <= rightbutton->getPosition().y+15) {
-		return true;
-	}else
-	
-		return false;
+		y <= rightbutton->getPosition().y+15);
 }
 
-bool Level::isLeftArrow(int x, int y){
-	if (x >= leftbutton->getPosition().x-25 &&
+bool Level::isLeftArrow(float x, float y) {
+	return (x >= leftbutton->getPosition().x-25 &&
 		x <= leftbutton->getPosition().x+25 &&
 		y >= leftbutton->getPosition().y-15 &&
-		y <= leftbutton->getPosition().y+15)  {
-		return true;
-	}else
-		return false;
+		y <= leftbutton->getPosition().y+15);
+}
+
+bool Level::isRightArrow(CCPoint &point) {
+	return CCRect::CCRectContainsPoint(rightbutton->boundingBox(), point);
+}
+
+bool Level::isLeftArrow(CCPoint &point) {
+	return CCRect::CCRectContainsPoint(leftbutton->boundingBox(), point);
 }
 
 void Level::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
@@ -161,10 +162,10 @@ void Level::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
 	
 	isTouching = true;
 	
-	if (isRightArrow(location.x, location.y)) {
+	if (isRightArrow(location)) {
 		death->moveRight();
 	}
-	if (isLeftArrow(location.x, location.y)) {
+	if (isLeftArrow(location)) {
 		death->moveLeft();
 	}
 	
