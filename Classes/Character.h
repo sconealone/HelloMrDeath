@@ -46,9 +46,10 @@ public:
 	/**
 	The position of the character in the world, in metres
 	*/
-	cocos2d::CCPoint getPosition(){return position;}
+	b2Vec2 getPosition(){return position;}
 
-	void setPosition(cocos2d::CCPoint pos);
+	void setPosition(b2Vec2& pos);
+	void setPosition(cocos2d::CCPoint& pos);
 
 	// Move left function for characters
 	virtual void moveLeft();
@@ -83,6 +84,7 @@ public:
 protected:
 	int attackValue;
 	int hpValue;
+	b2Vec2 position;
 
 	
 
@@ -128,7 +130,6 @@ protected:
 
 private:
 	b2World* world;
-	cocos2d::CCPoint position;
 	
 	cocos2d::CCSpriteBatchNode* batchNode;
 
