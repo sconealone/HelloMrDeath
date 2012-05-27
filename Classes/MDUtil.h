@@ -3,7 +3,7 @@
 #define MDUTIL_H
 #include "Box2D.h"
 #include "cocos2d.h"
-
+#define TICK_TIME 1.0f / 60.0f // 60 frames per second
 class MDUtil {
 public:
 	

@@ -3,7 +3,7 @@
 #define MRDEATH_H
 
 #include "Character.h"
-
+#define MR_DEATH_SPEED 15.0f // TODO: placeholder
 class Character;
 class CCLayer;
 
@@ -39,6 +39,7 @@ public:
 private:
 	virtual void initAnimations();
 
+
 	void checkCollisions();
 	
 	bool isAttacking;
@@ -55,5 +56,6 @@ private:
 	cocos2d::CCAnimation* attackStartupAnimation;
 	cocos2d::CCAnimation* jumpAnimation;
 	cocos2d::CCParticleSystem* specialAttackParticles;
+
 };
 #endif

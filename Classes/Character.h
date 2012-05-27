@@ -85,6 +85,7 @@ protected:
 	int attackValue;
 	int hpValue;
 	b2Vec2 position;
+	bool isFacingRight;
 
 	
 
@@ -161,6 +162,7 @@ private:
 	By default they do nothing.
 	*/
 	virtual void initAnimations() = 0;
+
 };
 
 #endif

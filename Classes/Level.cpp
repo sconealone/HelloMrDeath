@@ -47,6 +47,7 @@ bool Level::init() {
 		initWorld();
 		initPC();
 		initBg();
+		initPlatformsFromTiledMap();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
@@ -157,6 +158,7 @@ bool Level::isPlatform(CCPoint tileCoord) {
 }
 
 void Level::initPlatformsFromTiledMap() {
+	/*
 	CCSize mapSize = tiledMap->getMapSize();
 	for (int i = 0; i < mapSize.height; ++i) {
 		for (int j = 0; j < mapSize.width; ++j) {
@@ -173,7 +175,11 @@ void Level::initPlatformsFromTiledMap() {
 				j = lastColumn;
 			}
 		}
-	}
+	}*/ // temporary placeholder for this code
+
+	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
+	createPlatformBody(MDUtil::pixelsToMetres(winsize.width), MDUtil::pixelsToMetres(winsize.height), 
+		MDUtil::pixelsToMetres(winsize.width/2), MDUtil::pixelsToMetres(winsize.height/2));
 }
 
 void Level::createPlatformBody(float width, float height, float centerX, float centerY) {

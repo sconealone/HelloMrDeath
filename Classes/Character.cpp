@@ -11,6 +11,7 @@ Character::Character() {
 	moveRightAnimation = NULL;
 	attackAnimation = NULL;
 	standStillAnimation = NULL;
+	isFacingRight = true;
 }
 
 Character::~Character() {
