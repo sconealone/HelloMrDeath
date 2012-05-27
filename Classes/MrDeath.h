@@ -41,6 +41,7 @@ private:
 
 
 	void checkCollisions();
+	void checkIfLanded();
 	
 	bool isAttacking;
 	bool isMoving;
@@ -56,6 +57,9 @@ private:
 	cocos2d::CCAnimation* attackStartupAnimation;
 	cocos2d::CCAnimation* jumpAnimation;
 	cocos2d::CCParticleSystem* specialAttackParticles;
+
+	float previousYVelocity;
+	bool wasAccelerating;
 
 };
 #endif

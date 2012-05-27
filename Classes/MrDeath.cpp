@@ -22,6 +22,8 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	attackStartupAnimation = NULL;
 	jumpAnimation = NULL;
 	soulGauge = 0;
+	previousYVelocity = 0.0f;
+	wasAccelerating = false;
 }
 
 MrDeath::~MrDeath() {
@@ -31,7 +33,25 @@ MrDeath::~MrDeath() {
 }
 
 void MrDeath::jump(){
-	
+	if (!isJumping) {
+		isJumping = true;
+		body->ApplyLinearImpulse(b2Vec2(0.0f, 128.0f), body->GetPosition()); // TODO: Placeholder
+	}
+}
+
+void MrDeath::checkIfLanded() {
+	if (isJumping) {
+		float currentYVelocity = body->GetLinearVelocity().y;
+		bool isAccelerating = currentYVelocity < previousYVelocity;
+		previousYVelocity = currentYVelocity;
+		if (wasAccelerating && !isAccelerating) {
+			isJumping = false;
+			wasAccelerating = false;
+		} 
+		else if (isAccelerating) {
+			wasAccelerating = true;
+		}
+	}
 }
 
 void MrDeath::attack() {
@@ -120,6 +140,7 @@ CCPoint b2VecToCCPoint(b2Vec2 vec) {
 }
 
 void MrDeath::update() {
+	checkIfLanded();
 	b2Vec2 vec = body->GetPosition();
 	setPosition(vec);
 	checkCollisions();
