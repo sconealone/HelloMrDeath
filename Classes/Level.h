@@ -107,7 +107,7 @@ private:
 	void initWorld();
 	void initBg();
 	void initWorldBorders();
-
+	void initPlaceHolderWorldBorders();
 	/**
 	Initializes the player character.
 	*/

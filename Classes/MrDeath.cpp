@@ -58,7 +58,6 @@ void MrDeath::attackStop(CCNode* sender) {
 
 void MrDeath::specialAttack(){
 	
-	cout << "special attack!" << endl;
 	specialAttackParticles = CCParticleExplosion::node();
 	specialAttackParticles->setEmitterMode(kCCParticleModeRadius);
 	specialAttackParticles->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
@@ -91,7 +90,7 @@ void MrDeath::moveLeft() {
 		sprite->runAction(flip);
 	}
 	isFacingRight = false;
-	body->SetLinearVelocity(b2Vec2(MR_DEATH_SPEED,body->GetLinearVelocity().y));
+	body->SetLinearVelocity(b2Vec2(-MR_DEATH_SPEED,body->GetLinearVelocity().y));
 }
 
 void MrDeath::moveRight() {
@@ -120,7 +119,8 @@ CCPoint b2VecToCCPoint(b2Vec2 vec) {
 }
 
 void MrDeath::update() {
-	setPosition(b2VecToCCPoint(body->GetPosition()));
+	b2Vec2 vec = body->GetPosition();
+	setPosition(vec);
 	checkCollisions();
 }
 

@@ -47,7 +47,7 @@ bool Level::init() {
 		initWorld();
 		initPC();
 		initBg();
-		initPlatformsFromTiledMap();
+		//initPlatformsFromTiledMap();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
@@ -57,13 +57,24 @@ bool Level::init() {
 	return initSuccessful;
 }
 
+void Level::initPlaceHolderWorldBorders() {
+	
+	b2BodyDef def;
+	def.position.Set(0.0f, 1.0f);
+	b2Body* body = world->CreateBody(&def);
+	b2PolygonShape shape;
+	shape.SetAsBox(50.0f, 0.1f);
+	body->CreateFixture(&shape, 0.0f);
+	
+}
+
 void Level::initWorld() {
-	const float GRAVITY = -100.0f;
+	const float GRAVITY = -80.0f;
 	b2Vec2 gravity = b2Vec2(0.0f, GRAVITY);
 	bool doSleep = true;
 	world = new b2World(gravity);
 	world->SetAllowSleeping(doSleep);
-	initWorldBorders();
+	initPlaceHolderWorldBorders();
 }
 
 
@@ -76,10 +87,12 @@ void Level::initWorldBorders()
 	const int numCorners = 4;
 	b2Vec2 verticies[numCorners];
 	const float OFFSCREEN_OFFSET = 10.0f;
-	verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
+	//verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
+	verticies[0].Set(0.0f, MDUtil::pixelsToMetres(50.0f)); // placeholder
 	verticies[1].Set(0.0f, MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
 	verticies[2].Set(MDUtil::pixelsToMetres(winSize.width), MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
-	verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
+	//verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
+	verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), MDUtil::pixelsToMetres(50.0f)); // placeholder
 	
 	b2ChainShape borderBox;
 	borderBox.CreateChain(verticies, numCorners);
@@ -107,8 +120,7 @@ void Level::initPC() {
 		death = new MrDeath(this);
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
-		death->setPosition(ccp(100.0f, 100.0f));
-//		
+		death->setPosition(ccp(100.0f, 250.0f));
 		death->getBatchNode()->addChild(death->getSprite(), 1);
 }
 
@@ -131,6 +143,10 @@ CCScene* Level::scene() {
 
 void Level::update(float dt) {
 	checkInput();
+	const int velocityIterations = 8;
+	const int positionIterations = 3;
+	world->Step(TICK_TIME, velocityIterations, positionIterations);
+	death->update();
 }
 
 bool Level::isRightArrow(float x, float y){
@@ -196,7 +212,7 @@ bool Level::isPlatform(CCPoint tileCoord) {
 }
 
 void Level::initPlatformsFromTiledMap() {
-	/*
+	
 	CCSize mapSize = tiledMap->getMapSize();
 	for (int i = 0; i < mapSize.height; ++i) {
 		for (int j = 0; j < mapSize.width; ++j) {
@@ -213,11 +229,7 @@ void Level::initPlatformsFromTiledMap() {
 				j = lastColumn;
 			}
 		}
-	}*/ // temporary placeholder for this code
-
-	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
-	createPlatformBody(MDUtil::pixelsToMetres(winsize.width), MDUtil::pixelsToMetres(winsize.height), 
-		MDUtil::pixelsToMetres(winsize.width/2), MDUtil::pixelsToMetres(winsize.height/2));
+	}
 }
 
 void Level::createPlatformBody(float width, float height, float centerX, float centerY) {
