@@ -59,15 +59,13 @@ void MrDeath::attackStop(CCNode* sender) {
 void MrDeath::specialAttack(){
 	
 	cout << "special attack!" << endl;
-	
-	CCParticleSystem* soultest;
-	soultest = CCParticleExplosion::node();
-	soultest->setEmitterMode(kCCParticleModeRadius);
-	soultest->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
-	soultest->setAngleVar(360.0f);
-	soultest->setLife(2.0f);
-	soultest->setStartRadius(sprite->getContentSize().height/2);
-	soultest->setEndRadius(3*sprite->getContentSize().height);
+	specialAttackParticles = CCParticleExplosion::node();
+	specialAttackParticles->setEmitterMode(kCCParticleModeRadius);
+	specialAttackParticles->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
+	specialAttackParticles->setAngleVar(360.0f);
+	specialAttackParticles->setLife(2.0f);
+	specialAttackParticles->setStartRadius(sprite->getContentSize().height/2);
+	specialAttackParticles->setEndRadius(3*sprite->getContentSize().height);
 	ccColor4F color;
 	color.r = 0.0f;
 	color.b = 0xD;
@@ -79,10 +77,10 @@ void MrDeath::specialAttack(){
 	color.b = 0xB;
 	color.a = 0.0f;
 	color.a = 1.0f;
-	soultest->setStartColor(color);
-	soultest->setEndColor(endColor);
-	soultest->setPosition(MDUtil::toCCPoint(position));
-	layer->addChild(soultest);
+	specialAttackParticles->setStartColor(color);
+	specialAttackParticles->setEndColor(endColor);
+	specialAttackParticles->setPosition(MDUtil::toCCPoint(position));
+	layer->addChild(specialAttackParticles);
 }
 
 
@@ -99,6 +97,7 @@ void MrDeath::initAnimations() {
 	attackStartupAnimation = initAnimation("death", 1, 2);
 	attackAnimation = initAnimation("death", 2, 3);
 	standStillAnimation = initAnimation("death", 1);
+
 }
 
 CCPoint b2VecToCCPoint(b2Vec2 vec) {
@@ -112,3 +111,5 @@ void MrDeath::update() {
 
 void MrDeath::checkCollisions() {
 }
+
+
