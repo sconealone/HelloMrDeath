@@ -48,21 +48,33 @@ private:
 	virtual void initAnimations();
 
 	/**
-	Checks for collisions.
+	Checks for collisions with enemies.
+	If Mr. Death is currently attacking , there should be a seperate box for
+	his scythe, and collisions should be checked there first.
+	Uses the reference to the Level to find the enemies.
 	*/
 	void checkCollisions();
+
+	/**
+	Checks if Mr. Death has landed. Used to prevent
+	double jumping.
+	*/
 	void checkIfLanded();
+
+	void attackStop(cocos2d::CCNode* sender);
+	void attackStart(cocos2d::CCNode* sender);
 	
+	
+
+	// Instance Fields
+
+	// fields denoting Mr. Death's state
 	bool isAttacking;
 	bool isMoving;
 	bool isJumping;
 	
 	int soulGauge;
 	
-	void attackStop(cocos2d::CCNode* sender);
-	void attackStart(cocos2d::CCNode* sender);
-
-
 	cocos2d::CCLayer* layer;
 	cocos2d::CCAnimation* attackStartupAnimation;
 	cocos2d::CCAnimation* jumpAnimation;

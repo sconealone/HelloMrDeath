@@ -122,6 +122,7 @@ protected:
 	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames);
 	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames, int startFrame);
 
+	 // Standard animations that all characters will need
 	cocos2d::CCAnimation* moveLeftAnimation;
 	cocos2d::CCAnimation* moveRightAnimation;
 	cocos2d::CCAnimation* standStillAnimation;
