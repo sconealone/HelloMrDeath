@@ -7,6 +7,10 @@
  *
  */
 #include "MrDeath.h"
+#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 using namespace cocos2d;
 
@@ -17,6 +21,7 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	isJumping = false;
 	attackStartupAnimation = NULL;
 	jumpAnimation = NULL;
+	soulGauge = 0;
 }
 
 MrDeath::~MrDeath() {
@@ -52,7 +57,8 @@ void MrDeath::attackStop(CCNode* sender) {
 }
 
 void MrDeath::specialAttack(){
-	// to be implemented
+	
+	cout << "special attack!" << endl;
 }
 
 

@@ -194,9 +194,9 @@ void Level::initButtons() {
 	controlLayer->addChild(rightbutton);
 	
 	
-	CCPoint specialPos = ccp(450,40);
+	CCPoint specialPos = ccp(400,40);
 	CCPoint jumpPos = ccp(450,40);
-	CCPoint  attackPos = ccp(400,90);
+	CCPoint  attackPos = ccp(450,90);
 
 
 	// attack button implementation
@@ -220,8 +220,8 @@ void Level::initButtons() {
 	controlLayer->addChild(jMenu, 1);
 	
 	// special attack button
-	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_attack_released.png",
-														  "special_attack_pressed.png",
+	specialbutton = CCMenuItemImage:: itemFromNormalImage("special_released.png",
+														  "special_pressed.png",
 														  this,
 														  menu_selector(Level::specialAttack));
 	specialbutton->setPosition(specialPos);
