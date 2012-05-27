@@ -3,6 +3,7 @@
 #define MRDEATH_H
 
 #include "Character.h"
+#include "Level.h"
 #define MR_DEATH_SPEED 8.0f // TODO: placeholder
 class Character;
 class CCLayer;
@@ -37,9 +38,18 @@ public:
 	virtual void update();
 
 private:
+	/**
+	Initializes all the animations that the sprite
+	will need.
+	They can be initialized when the level loads, and 
+	then new actions can be created using them
+	whenever needed from then on.
+	*/
 	virtual void initAnimations();
 
-
+	/**
+	Checks for collisions.
+	*/
 	void checkCollisions();
 	void checkIfLanded();
 	

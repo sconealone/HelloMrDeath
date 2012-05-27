@@ -317,13 +317,13 @@ void Level::checkKeyboard() {
 	const int W = 0x57;
 	const int A = 0x41;
 	const int D = 0x44;
+	const int E = 0x45;
 	const int R = 0x52;
-	const int T = 0x54;
 	short wasJumpPressed = GetKeyState(W);
 	short wasLeftPressed = GetKeyState(A);
 	short wasRightPressed = GetKeyState(D);
-	short wasAttackPressed = GetKeyState(R);
-	short wasSpecialPressed = GetKeyState(T);
+	short wasAttackPressed = GetKeyState(E);
+	short wasSpecialPressed = GetKeyState(R);
 	// vertical movement is handled seperately from horizontal
 	if (KEY_UP & wasJumpPressed) {
 		death->jump();
