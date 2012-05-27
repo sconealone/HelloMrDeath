@@ -61,10 +61,11 @@ void MrDeath::specialAttack(){
 	specialAttackParticles = CCParticleExplosion::node();
 	specialAttackParticles->setEmitterMode(kCCParticleModeRadius);
 	specialAttackParticles->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
-	specialAttackParticles->setAngleVar(360.0f);
-	specialAttackParticles->setLife(2.0f);
+	specialAttackParticles->setLife(1.0f);
 	specialAttackParticles->setStartRadius(sprite->getContentSize().height/2);
 	specialAttackParticles->setEndRadius(3*sprite->getContentSize().height);
+	specialAttackParticles->setStartSize(32.0f);
+	specialAttackParticles->setTotalParticles(20);
 	ccColor4F color;
 	color.r = 0.0f;
 	color.b = 0xD;
