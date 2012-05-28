@@ -86,6 +86,7 @@ protected:
 	int hpValue;
 	b2Vec2 position;
 	bool isFacingRight;
+	b2World* world;
 
 	
 
@@ -121,7 +122,16 @@ protected:
 	 */
 	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames);
 	 static cocos2d::CCAnimation* initAnimation(string name, int numFrames, int startFrame);
-
+	 
+	/**
+	Funtion for initializing the physics body.
+	Takes the width and height of the sprite
+	and uses it as the boundaries.
+	Should be overriden by deriving class so that the
+	actual boundaries more closesly match the drawing outline
+	and not just the rectangular borders of the sprite.
+	 */
+	virtual void initBody();
 	 // Standard animations that all characters will need
 	cocos2d::CCAnimation* moveLeftAnimation;
 	cocos2d::CCAnimation* moveRightAnimation;
@@ -131,7 +141,6 @@ protected:
 	cocos2d::CCFiniteTimeAction* attackAction;
 
 private:
-	b2World* world;
 	
 	cocos2d::CCSpriteBatchNode* batchNode;
 
@@ -146,15 +155,6 @@ private:
 	*/
 	virtual void initSprite(string name);
 
-	/**
-	Funtion for initializing the physics body.
-	Takes the width and height of the sprite
-	and uses it as the boundaries.
-	Should be overriden by deriving class so that the
-	actual boundaries more closesly match the drawing outline
-	and not just the rectangular borders of the sprite.
-	 */
-	virtual void initBody();
 
 	/**
 	Initializes all the actions you may need.
