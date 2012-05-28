@@ -167,3 +167,9 @@ void Character::setPosition(CCPoint &pos) {
 	sprite->setPosition(pos);
 	body->SetTransform(position, body->GetAngle());
 }
+
+void Character::setPosition(CCPoint pos) {
+	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
+	sprite->setPosition(pos);
+	body->SetTransform(position, body->GetAngle());
+}
