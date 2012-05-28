@@ -17,11 +17,6 @@ public:
 	// Jump function for Mr. Death
 	void jump();
 
-	virtual void moveLeft();
-
-	virtual void moveRight();
-
-	virtual void stopMoving();
 
 	virtual void attack();
 	

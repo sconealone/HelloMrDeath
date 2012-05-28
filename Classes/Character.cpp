@@ -129,13 +129,31 @@ Character* Character::initCharacterWithNameInWorld(Character* myChar, string nam
 void Character::attack() {
 }
 
+
 void Character::moveLeft() {
+	CCFiniteTimeAction* flip = NULL;
+	if (isFacingRight) { 
+		flip = CCFlipX::actionWithFlipX(true);
+		sprite->runAction(flip);
+	}
+	isFacingRight = false;
+	body->SetLinearVelocity(b2Vec2(-8.0f,body->GetLinearVelocity().y));
 }
 
+
+
 void Character::moveRight() {
+	CCFiniteTimeAction* flip = NULL;
+	if (!isFacingRight) {
+		flip = CCFlipX::actionWithFlipX(false);
+		sprite->runAction(flip);
+	}
+	isFacingRight = true;
+	body->SetLinearVelocity(b2Vec2(8.0f,body->GetLinearVelocity().y));
 }
 
 void Character::stopMoving() {
+	body->SetLinearVelocity(b2Vec2(0.0f, body->GetLinearVelocity().y));
 }
 
 void Character::setPosition(b2Vec2 &pos) {

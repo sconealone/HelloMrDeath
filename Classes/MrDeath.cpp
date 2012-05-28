@@ -104,29 +104,6 @@ void MrDeath::specialAttack(){
 }
 
 
-void MrDeath::moveLeft() {
-	CCFiniteTimeAction* flip = NULL;
-	if (isFacingRight) { 
-		flip = CCFlipX::actionWithFlipX(true);
-		sprite->runAction(flip);
-	}
-	isFacingRight = false;
-	body->SetLinearVelocity(b2Vec2(-MR_DEATH_SPEED,body->GetLinearVelocity().y));
-}
-
-void MrDeath::moveRight() {
-	CCFiniteTimeAction* flip = NULL;
-	if (!isFacingRight) {
-		flip = CCFlipX::actionWithFlipX(false);
-		sprite->runAction(flip);
-	}
-	isFacingRight = true;
-	body->SetLinearVelocity(b2Vec2(MR_DEATH_SPEED,body->GetLinearVelocity().y));
-}
-
-void MrDeath::stopMoving() {
-	body->SetLinearVelocity(b2Vec2(0.0f, body->GetLinearVelocity().y));
-}
 
 void MrDeath::initAnimations() {
 	attackStartupAnimation = initAnimation("death", 1, 2);
