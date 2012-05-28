@@ -81,6 +81,7 @@ public:
 	*/
 	CC_SYNTHESIZE(b2Body*, body, Body);
 
+
 protected:
 	int attackValue;
 	int hpValue;
@@ -162,7 +163,7 @@ private:
 	By default they do nothing.
 	*/
 	virtual void initAnimations() = 0;
-
+	
 };
 
 #endif

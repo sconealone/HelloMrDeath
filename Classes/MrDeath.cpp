@@ -56,14 +56,20 @@ void MrDeath::checkIfLanded() {
 
 void MrDeath::attack() {
 	if (!isAttacking) {
+		isAttacking = true;
 		CCFiniteTimeAction* attackStartAction = initAction(attackStartupAnimation, false);
 		attackAction = initAction(attackAnimation, false);
 		CCFiniteTimeAction* attackBegin = CCCallFuncN::actionWithTarget(layer, callfuncN_selector(MrDeath::attackStart));
 		CCFiniteTimeAction* attackDone = CCCallFuncN::actionWithTarget(layer,callfuncN_selector(MrDeath::attackStop));
-		
-		sprite->runAction(CCSequence::actions(attackStartAction, attackBegin, attackAction, attackDone, CCAnimate::actionWithAnimation(standStillAnimation, false),NULL));
+
+		// TODO: Once there is a seperate jumping/running animation, this needs to choose between them
+		CCFiniteTimeAction *resumePreviousAction = CCAnimate::actionWithAnimation(standStillAnimation, false);
+
+		sprite->runAction(CCSequence::actions(attackStartAction, attackAction, resumePreviousAction, NULL));
 		attackAction->release();
 		attackStartAction->release();
+
+		isAttacking = false;
 	}
 }
 

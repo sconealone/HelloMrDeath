@@ -71,6 +71,11 @@ private:
 	int soulGauge;
 	
 	cocos2d::CCLayer* layer;
+	/**
+	The reason that  the attack is broken up into two set of animations
+	is because the first frame of the attack animation, the scythe
+	is behind Mr. Death and should not register as a hit with enemies.
+	*/
 	cocos2d::CCAnimation* attackStartupAnimation;
 	cocos2d::CCAnimation* jumpAnimation;
 	cocos2d::CCParticleSystem* specialAttackParticles;
