@@ -24,6 +24,7 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	soulGauge = 0;
 	previousYVelocity = 0.0f;
 	wasAccelerating = false;
+	speed = MR_DEATH_SPEED;
 }
 
 MrDeath::~MrDeath() {

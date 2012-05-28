@@ -12,6 +12,7 @@ Character::Character() {
 	attackAnimation = NULL;
 	standStillAnimation = NULL;
 	isFacingRight = true;
+	speed = 4.0f; // default speed value
 }
 
 Character::~Character() {

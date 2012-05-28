@@ -88,6 +88,7 @@ protected:
 	b2Vec2 position;
 	bool isFacingRight;
 	b2World* world;
+	float speed;
 	
 
 	 /**
