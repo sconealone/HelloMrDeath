@@ -50,7 +50,6 @@ public:
 
 	void setPosition(b2Vec2& pos);
 	void setPosition(cocos2d::CCPoint& pos);
-	void setPosition(cocos2d::CCPoint pos);
 
 	// Move left function for characters
 	virtual void moveLeft();
