@@ -108,6 +108,7 @@ private:
 	void initBg();
 	void initWorldBorders();
 	void initPlaceHolderWorldBorders();
+	void initWeather();
 	/**
 	Initializes the player character.
 	*/
@@ -151,7 +152,7 @@ private:
 	MrDeath* death;
 
 	
-	cocos2d::CCTMXLayer* backgroundLayer;
+	cocos2d::CCTMXLayer* bgLayer;
 
 	/**
 	 * The tiled map should be initialized in init

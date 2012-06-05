@@ -7,15 +7,15 @@
  <tileset firstgid="65" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="meta_tiles.png" width="67" height="34"/>
  </tileset>
- <layer name="Floor" width="30" height="24">
+ <layer name="Background" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSggDxhhwUPNXlLMGez2YlNHDKamWSPBXgBMohQf
+   eJzTY2Bg0BvFo3gUj+JRPIpH8SgmAxthwUPNXlLMGez2YlNHDKamWSPBXgC8doL9
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="24">
   <object name="HeroSpawn" x="67" y="199" width="150" height="150"/>
  </objectgroup>
- <layer name="Meta" width="30" height="24">
+ <layer name="Platform" width="30" height="24">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMApGwSggDzhhwfSyFx+fVLOIdT+17SXWHGLtxRYf+OIIn5+xyREyjxSAz15K9NPDXgDTWAsX
   </data>

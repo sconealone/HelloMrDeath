@@ -8,11 +8,13 @@ using namespace cocos2d;
 Level::Level() {
 	gameLayer = NULL;
 	controlLayer = NULL;
-	platformLayer = NULL;
 	enemies = NULL;
 	world = NULL;
 	death = NULL;
 	isTouching = false;
+	bgLayer = NULL;
+	tiledMap = NULL;
+	platformLayer = NULL;
 }
 
 Level::~Level() {
@@ -47,8 +49,6 @@ bool Level::init() {
 		initButtons();
 		initWorld();
 		initPC();
-		initBg();
-		//initPlatformsFromTiledMap();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
@@ -75,7 +75,10 @@ void Level::initWorld() {
 	bool doSleep = true;
 	world = new b2World(gravity);
 	world->SetAllowSleeping(doSleep);
-	initPlaceHolderWorldBorders();
+
+	initBg();
+	//initPlatformsFromTiledMap();
+	initWorldBorders();
 }
 
 
@@ -85,32 +88,35 @@ void Level::initWorldBorders()
 	borderBodyDef.type = b2_staticBody;
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 	b2Body *body = world->CreateBody(&borderBodyDef);
-	const int numCorners = 4;
-	b2Vec2 verticies[numCorners];
-	const float OFFSCREEN_OFFSET = 10.0f;
-	//verticies[0].Set(0.0f, -OFFSCREEN_OFFSET);
-	verticies[0].Set(0.0f, MDUtil::pixelsToMetres(50.0f)); // placeholder
-	verticies[1].Set(0.0f, MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
-	verticies[2].Set(MDUtil::pixelsToMetres(winSize.width), MDUtil::pixelsToMetres(winSize.height) + OFFSCREEN_OFFSET);
-	//verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), -OFFSCREEN_OFFSET);
-	verticies[3].Set(MDUtil::pixelsToMetres(winSize.width), MDUtil::pixelsToMetres(50.0f)); // placeholder
-	
-	b2ChainShape borderBox;
-	borderBox.CreateChain(verticies, numCorners);
-	body->CreateFixture(&borderBox, 0.0f);
-	
+
+	float wallWidth = 0.2f;
+	CCSize mapSize = tiledMap->getContentSize();
+	float bottomWidthInMetres = MDUtil::metresToPixels(mapSize.width);
+	b2Vec2 bottomCentre(bottomWidthInMetres/2, -1.0f);
+
+	b2PolygonShape bottomShape;
+	bottomShape.SetAsBox(bottomWidthInMetres, wallWidth, bottomCentre, 0.0f);
+
+	body->CreateFixture(&bottomShape, 0.0f);
 }
 
 
 
 void Level::initBg() {
+	initWeather();
+	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
+	bgLayer = tiledMap->layerNamed("Background");
+	platformLayer = tiledMap->layerNamed("Platform");
+	platformLayer->setIsVisible(false);
+	gameLayer->addChild(tiledMap, -1);
+}
+
+void Level::initWeather() {
 	CCParticleSystem* emitter;
 	emitter = CCParticleRain::node();
 	emitter->setTexture(CCTextureCache::sharedTextureCache()->addImage("attack_released.png"));
 	emitter->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2, CCDirector::sharedDirector()->getWinSize().height));
 	this->addChild(emitter);
-
-	
 }
 
 
