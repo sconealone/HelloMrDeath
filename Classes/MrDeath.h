@@ -4,7 +4,7 @@
 
 #include "Character.h"
 #include "Level.h"
-#define MR_DEATH_SPEED 8.0f // TODO: placeholder
+#define MR_DEATH_SPEED 6.0f // TODO: placeholder
 class Character;
 class CCLayer;
 

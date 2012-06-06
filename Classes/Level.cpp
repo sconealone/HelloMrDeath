@@ -42,8 +42,6 @@ bool Level::init() {
 		controlLayer = CCLayer::node();
 		this->addChild(gameLayer, 0);
 		this->addChild(controlLayer,1);
-		controlLayer->setIsTouchEnabled(true);
-		gameLayer->setIsTouchEnabled(true);
 		this->setIsTouchEnabled(true);
 
 		initButtons();
@@ -56,17 +54,6 @@ bool Level::init() {
 	CC_ASSERT(initSuccessful);
 	
 	return initSuccessful;
-}
-
-void Level::initPlaceHolderWorldBorders() {
-	
-	b2BodyDef def;
-	def.position.Set(0.0f, 1.0f);
-	b2Body* body = world->CreateBody(&def);
-	b2PolygonShape shape;
-	shape.SetAsBox(50.0f, 0.1f);
-	body->CreateFixture(&shape, 0.0f);
-	
 }
 
 void Level::initWorld() {
@@ -82,22 +69,14 @@ void Level::initWorld() {
 }
 
 
-void Level::initWorldBorders()
-{	
-	b2BodyDef borderBodyDef;
-	borderBodyDef.type = b2_staticBody;
-	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-	b2Body *body = world->CreateBody(&borderBodyDef);
-
-	float wallWidth = 0.2f;
+void Level::initWorldBorders() {
 	CCSize mapSize = tiledMap->getContentSize();
-	float bottomWidthInMetres = MDUtil::metresToPixels(mapSize.width);
-	b2Vec2 bottomCentre(bottomWidthInMetres/2, -1.0f);
-
-	b2PolygonShape bottomShape;
-	bottomShape.SetAsBox(bottomWidthInMetres, wallWidth, bottomCentre, 0.0f);
-
-	body->CreateFixture(&bottomShape, 0.0f);
+	b2BodyDef floorBodyDef;
+	floorBodyDef.position.Set(0.0f, 0.0f);
+	b2Body *floorBody = world->CreateBody(&floorBodyDef);
+	b2EdgeShape floorShape;
+	floorShape.Set(b2Vec2(0.0f, 0.0f), b2Vec2(MDUtil::metresToPixels(mapSize.width), 0.0f));
+	floorBody->CreateFixture(&floorShape, 0.0f);
 }
 
 

@@ -36,7 +36,7 @@ MrDeath::~MrDeath() {
 void MrDeath::jump(){
 	if (!isJumping) {
 		isJumping = true;
-		body->ApplyLinearImpulse(b2Vec2(0.0f, 128.0f), body->GetPosition()); // TODO: Placeholder
+		body->ApplyLinearImpulse(b2Vec2(0.0f, 32.0f), body->GetPosition()); // TODO: Placeholder
 	}
 }
 

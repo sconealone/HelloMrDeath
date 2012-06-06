@@ -109,7 +109,7 @@ void Character::initBody() {
 	body = world->CreateBody(&bodyDef);
 
 	b2PolygonShape shape;
-	shape.SetAsBox(width,height);
+	shape.SetAsBox(width/2,height/2);
 
 	b2FixtureDef fixDef;
 	fixDef.shape = &shape;
