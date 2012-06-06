@@ -1,7 +1,6 @@
 Use this to track what you're working on 
 
 Mitch: working on
--- fixing the offset between the b2World and the tiledmap
 -- correcting the platform generating code
 -- centring the camera a certain distance in front of mr. death
 
