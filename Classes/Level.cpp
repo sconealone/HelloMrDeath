@@ -12,9 +12,9 @@ Level::Level() {
 	world = NULL;
 	death = NULL;
 	isTouching = false;
-	bgLayer = NULL;
+	platformsLayer = NULL;
 	tiledMap = NULL;
-	platformLayer = NULL;
+	collidableLayer = NULL;
 }
 
 Level::~Level() {
@@ -64,7 +64,7 @@ void Level::initWorld() {
 	world->SetAllowSleeping(doSleep);
 
 	initBg();
-	//initPlatformsFromTiledMap();
+	initPlatformsFromTiledMap();
 	initWorldBorders();
 }
 
@@ -84,9 +84,9 @@ void Level::initWorldBorders() {
 void Level::initBg() {
 	initWeather();
 	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
-	bgLayer = tiledMap->layerNamed("Background");
-	platformLayer = tiledMap->layerNamed("Platform");
-	platformLayer->setIsVisible(false);
+	platformsLayer = tiledMap->layerNamed("Platforms");
+	collidableLayer = tiledMap->layerNamed("Collidable");
+	collidableLayer->setIsVisible(false);
 	gameLayer->addChild(tiledMap, -1);
 }
 
@@ -191,25 +191,23 @@ float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
 	return height - yCoord;
 }
 
-bool Level::isPlatform(CCPoint tileCoord) {
-	return platformLayer->tileGIDAt(tileCoord) ? true : false;
-}
-
 void Level::initPlatformsFromTiledMap() {
 	
 	CCSize mapSize = tiledMap->getMapSize();
 	for (int i = 0; i < mapSize.height; ++i) {
 		for (int j = 0; j < mapSize.width; ++j) {
-			if (isPlatform(ccp(i,j))) {
+			if (collidableLayer->tileGIDAt(ccp((float)j, (float)i))) {
 				int lastColumn = j;
-				while (lastColumn < mapSize.width && isPlatform(ccp(i,lastColumn))) {
+				
+				while (lastColumn < mapSize.width && 
+					   collidableLayer->tileGIDAt(ccp((float)lastColumn, (float)i))) {
 					++lastColumn;
 				}
 				float width = MDUtil::tilesToMetres((float)lastColumn - j);
 				float height = MDUtil::tilesToMetres(1.0f);
 				float centerY = MDUtil::tilesToMetres(coordsFromTopToCoordsFromBottom((float)i, mapSize.height) + 0.5f);
 				float centerX = MDUtil::tilesToMetres((float)j) + height / 2.0f;
-				createPlatformBody(width, height, (float)i, (float)j);
+				createPlatformBody(width, height, centerX, centerY);
 				j = lastColumn;
 			}
 		}
@@ -221,7 +219,8 @@ void Level::createPlatformBody(float width, float height, float centerX, float c
 	b2Body* body = world->CreateBody(&def);
 	b2PolygonShape platform;
 	b2Vec2 center(centerX, centerY);
-	platform.SetAsBox(width, height, center, 0.0f);
+	platform.SetAsBox(width/2, height/2, center, 0.0f);
+	body->CreateFixture(&platform, 0.0f);
 }
 
 void Level::initButtons() {
