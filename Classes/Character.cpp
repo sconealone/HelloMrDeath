@@ -13,6 +13,8 @@ Character::Character() {
 	standStillAnimation = NULL;
 	isFacingRight = true;
 	speed = 4.0f; // default speed value
+	height = -1;
+	width = -1;
 }
 
 Character::~Character() {
@@ -97,10 +99,11 @@ CCFiniteTimeAction* Character::initAction(CCAnimation* animation, bool loop) {
 }
 
 void Character::initBody() {
-	CCSize size = sprite->getContentSize();
-	float height = MDUtil::pixelsToMetres(size.height);
-	float width = MDUtil::pixelsToMetres(size.width);
-
+	if (height <= 0 || width <= 0) {
+		CCSize size = sprite->getContentSize();
+		height = MDUtil::pixelsToMetres(size.height);
+		width = MDUtil::pixelsToMetres(size.width);
+	}
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(0.0f,0.0f);
@@ -113,7 +116,7 @@ void Character::initBody() {
 
 	b2FixtureDef fixDef;
 	fixDef.shape = &shape;
-	fixDef.density = 0.8f; // TODO: placeholder value. please replace
+	fixDef.density = 1.0f; // TODO: placeholder value. please replace
 	fixDef.friction = 0.0f;
 
 	body->CreateFixture(&fixDef);

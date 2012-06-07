@@ -23,7 +23,7 @@ public:
 	static cocos2d::CCPoint toCCPoint(b2Vec2 vec);
 
 	static const int PIXELS_PER_TILE = 32;
-	static const int PIXELS_PER_METRE = 64; // placeholder
+	static const int PIXELS_PER_METRE = 32; // placeholder
 
 };
 #endif

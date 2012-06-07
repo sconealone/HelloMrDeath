@@ -31,6 +31,9 @@ public:
 	his velocity.
 	*/
 	virtual void update();
+	
+	virtual void setPosition(b2Vec2& pos);
+	virtual void setPosition(cocos2d::CCPoint& pos);
 
 private:
 	/**
@@ -82,6 +85,8 @@ private:
 
 	float previousYVelocity;
 	bool wasAccelerating;
+
+	static const int JUMP_SPEED = 10;
 
 };
 #endif

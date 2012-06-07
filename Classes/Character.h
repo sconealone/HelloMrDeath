@@ -48,8 +48,8 @@ public:
 	*/
 	b2Vec2 getPosition(){return position;}
 
-	void setPosition(b2Vec2& pos);
-	void setPosition(cocos2d::CCPoint& pos);
+	virtual void setPosition(b2Vec2& pos);
+	virtual void setPosition(cocos2d::CCPoint& pos);
 
 	// Move left function for characters
 	virtual void moveLeft();
@@ -89,6 +89,8 @@ protected:
 	bool isFacingRight;
 	b2World* world;
 	float speed;
+	float height; // metres
+	float width; // metres
 	
 
 	 /**

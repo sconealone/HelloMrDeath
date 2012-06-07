@@ -83,7 +83,7 @@ void Level::initWorldBorders() {
 
 void Level::initBg() {
 	initWeather();
-	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
+	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map_single_tile.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");
 	collidableLayer->setIsVisible(false);
@@ -106,7 +106,11 @@ void Level::initPC() {
 		death = new MrDeath(this);
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
-		death->setPosition(ccp(100.0f, 250.0f));
+		CCTMXObjectGroup *objectGroup = tiledMap->objectGroupNamed("Objects");
+		CCStringToStringDictionary *spawnDictionary = objectGroup->objectNamed("DeathSpawn");
+		float xCoord = spawnDictionary->objectForKey("x")->toFloat();
+		float yCoord = spawnDictionary->objectForKey("y")->toFloat();
+		death->setPosition(ccp(xCoord, yCoord));
 		death->getBatchNode()->addChild(death->getSprite(), 1);
 }
 
@@ -192,7 +196,18 @@ float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
 }
 
 void Level::initPlatformsFromTiledMap() {
-	
+
+	b2Vec2 center(MDUtil::tilesToMetres(7.5f), MDUtil::tilesToMetres(tiledMap->getMapSize().height - 21.5f));
+	b2BodyDef def;
+	def.position.Set(center.x, center.y);
+	b2Body* body = world->CreateBody(&def);
+	b2PolygonShape shape;
+	float boxRadius = 0.1f;
+	shape.SetAsBox(boxRadius, boxRadius);
+	body->CreateFixture(&shape, 0.0f);
+
+
+	/*
 	CCSize mapSize = tiledMap->getMapSize();
 	for (int i = 0; i < mapSize.height; ++i) {
 		for (int j = 0; j < mapSize.width; ++j) {
@@ -212,6 +227,7 @@ void Level::initPlatformsFromTiledMap() {
 			}
 		}
 	}
+	*/
 }
 
 void Level::createPlatformBody(float width, float height, float centerX, float centerY) {
