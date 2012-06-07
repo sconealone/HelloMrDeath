@@ -32,6 +32,11 @@ public:
 	*/
 	virtual void update();
 	
+	// Override setPosition because Mr. Death needs
+	// some tweaking since his sprite is not centred
+	// in the middle of the bounding box.
+	// The overridden setPosition adds an offset to
+	// his sprite
 	virtual void setPosition(b2Vec2& pos);
 	virtual void setPosition(cocos2d::CCPoint& pos);
 
@@ -86,7 +91,8 @@ private:
 	float previousYVelocity;
 	bool wasAccelerating;
 
-	static const int JUMP_SPEED = 10;
+	static const int JUMP_SPEED = 5;
+	static const int SPRITE_BODY_OFFSET = 8;
 
 };
 #endif

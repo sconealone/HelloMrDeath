@@ -196,18 +196,6 @@ float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
 }
 
 void Level::initPlatformsFromTiledMap() {
-
-	b2Vec2 center(MDUtil::tilesToMetres(7.5f), MDUtil::tilesToMetres(tiledMap->getMapSize().height - 21.5f));
-	b2BodyDef def;
-	def.position.Set(center.x, center.y);
-	b2Body* body = world->CreateBody(&def);
-	b2PolygonShape shape;
-	float boxRadius = 0.1f;
-	shape.SetAsBox(boxRadius, boxRadius);
-	body->CreateFixture(&shape, 0.0f);
-
-
-	/*
 	CCSize mapSize = tiledMap->getMapSize();
 	for (int i = 0; i < mapSize.height; ++i) {
 		for (int j = 0; j < mapSize.width; ++j) {
@@ -220,14 +208,13 @@ void Level::initPlatformsFromTiledMap() {
 				}
 				float width = MDUtil::tilesToMetres((float)lastColumn - j);
 				float height = MDUtil::tilesToMetres(1.0f);
-				float centerY = MDUtil::tilesToMetres(coordsFromTopToCoordsFromBottom((float)i, mapSize.height) + 0.5f);
-				float centerX = MDUtil::tilesToMetres((float)j) + height / 2.0f;
+				float centerX = MDUtil::tilesToMetres((float)j) + height/2;
+				float centerY = MDUtil::tilesToMetres(mapSize.height - ((float) i + 0.5f));
 				createPlatformBody(width, height, centerX, centerY);
 				j = lastColumn;
 			}
 		}
 	}
-	*/
 }
 
 void Level::createPlatformBody(float width, float height, float centerX, float centerY) {

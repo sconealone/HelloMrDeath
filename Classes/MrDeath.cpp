@@ -25,7 +25,7 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	previousYVelocity = 0.0f;
 	wasAccelerating = false;
 	speed = MR_DEATH_SPEED;
-	height = MDUtil::pixelsToMetres(64.0f);
+	height = MDUtil::pixelsToMetres(55.0f);
 	width = MDUtil::pixelsToMetres(32.0f);
 }
 
@@ -139,10 +139,10 @@ void MrDeath::checkCollisions() {
 
 void MrDeath::setPosition(b2Vec2& pos) {
 	Character::setPosition(pos);
-	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, 8.0f)));
+	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
 }
 
 void MrDeath::setPosition(cocos2d::CCPoint& pos) {
 	Character::setPosition(pos);
-	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, 8.0f)));
+	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
 }
