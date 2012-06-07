@@ -83,7 +83,7 @@ void Level::initWorldBorders() {
 
 void Level::initBg() {
 	initWeather();
-	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map_single_tile.tmx");
+	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");
 	collidableLayer->setIsVisible(false);
@@ -184,16 +184,6 @@ void Level::ccTouchesEnded(CCSet* pTouches, CCEvent* pEvent) {
 }
 
 
-/**
- * Takes a y-coordinate from a system that has the origin fixed at the top-left
- * (like Tiled) and converts it to a y-coordinate from a system that has the 
- * origin at the bottom-left (like Box2D, cocos2d).
- * If the two systems are superimposed over each other, the points should 
- * be at the same spot.
- */
-float coordsFromTopToCoordsFromBottom(float yCoord, float height) {
-	return height - yCoord;
-}
 
 void Level::initPlatformsFromTiledMap() {
 	CCSize mapSize = tiledMap->getMapSize();
