@@ -71,12 +71,25 @@ void Level::initWorld() {
 
 void Level::initWorldBorders() {
 	CCSize mapSize = tiledMap->getContentSize();
-	b2BodyDef floorBodyDef;
-	floorBodyDef.position.Set(0.0f, 0.0f);
-	b2Body *floorBody = world->CreateBody(&floorBodyDef);
+	mapSize.height = MDUtil::pixelsToMetres(mapSize.height);
+	mapSize.width = MDUtil::pixelsToMetres(mapSize.width);
+	const float BOTTOM_HEIGHT = -2.0f;
+
+	b2BodyDef borderBodyDef;
+	borderBodyDef.position.Set(0.0f, 0.0f);
+	b2Body *borderBody = world->CreateBody(&borderBodyDef);
+	
 	b2EdgeShape floorShape;
-	floorShape.Set(b2Vec2(0.0f, 0.0f), b2Vec2(MDUtil::metresToPixels(mapSize.width), 0.0f));
-	floorBody->CreateFixture(&floorShape, 0.0f);
+	floorShape.Set(b2Vec2(0.0f, BOTTOM_HEIGHT), b2Vec2(mapSize.width, BOTTOM_HEIGHT));
+	borderBody->CreateFixture(&floorShape, 0.0f);
+
+	b2EdgeShape leftWallShape;
+	leftWallShape.Set(b2Vec2(0.0f, BOTTOM_HEIGHT), b2Vec2(0.0f, mapSize.height + 1));
+	borderBody->CreateFixture(&leftWallShape, 0.0f);
+
+	b2EdgeShape rightWallShape;
+	rightWallShape.Set(b2Vec2(mapSize.width, BOTTOM_HEIGHT), b2Vec2(mapSize.width, mapSize.height + 1));
+	borderBody->CreateFixture(&rightWallShape, 0.0f);
 }
 
 
