@@ -57,7 +57,7 @@ bool Level::init() {
 }
 
 void Level::initWorld() {
-	const float GRAVITY = -80.0f;
+	const float GRAVITY = -70.0f;
 	b2Vec2 gravity = b2Vec2(0.0f, GRAVITY);
 	bool doSleep = true;
 	world = new b2World(gravity);
@@ -86,7 +86,7 @@ void Level::initBg() {
 	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");
-	collidableLayer->setIsVisible(false);
+	//collidableLayer->setIsVisible(false);
 	gameLayer->addChild(tiledMap, -1);
 }
 
@@ -198,7 +198,7 @@ void Level::initPlatformsFromTiledMap() {
 				}
 				float width = MDUtil::tilesToMetres((float)lastColumn - j);
 				float height = MDUtil::tilesToMetres(1.0f);
-				float centerX = MDUtil::tilesToMetres((float)j) + height/2;
+				float centerX = MDUtil::tilesToMetres((float)j) + width/2;
 				float centerY = MDUtil::tilesToMetres(mapSize.height - ((float) i + 0.5f));
 				createPlatformBody(width, height, centerX, centerY);
 				j = lastColumn;

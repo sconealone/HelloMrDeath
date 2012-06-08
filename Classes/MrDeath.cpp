@@ -27,6 +27,7 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	speed = MR_DEATH_SPEED;
 	height = MDUtil::pixelsToMetres(55.0f);
 	width = MDUtil::pixelsToMetres(32.0f);
+	jumpSpeed = 40.0f;
 }
 
 MrDeath::~MrDeath() {
@@ -38,7 +39,7 @@ MrDeath::~MrDeath() {
 void MrDeath::jump(){
 	if (!isJumping) {
 		isJumping = true;
-		body->ApplyLinearImpulse(b2Vec2(0.0f, JUMP_SPEED), body->GetPosition()); // TODO: Placeholder
+		body->ApplyLinearImpulse(b2Vec2(0.0f, jumpSpeed), body->GetPosition()); 
 	}
 }
 
@@ -94,7 +95,7 @@ void MrDeath::specialAttack(){
 	specialAttackParticles->setStartRadius(sprite->getContentSize().height/2);
 	specialAttackParticles->setEndRadius(3*sprite->getContentSize().height);
 	specialAttackParticles->setStartSize(32.0f);
-	specialAttackParticles->setTotalParticles(20);
+	specialAttackParticles->setTotalParticles(50);
 	ccColor4F color;
 	color.r = 0.0f;
 	color.b = 0xD;

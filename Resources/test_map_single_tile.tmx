@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Collidable" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzQENAAAIA6Br/9C20M1BARIAALb00VtH70cDEBQABA==
+   eJxjYBgFo2AUjIJRMApGwSgYBfQAjEDMBKUHwu5RQB0AABOcAAY=
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="24">
@@ -18,7 +18,7 @@
  </objectgroup>
  <layer name="Platforms" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJztzQENAAAIA6Br/9C20M1BARIAALb00VtH70cDEBQABA==
+   eJxjYBgFo2AUjIJRMApGwSgYBfQAjEDMBKUHwu5RQB0AABOcAAY=
   </data>
  </layer>
 </map>

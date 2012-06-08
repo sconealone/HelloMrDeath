@@ -116,7 +116,7 @@ void Character::initBody() {
 
 	b2FixtureDef fixDef;
 	fixDef.shape = &shape;
-	fixDef.density = 1.2f; // TODO: placeholder value. please replace
+	fixDef.density = 1.0f; // TODO: placeholder value. please replace
 	fixDef.friction = 0.0f;
 
 	body->CreateFixture(&fixDef);
