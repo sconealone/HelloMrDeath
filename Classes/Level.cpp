@@ -95,11 +95,11 @@ void Level::initWorldBorders() {
 
 
 void Level::initBg() {
-	initWeather();
+	//initWeather();
 	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");
-	//collidableLayer->setIsVisible(false);
+	collidableLayer->setIsVisible(false);
 	gameLayer->addChild(tiledMap, -1);
 }
 
@@ -150,6 +150,7 @@ void Level::update(float dt) {
 	const int positionIterations = 3;
 	world->Step(TICK_TIME, velocityIterations, positionIterations);
 	death->update();
+	centreCamera();
 }
 
 bool Level::isRightArrow(float x, float y){
@@ -296,6 +297,21 @@ void Level::checkInput() {
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	checkKeyboard();
 	#endif
+}
+
+void Level::centreCamera() {
+	CCSize mapsize = tiledMap->getContentSize();
+	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
+	CCPoint winpos = gameLayer->getPosition();
+	CCPoint deathpos = death->getSprite()->getPosition();
+
+
+	if (!(deathpos.x <= winsize.width/3 || 
+		  deathpos.x >= mapsize.width - 2*winsize.width/3)) {
+			winpos.x = -(deathpos.x - winsize.width/3);
+	}
+
+	gameLayer->setPosition(winpos);
 }
 
 
