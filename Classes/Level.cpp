@@ -95,7 +95,7 @@ void Level::initWorldBorders() {
 
 
 void Level::initBg() {
-	//initWeather();
+//	initWeather();
 	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");

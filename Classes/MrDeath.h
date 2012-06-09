@@ -38,7 +38,13 @@ public:
 	// The overridden setPosition adds an offset to
 	// his sprite
 	virtual void setPosition(b2Vec2& pos);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	virtual void setPosition(cocos2d::CCPoint& pos);
+#endif
+	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	virtual void setPosition(cocos2d::CCPoint pos);
+#endif
 
 private:
 	/**
