@@ -303,20 +303,31 @@ void Level::centreCamera() {
 	CCSize mapsize = tiledMap->getContentSize();
 	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
 	CCPoint winpos = gameLayer->getPosition();
+	CCPoint newpos = winpos;
 	CCPoint deathpos = death->getSprite()->getPosition();
-	float deathForwardOffset = winsize.width/3;
+	float deathForwardOffset = winsize.width/2;
+	float deathBackwardOffset = winsize.width - deathForwardOffset;
 	float deathLowerOffset = 0.7*winsize.height;
 
-	if (!(deathpos.x <= deathForwardOffset || 
-		  deathpos.x >= mapsize.width - 2*deathForwardOffset)) {
-			winpos.x = -(deathpos.x - deathForwardOffset);
+	if (death->getIsFacingRight()) {
+		if (!(deathpos.x <= deathForwardOffset || 
+			  deathpos.x >= mapsize.width - deathBackwardOffset)) {
+				newpos.x = -(deathpos.x - deathForwardOffset);
+		}
 	}
-	if (!(deathpos.y <= deathLowerOffset ||
-		  deathpos.y >= mapsize.height - 2*deathLowerOffset)) {
-			winpos.y = -(deathpos.y - deathLowerOffset);
+	else { // death is facing left
+		if (!(deathpos.x <= deathBackwardOffset ||
+			  deathpos.x >= mapsize.width - deathForwardOffset)) {
+				  newpos.x = -(deathpos.x - deathBackwardOffset);
+		}
 	}
 
-	gameLayer->setPosition(winpos);
+	if (!(deathpos.y <= deathLowerOffset ||
+		  deathpos.y >= mapsize.height - 2*deathLowerOffset)) {
+			newpos.y = -(deathpos.y - deathLowerOffset);
+	}
+
+	gameLayer->setPosition(newpos);
 }
 
 

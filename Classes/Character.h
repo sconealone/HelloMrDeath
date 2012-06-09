@@ -33,6 +33,7 @@ public:
 	virtual Character* initCharacterWithNameInWorld(Character* myChar,string name, b2World* world);
 
 	b2World* getWorld(){return world;}
+	bool getIsFacingRight(){return isFacingRight;}
 
 	// Attack value for each character
 	int getAttackValue(){return attackValue;}
