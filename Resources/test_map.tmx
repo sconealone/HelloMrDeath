@@ -7,9 +7,15 @@
  <tileset firstgid="65" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="meta_tiles.png" width="67" height="34"/>
  </tileset>
+ <tileset firstgid="67" name="knight1" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="knight1.png" width="75" height="75"/>
+ </tileset>
+ <tileset firstgid="71" name="soul" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="soul.png" width="35" height="45"/>
+ </tileset>
  <layer name="Platforms" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSggDKSgGBkYYcG0tJ8W9pJizmC3F5s6YjA1zRoJ9gIALPEUbQ==
+   eJxjYBgFo2AUjIJRMFyBMxZMa3sI2UtL99DLv7Swl5iwQjcXmzw1/D6c7CWkhxizyDVj1N7hay8AiOQ1ZQ==
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="24">
@@ -17,7 +23,7 @@
  </objectgroup>
  <layer name="Collidable" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSggDJygGJuYEw55atuPjY2NT6q5xLqf2vYSaw6x9mKLD3xxhM/PxMY3uWGAz15K9NPDXgAMxQvd
+   eJxjYBgFo2AUjIJRMFyBGxZMa3sYGDDtccOhltruwWcvLQE17MUWJoTiDxufGmFLjD3E6h1oe7GFITnhis9eauWzoZx+R5q9ABX5Ecc=
   </data>
  </layer>
 </map>

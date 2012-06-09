@@ -54,6 +54,11 @@ public:
 	 */
 	CC_SYNTHESIZE(b2World*,world,World);
 
+
+
+	// Tags
+	static const int TRANSITION_TAG = 100;
+
 private:
 	// functions
 
@@ -168,6 +173,7 @@ private:
 	 * A boolean for whether the player is touching
 	 **/
 	bool isTouching;
+
 
 };
 
