@@ -73,7 +73,7 @@ void Level::initWorldBorders() {
 	CCSize mapSize = tiledMap->getContentSize();
 	mapSize.height = MDUtil::pixelsToMetres(mapSize.height);
 	mapSize.width = MDUtil::pixelsToMetres(mapSize.width);
-	const float BOTTOM_HEIGHT = -2.0f;
+	const float BOTTOM_HEIGHT = -5.0f;
 
 	b2BodyDef borderBodyDef;
 	borderBodyDef.position.Set(0.0f, 0.0f);
@@ -150,6 +150,8 @@ void Level::update(float dt) {
 	const int positionIterations = 3;
 	world->Step(TICK_TIME, velocityIterations, positionIterations);
 	death->update();
+	checkPitfalls();
+	checkDeaths();
 	centreCamera();
 }
 
@@ -307,7 +309,7 @@ void Level::centreCamera() {
 	CCPoint deathpos = death->getSprite()->getPosition();
 	float deathForwardOffset = winsize.width/2;
 	float deathBackwardOffset = winsize.width - deathForwardOffset;
-	float deathLowerOffset = 0.7*winsize.height;
+	float deathLowerOffset = 0.7f*winsize.height;
 
 	if (death->getIsFacingRight()) {
 		if (!(deathpos.x <= deathForwardOffset || 
@@ -330,6 +332,28 @@ void Level::centreCamera() {
 	gameLayer->setPosition(newpos);
 }
 
+void Level::checkPitfalls() {
+	if (death->getPosition().y <= -3.0f) {
+		death->setHpValue(0);
+	}
+}
+
+void Level::checkDeaths() {
+	// TODO: placeholder code
+	if (!death->getHpValue()) {
+		death->setHpValue(5);
+		CCTMXObjectGroup *respawn = tiledMap->objectGroupNamed("Objects");
+		CCStringToStringDictionary *respawnD = respawn->objectNamed("DeathSpawn");
+		death->setPosition(ccp(respawnD->objectForKey("x")->toFloat(), respawnD->objectForKey("y")->toFloat()));
+		CCLabelTTF *label = CCLabelTTF::labelWithString("You died.", "Artial", 32);
+		gameLayer->setPosition(ccp(0.0f, 0.0f));
+		label->setColor(ccc3(0xff, 0x0, 0x0));
+		label->setPosition(ccpAdd(gameLayer->getPosition(), 
+								  ccp(CCDirector::sharedDirector()->getWinSize().width/2, 
+									  CCDirector::sharedDirector()->getWinSize().height/2)));
+		gameLayer->addChild(label);
+	}
+}
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 void Level::checkKeyboard() {

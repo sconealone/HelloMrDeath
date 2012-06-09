@@ -28,6 +28,7 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	height = MDUtil::pixelsToMetres(55.0f);
 	width = MDUtil::pixelsToMetres(32.0f);
 	jumpSpeed = 40.0f;
+	hpValue = 5;
 }
 
 MrDeath::~MrDeath() {
@@ -140,6 +141,7 @@ void MrDeath::update() {
 
 void MrDeath::checkCollisions() {
 }
+
 
 
 

@@ -44,10 +44,10 @@ public:
 	virtual void update(float dt);
 	
 	virtual void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
-
 	virtual void ccTouchesEnded(cocos2d::CCSet* pTouches, cocos2d::CCEvent* pEvent);
 	
-	void passingAction();
+	void checkPitfalls();
+	void checkDeaths();
 	
 	/**
 	 * The physics world
