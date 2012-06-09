@@ -87,8 +87,13 @@ void MrDeath::attackStop(CCNode* sender) {
 }
 
 void MrDeath::specialAttack(){
-	
+	const int EXPLOSION_TAG = 0xBADBEEF;
 	specialAttackParticles = CCParticleExplosion::node();
+	if (layer->getChildByTag(EXPLOSION_TAG)) {
+		layer->removeChildByTag(EXPLOSION_TAG, true);
+	}
+	specialAttackParticles->setPosition(sprite->getPosition());
+	specialAttackParticles->setTag(EXPLOSION_TAG);
 	specialAttackParticles->setEmitterMode(kCCParticleModeRadius);
 	specialAttackParticles->setTexture(CCTextureCache::sharedTextureCache()->addImage("soul.png"));
 	specialAttackParticles->setLife(1.0f);

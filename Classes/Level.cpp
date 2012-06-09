@@ -116,7 +116,7 @@ void Level::initWeather() {
 void Level::initPC() {
 	
 		// TODO: test
-		death = new MrDeath(this);
+		death = new MrDeath(gameLayer);
 		death->initCharacterWithNameInWorld(death,"death",world);
 		gameLayer->addChild(death->getBatchNode(), 0);
 		CCTMXObjectGroup *objectGroup = tiledMap->objectGroupNamed("Objects");
