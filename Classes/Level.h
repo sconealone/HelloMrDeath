@@ -80,13 +80,6 @@ private:
 	 */ 
 	void initPlatformsFromTiledMap();
 	
-	/**
-	 * True if there is a platform at this tile coordinate
-	 * Checks if the GID is non-zero at that tile coord
-	 * A 0 GID indicates an empty tile
-	 * Assumes only platform tiles are in the platform tile layer
-	 */
-	bool isPlatform(cocos2d::CCPoint tileCoord);
 
 	/**
 	 * Creates the box2d body for a platform and adds
@@ -108,6 +101,7 @@ private:
 	void initBg();
 	void initWorldBorders();
 	void initPlaceHolderWorldBorders();
+	void initWeather();
 	/**
 	Initializes the player character.
 	*/
@@ -151,7 +145,7 @@ private:
 	MrDeath* death;
 
 	
-	cocos2d::CCTMXLayer* backgroundLayer;
+	cocos2d::CCTMXLayer* platformsLayer;
 
 	/**
 	 * The tiled map should be initialized in init
@@ -161,7 +155,7 @@ private:
 	/**
 	 * A meta layer for determining if things are platforms
 	 */
-	cocos2d::CCTMXLayer* platformLayer;
+	cocos2d::CCTMXLayer* collidableLayer;
 
 	cocos2d::CCSprite *leftbutton;
 

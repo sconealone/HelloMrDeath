@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="meta_tiles.png" width="67" height="34"/>
+ </tileset>
+ <layer name="Collidable" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBfQAjEDMBKUHwu5RQB0AABOcAAY=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="30" height="24">
+  <object name="DeathSpawn" x="242" y="489">
+   <properties>
+    <property name="x-coord" value="7.563"/>
+    <property name="y-coord" value="15.281"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Platforms" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBfQAjEDMBKUHwu5RQB0AABOcAAY=
+  </data>
+ </layer>
+</map>

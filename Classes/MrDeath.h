@@ -4,7 +4,7 @@
 
 #include "Character.h"
 #include "Level.h"
-#define MR_DEATH_SPEED 8.0f // TODO: placeholder
+#define MR_DEATH_SPEED 7.0f // TODO: placeholder
 class Character;
 class CCLayer;
 
@@ -31,6 +31,14 @@ public:
 	his velocity.
 	*/
 	virtual void update();
+	
+	// Override setPosition because Mr. Death needs
+	// some tweaking since his sprite is not centred
+	// in the middle of the bounding box.
+	// The overridden setPosition adds an offset to
+	// his sprite
+	virtual void setPosition(b2Vec2& pos);
+	virtual void setPosition(cocos2d::CCPoint& pos);
 
 private:
 	/**
@@ -82,6 +90,8 @@ private:
 
 	float previousYVelocity;
 	bool wasAccelerating;
+	float jumpSpeed;
+	static const int SPRITE_BODY_OFFSET = 8;
 
 };
 #endif
