@@ -152,3 +152,8 @@ void MrDeath::setPosition(cocos2d::CCPoint& pos) {
 	Character::setPosition(pos);
 	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
 }
+
+void MrDeath::setPosition(cocos2d::CCPoint pos) {
+	Character::setPosition(pos);
+	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
+}

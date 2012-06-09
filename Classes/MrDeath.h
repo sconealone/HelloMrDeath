@@ -39,6 +39,7 @@ public:
 	// his sprite
 	virtual void setPosition(b2Vec2& pos);
 	virtual void setPosition(cocos2d::CCPoint& pos);
+	virtual void setPosition(cocos2d::CCPoint pos);
 
 private:
 	/**
