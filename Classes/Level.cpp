@@ -304,11 +304,16 @@ void Level::centreCamera() {
 	CCSize winsize = CCDirector::sharedDirector()->getWinSize();
 	CCPoint winpos = gameLayer->getPosition();
 	CCPoint deathpos = death->getSprite()->getPosition();
+	float deathForwardOffset = winsize.width/3;
+	float deathLowerOffset = 0.7*winsize.height;
 
-
-	if (!(deathpos.x <= winsize.width/3 || 
-		  deathpos.x >= mapsize.width - 2*winsize.width/3)) {
-			winpos.x = -(deathpos.x - winsize.width/3);
+	if (!(deathpos.x <= deathForwardOffset || 
+		  deathpos.x >= mapsize.width - 2*deathForwardOffset)) {
+			winpos.x = -(deathpos.x - deathForwardOffset);
+	}
+	if (!(deathpos.y <= deathLowerOffset ||
+		  deathpos.y >= mapsize.height - 2*deathLowerOffset)) {
+			winpos.y = -(deathpos.y - deathLowerOffset);
 	}
 
 	gameLayer->setPosition(winpos);
