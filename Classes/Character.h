@@ -39,7 +39,8 @@ public:
 	int getAttackValue(){return attackValue;}
 
 	// HP value for each character
-	int getHPValue(){return hpValue;}
+	CC_SYNTHESIZE(int, hpValue, HpValue);
+	//int getHPValue(){return hpValue;}
 
 	cocos2d::CCSpriteBatchNode* getBatchNode(){return batchNode;}
 	
@@ -86,7 +87,6 @@ public:
 
 protected:
 	int attackValue;
-	int hpValue;
 	b2Vec2 position;
 	bool isFacingRight;
 	b2World* world;

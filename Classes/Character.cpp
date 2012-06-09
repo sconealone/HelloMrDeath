@@ -3,7 +3,7 @@ using namespace cocos2d;
 
 Character::Character() {
 	attackValue = 1;
-	hpValue = 0;
+	hpValue = 1;
 	sprite = NULL;
 	body = NULL;
 	batchNode = NULL;
