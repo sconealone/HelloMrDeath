@@ -15,15 +15,15 @@
  </tileset>
  <layer name="Platforms" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFyBGxZMS3uIsZeW7qGXf+llLyFzsclTww3DyV5Ceogxi1wzRu0dvvYCAAijNrE=
+   eJxjYBgFo2AUjIJRMFyBGxZMS3uIsZeW7qGFf4kxg9bhjMtcbPZS2++0tpeQ+bSyF59bSLWXWmFAL3sJ6RtK9pKLKbUXAM/IKu8=
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="24">
   <object name="DeathSpawn" x="67" y="199" width="57" height="53"/>
  </objectgroup>
- <layer name="Collidable" width="30" height="24" opacity="0.12">
+ <layer name="Collidable" width="30" height="24" opacity="0.78">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFyBOxZMS3uQ+ejyuNxEbXfg49MK0MpeQvGHjU+NsCXGHmL1DrS92MKQnHDFZy+18tlwS7/D2V4Ac20Q7A==
+   eJztk1EKACAIQ72d979RvyFqmtpH7IHEMDYRJAIAAPArrNRkzq5l35qpew5Pd3i+ypV+2r403blbFq+VG+1Z/y3/yVzPI5tbvbOb3AqZe+3Ozeio56myc0RYxsQSTw==
   </data>
  </layer>
 </map>
