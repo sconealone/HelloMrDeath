@@ -51,9 +51,13 @@ public:
 	b2Vec2 getPosition(){return position;}
 
 	virtual void setPosition(b2Vec2& pos);
-//	virtual void setPosition(cocos2d::CCPoint& pos);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	virtual void setPosition(cocos2d::CCPoint& pos);
+#endif
+	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	virtual void setPosition(cocos2d::CCPoint pos);
-
+#endif
 	// Move left function for characters
 	virtual void moveLeft();
 

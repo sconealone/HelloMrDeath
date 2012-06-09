@@ -166,13 +166,13 @@ void Character::setPosition(b2Vec2 &pos) {
 	body->SetTransform(position,body->GetAngle());
 }
 
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-//void Character::setPosition(CCPoint &pos) {
-//	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
-//	sprite->setPosition(pos);
-//	body->SetTransform(position, body->GetAngle());
-//}
-//#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+void Character::setPosition(CCPoint &pos) {
+	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
+	sprite->setPosition(pos);
+	body->SetTransform(position, body->GetAngle());
+}
+#endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 void Character::setPosition(CCPoint pos) {
