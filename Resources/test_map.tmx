@@ -8,7 +8,7 @@
   <image source="meta_tiles.png" width="67" height="34"/>
  </tileset>
  <tileset firstgid="67" name="knight1" tilewidth="32" tileheight="32" spacing="1" margin="1">
-  <image source="knight1.png" width="75" height="75"/>
+  <image source="knight.png" width="75" height="75"/>
  </tileset>
  <tileset firstgid="71" name="soul" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="soul.png" width="35" height="45"/>
