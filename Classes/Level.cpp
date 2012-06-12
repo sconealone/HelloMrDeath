@@ -335,7 +335,7 @@ void Level::centreCamera() {
 }
 
 void Level::checkPitfalls() {
-	if (death->getPosition().y <= -3.0f) {
+	if (death->getPositionInMetres().y <= -3.0f) {
 		death->setHpValue(0);
 	}
 }

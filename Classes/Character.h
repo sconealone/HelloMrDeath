@@ -48,16 +48,12 @@ public:
 	/**
 	The position of the character in the world, in metres
 	*/
-	b2Vec2 getPosition(){return position;}
+	b2Vec2 getPositionInMetres(){return position;}
+	cocos2d::CCPoint getPositionInPixels(){return MDUtil::toCCPoint(position);}
 
 	virtual void setPosition(b2Vec2& pos);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	virtual void setPosition(cocos2d::CCPoint& pos);
-#endif
-	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	virtual void setPosition(cocos2d::CCPoint pos);
-#endif
+
 	// Move left function for characters
 	virtual void moveLeft();
 
