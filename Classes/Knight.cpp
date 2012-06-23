@@ -1,32 +1,41 @@
 #include "Knight.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <iostream>
+
+using namespace std;
 using namespace cocos2d;
 
-Knight::Knight(cocos2d::CCLayer* layer) : Character() {
-	hpValue = 10;
-	isFacingRight = false;
-	isNearDeath = false;
+Knight::Knight(Level* level) : Character() {
+	this->level = level;
+	hpValue = 3;
+	speed = 4.0f;
 }
-
-
 
 Knight::~Knight() {
-
 }
 
-void Knight::attack() {
+void Knight::attack(){
+	attackAction = initAction(attackAnimation,false);
+	
 }
 
-// TODO: Placeholder until the .plist is finished
-Knight* Knight::initKnightInWorldAtPosition(Knight* knight, b2World* world, b2Vec2& position) {
-	knight->sprite = CCSprite::spriteWithFile("knight1.png");
-	knight->world = world;
-	knight->initBody();
-	knight->setPosition(position);
-	return knight;
+void Knight::initAnimations(){
+	standStillAnimation = initAnimation("knight",1);
+	attackAnimation = initAnimation("knight",2,3);
+	
+}
+
+bool Knight::checkDeathDistance(Level* level){
+	MrDeath* death = level->getDeath();
+	float death_x = death->getPosition().x;
+	float knight_x = this->getPosition().x;
+	return (death_x - knight_x > -3 && death_x - knight_x < 3);
+}
+
+void Knight::update(){
+	checkDeathDistance(level);
 }
 
 
-
-void Knight::update(float dt) {
-
-}

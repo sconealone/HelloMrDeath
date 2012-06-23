@@ -2,46 +2,37 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 #include "Character.h"
+#include "Level.h"
 class Character;
-class CCLayer;
+class Level;
 
 class Knight : public Character {
-	
 public:
-	// Constructors and factories
-	Knight(cocos2d::CCLayer* layer);
-	~Knight();
-	/**
-	Creates a new knight.
-	Generally, the knight spawn points will be marked on the tiled map
-	and the position should be translated from the tile position.
-	An allocated knight object should be passed in to be initialized.
-	*/
-	static Knight* initKnightInWorldAtPosition(Knight* knight, b2World* world, b2Vec2& position);
-
-
-	// Getters and Setters
-
-
-
-	// Virtual methods
-	/**
-	Updates the knight every tick
-	*/
-	virtual void update(float dt);
+	Knight(Level* level);
 	
-	/**
-	 Attacks when it is close enough to death
-	 **/
+	bool checkDeathDistance(Level* level);
+	
+	virtual ~Knight();
+	
+	virtual void update();
+	
 	virtual void attack();
 	
+	
 
-
-	//
 private:
-	// Whether it's within the attack range 
-	bool isNearDeath;
-
+	Level* level;
+	
+	virtual void initAnimations();
+	
+	/**
+	 *The animations for the knight's movement
+	 **/
+	//note: we need animation for the knight's walking
+	cocos2d::CCAnimation* walkAnimation;
+	cocos2d::CCAnimation* standStillAnimation;
+	
+	
 };
 
 #endif
