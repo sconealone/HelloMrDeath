@@ -45,9 +45,12 @@ void MrDeath::jump(){
 }
 
 void MrDeath::checkIfLanded() {
+	float currentYVelocity = body->GetLinearVelocity().y;
+	bool isAccelerating = currentYVelocity < previousYVelocity;
+	if (isAccelerating) {
+		isJumping = true;
+	}
 	if (isJumping) {
-		float currentYVelocity = body->GetLinearVelocity().y;
-		bool isAccelerating = currentYVelocity < previousYVelocity;
 		previousYVelocity = currentYVelocity;
 		if (wasAccelerating && !isAccelerating) {
 			isJumping = false;

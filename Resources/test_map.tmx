@@ -8,22 +8,25 @@
   <image source="meta_tiles.png" width="67" height="34"/>
  </tileset>
  <tileset firstgid="67" name="knight1" tilewidth="32" tileheight="32" spacing="1" margin="1">
-  <image source="knight.png" width="75" height="75"/>
+  <image source="knight.png" width="256" height="512"/>
  </tileset>
- <tileset firstgid="71" name="soul" tilewidth="32" tileheight="32" spacing="1" margin="1">
+ <tileset firstgid="172" name="soul" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="soul.png" width="35" height="45"/>
+ </tileset>
+ <tileset firstgid="173" name="brick" tilewidth="32" tileheight="32">
+  <image source="bricktile.png" width="32" height="32"/>
  </tileset>
  <layer name="Platforms" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFyBGxZMS3uIsZeW7qGXf+llLyFzsclTww3DyV5Ceogxi1wzRu0dvvYCAAijNrE=
+   eJxjYBgFo2AUjIJRMFzBWiyYlvYQYy8t3UML/xJjBq3DGZe52Oyltt9pbS8h82llLz63kGovtcKAXvYS0jeU7CUXU2ovAG1laho=
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="24">
   <object name="DeathSpawn" x="67" y="199" width="57" height="53"/>
  </objectgroup>
- <layer name="Collidable" width="30" height="24" opacity="0.12">
+ <layer name="Collidable" width="30" height="24" opacity="0.78">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFyBOxZMS3uQ+ejyuNxEbXfg49MK0MpeQvGHjU+NsCXGHmL1DrS92MKQnHDFZy+18tlwS7/D2V4Ac20Q7A==
+   eJztk1EKACAIQ73/WTxkvyFqmtpH7IHEMDYRJAIAAPArrNRkzq5l35qpew5Pd3i+ypV+2r403blbFq+VG+1Z/y3/yVzPI5tbvbOb3AqZe+3Ozeio56myc0RYGbosWQ==
   </data>
  </layer>
 </map>

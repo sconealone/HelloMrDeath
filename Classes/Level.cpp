@@ -134,13 +134,16 @@ void Level::initPC() {
 		float yCoord = spawnDictionary->objectForKey("y")->toFloat();
 		death->setPosition(ccp(xCoord, yCoord));
 		death->getBatchNode()->addChild(death->getSprite(), 1);
+
 	
-	knight = new Knight(this);
-	knight-> initCharacterWithNameInWorld(knight, "knight", world);
-	gameLayer->addChild(knight->getBatchNode(), 0);
-	knight->setPosition(ccp(250,200));
-	knight->getBatchNode()->addChild(knight->getSprite(), 1);
+		knight = new Knight(this);
+		knight-> initCharacterWithNameInWorld(knight, "knight", world);
+		gameLayer->addChild(knight->getBatchNode(), 0);
+		knight->setPosition(ccp(250,200));
+		knight->getBatchNode()->addChild(knight->getSprite(), 1);
 		
+
+		centreCamera();
 
 }
 
@@ -327,7 +330,8 @@ void Level::centreCamera() {
 	CCPoint deathpos = death->getSprite()->getPosition();
 	float deathForwardOffset = winsize.width/2;
 	float deathBackwardOffset = winsize.width - deathForwardOffset;
-	float deathLowerOffset = 0.7f*winsize.height;
+	float deathLowerOffset = 0.8f*winsize.height;
+	float deathUpperOffset = winsize.height - deathLowerOffset;
 
 	if (death->getIsFacingRight()) {
 		if (!(deathpos.x <= deathForwardOffset || 
@@ -343,7 +347,7 @@ void Level::centreCamera() {
 	}
 
 	if (!(deathpos.y <= deathLowerOffset ||
-		  deathpos.y >= mapsize.height - 2*deathLowerOffset)) {
+		  deathpos.y >= mapsize.height - deathUpperOffset)) {
 			newpos.y = -(deathpos.y - deathLowerOffset);
 	}
 
