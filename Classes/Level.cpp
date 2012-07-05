@@ -15,14 +15,17 @@ Level::Level() {
 	platformsLayer = NULL;
 	tiledMap = NULL;
 	collidableLayer = NULL;
+	knight = NULL;
 }
 
 
 Level::~Level() {
-	delete world;
+	if (world != NULL) delete world;
 	world = NULL;
-	delete death;
+	if (death != NULL) delete death;
 	death = NULL;
+	if (knight != NULL) delete knight;
+	knight = NULL;
 }
 
 MrDeath* Level::getDeath(){
@@ -134,7 +137,7 @@ void Level::initPC() {
 		float yCoord = spawnDictionary->objectForKey("y")->toFloat();
 		death->setPosition(ccp(xCoord, yCoord));
 		death->getBatchNode()->addChild(death->getSprite(), 1);
-
+		
 	
 		knight = new Knight(this);
 		knight-> initCharacterWithNameInWorld(knight, "knight", world);

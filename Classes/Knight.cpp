@@ -14,11 +14,13 @@ Knight::Knight(Level* level) : Character() {
 }
 
 Knight::~Knight() {
+	CC_SAFE_RELEASE_NULL(standStillAnimation);
+	CC_SAFE_RELEASE_NULL(attackAnimation);
 }
 
 void Knight::attack(){
 	attackAction = initAction(attackAnimation,false);
-	
+	attackAction->release();
 }
 
 void Knight::initAnimations(){
