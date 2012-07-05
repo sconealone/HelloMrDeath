@@ -6,15 +6,23 @@
 #include "cocos2d.h"
 #include "Box2D.h"
 #include "MrDeath.h"
+#include "Knight.h"
 #include "MDUtil.h"
 
 class Character;
 class MrDeath;
+class Knight;
 
 class Level: public cocos2d::CCLayer {
 public:
 	Level();
 	~Level();
+	
+	/**Getters 
+	 **/
+	MrDeath* getDeath();
+	
+	Knight* getKnight();
 	
 	/**
 	 * Initializes the level
@@ -148,7 +156,11 @@ private:
 	 * Mr. Death!
 	 */
 	MrDeath* death;
-
+	
+	/**
+	 * A knight, test purpose only, to be changed to an array
+	 **/
+	Knight* knight;
 	
 	cocos2d::CCTMXLayer* platformsLayer;
 
@@ -161,8 +173,10 @@ private:
 	 * A meta layer for determining if things are platforms
 	 */
 	cocos2d::CCTMXLayer* collidableLayer;
-
-	// Control buttons
+	
+	/**
+	 * Control buttons
+	 **/
 	cocos2d::CCSprite *leftbutton;
 	cocos2d::CCSprite *rightbutton;
 	cocos2d::CCMenuItemImage *attackbutton;

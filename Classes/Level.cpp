@@ -17,11 +17,20 @@ Level::Level() {
 	collidableLayer = NULL;
 }
 
+
 Level::~Level() {
 	delete world;
 	world = NULL;
 	delete death;
 	death = NULL;
+}
+
+MrDeath* Level::getDeath(){
+	return death;
+}
+
+Knight* Level::getKnight(){
+	return knight;
 }
 
 bool Level::init() {
@@ -95,7 +104,7 @@ void Level::initWorldBorders() {
 
 
 void Level::initBg() {
-//	initWeather();
+	initWeather();
 	tiledMap = CCTMXTiledMap::tiledMapWithTMXFile("test_map.tmx");
 	platformsLayer = tiledMap->layerNamed("Platforms");
 	collidableLayer = tiledMap->layerNamed("Collidable");
@@ -125,7 +134,17 @@ void Level::initPC() {
 		float yCoord = spawnDictionary->objectForKey("y")->toFloat();
 		death->setPosition(ccp(xCoord, yCoord));
 		death->getBatchNode()->addChild(death->getSprite(), 1);
+
+	
+		knight = new Knight(this);
+		knight-> initCharacterWithNameInWorld(knight, "knight", world);
+		gameLayer->addChild(knight->getBatchNode(), 0);
+		knight->setPosition(ccp(250,200));
+		knight->getBatchNode()->addChild(knight->getSprite(), 1);
+		
+
 		centreCamera();
+
 }
 
 CCScene* Level::scene() {
@@ -151,6 +170,7 @@ void Level::update(float dt) {
 	const int positionIterations = 3;
 	world->Step(TICK_TIME, velocityIterations, positionIterations);
 	death->update();
+	knight->update();
 	checkPitfalls();
 	checkDeaths();
 	centreCamera();
