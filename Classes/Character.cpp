@@ -130,7 +130,7 @@ void Character::initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape) {
 
 	fixDef->shape = shape;
 	fixDef->density = 1.0f; // TODO: placeholder value. please replace
-	fixDef->friction = 0.0f;
+	fixDef->friction = 3.0f;
 }
 
 Character* Character::initCharacterWithNameInWorld(Character* myChar, string name, b2World* world) {

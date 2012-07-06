@@ -145,6 +145,11 @@ void MrDeath::update() {
 void MrDeath::checkCollisions() {
 }
 
+void MrDeath::initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape) {
+	Character::initFixtureDef(fixDef, shape);
+	fixDef->friction = 0.0f;
+}
+
 
 
 

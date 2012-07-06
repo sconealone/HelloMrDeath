@@ -160,6 +160,10 @@ protected:
 	and not just the rectangular borders of the sprite.
 	 */
 	virtual void initBody();
+	virtual void initBodyDef(b2BodyDef *bodyDef);
+	virtual void initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape);
+
+
 	 // Standard animations that all characters will need
 	cocos2d::CCAnimation* moveLeftAnimation;
 	cocos2d::CCAnimation* moveRightAnimation;
@@ -191,8 +195,6 @@ private:
 	By default they do nothing.
 	*/
 	virtual void initAnimations() = 0;
-	virtual void initBodyDef(b2BodyDef *bodyDef);
-	virtual void initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape);
 	void setPosition();
 };
 
