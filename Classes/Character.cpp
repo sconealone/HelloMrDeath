@@ -177,6 +177,11 @@ void Character::setPosition() {
 	body->SetTransform(position, body->GetAngle());
 }
 
+void Character::update() {	
+	b2Vec2 vec = body->GetPosition();
+	setPosition(vec);
+}
+
 void MDSprite::setPosition(b2Vec2 &pos) {
 	position = pos;
 	sprite->setPosition(ccp(MDUtil::metresToPixels(pos.x), MDUtil::metresToPixels(pos.y)));

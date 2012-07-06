@@ -137,9 +137,8 @@ CCPoint b2VecToCCPoint(b2Vec2 vec) {
 }
 
 void MrDeath::update() {
+	Character::update();
 	checkIfLanded();
-	b2Vec2 vec = body->GetPosition();
-	setPosition(vec);
 	checkCollisions();
 }
 

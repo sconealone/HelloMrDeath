@@ -37,6 +37,7 @@ bool Knight::checkDeathDistance(Level* level){
 }
 
 void Knight::update(){
+	Character::update();
 	checkDeathDistance(level);
 }
 

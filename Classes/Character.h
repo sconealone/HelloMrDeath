@@ -99,7 +99,7 @@ public:
 	check it's physics body, and update its position accordingly,
 	or it could use its AI to decide where  to move.
 	*/
-	virtual void update() = 0;
+	virtual void update();
 
 
 	/**
