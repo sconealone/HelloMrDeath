@@ -12,12 +12,45 @@
 #include <windows.h>
 #endif
 
+
+
+class MDSprite {
+public:
+	/**
+	The sprite that is the visual representation of the character
+	*/
+	CC_SYNTHESIZE(cocos2d::CCSprite*, sprite, Sprite);
+	virtual void setPosition(b2Vec2& pos);
+	virtual void setPosition(cocos2d::CCPoint pos);
+
+	/**
+	The position of the character in the world, in metres
+	*/
+	b2Vec2 getPosition(){return position;} // deprecated
+	b2Vec2 getPositionInMetres(){return position;}
+	cocos2d::CCPoint getPositionInPixels(){return MDUtil::toCCPoint(position);}
+
+	/**
+	The bounding box is a rectangle that shows
+	where the borders of the sprite are.  This
+	means that it will generally be smaller than the size of
+	the CCSprite, because there are often transparent bits
+	of the CCSprite
+	*/
+	CC_SYNTHESIZE(cocos2d::CCRect, boundingBox, BoundingBox);
+
+protected:
+	b2Vec2 position;
+};
+
+
+
 /**
  * The Character is a sprite with a physics body
  * that it uses to get its position and interat
  * with the game world.
  */
-class Character 
+class Character : public MDSprite
 {
 public:
 	Character();
@@ -45,12 +78,6 @@ public:
 	cocos2d::CCSpriteBatchNode* getBatchNode(){return batchNode;}
 	
 
-	/**
-	The position of the character in the world, in metres
-	*/
-	b2Vec2 getPosition(){return position;}
-	b2Vec2 getPositionInMetres(){return position;}
-	cocos2d::CCPoint getPositionInPixels(){return MDUtil::toCCPoint(position);}
 
 	virtual void setPosition(b2Vec2& pos);
 	virtual void setPosition(cocos2d::CCPoint pos);
@@ -74,10 +101,6 @@ public:
 	*/
 	virtual void update() = 0;
 
-	/**
-	The sprite that is the visual representation of the character
-	*/
-	CC_SYNTHESIZE(cocos2d::CCSprite*, sprite, Sprite);
 
 	/**
 	The physics body that is the physics representation
@@ -88,7 +111,6 @@ public:
 
 protected:
 	int attackValue;
-	b2Vec2 position;
 	bool isFacingRight;
 	b2World* world;
 	float speed;
@@ -169,7 +191,7 @@ private:
 	By default they do nothing.
 	*/
 	virtual void initAnimations() = 0;
-	
+	void setPosition();
 };
 
 #endif

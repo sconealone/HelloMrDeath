@@ -25,8 +25,9 @@ MrDeath::MrDeath(cocos2d::CCLayer* layer) : Character(){
 	previousYVelocity = 0.0f;
 	wasAccelerating = false;
 	speed = MR_DEATH_SPEED;
-	height = MDUtil::pixelsToMetres(55.0f);
-	width = MDUtil::pixelsToMetres(32.0f);
+	boundingBox = CCRect(0.0f, 0.0f, 32.0f, 55.0f);
+	height = MDUtil::pixelsToMetres(boundingBox.size.height);
+	width = MDUtil::pixelsToMetres(boundingBox.size.width);
 	jumpSpeed = 40.0f;
 	hpValue = 5;
 }
@@ -150,10 +151,16 @@ void MrDeath::checkCollisions() {
 
 void MrDeath::setPosition(b2Vec2& pos) {
 	Character::setPosition(pos);
-	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
+	setPosition();
 }
 
 void MrDeath::setPosition(cocos2d::CCPoint pos) {
 	Character::setPosition(pos);
-	sprite->setPosition(ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET)));
+	setPosition();
+}
+
+void MrDeath::setPosition() {
+	CCPoint offsettedPos = ccpAdd(sprite->getPosition(), ccp(0.0f, (float)SPRITE_BODY_OFFSET));
+	sprite->setPosition(offsettedPos);
+	boundingBox.origin = offsettedPos;
 }

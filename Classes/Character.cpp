@@ -13,8 +13,9 @@ Character::Character() {
 	standStillAnimation = NULL;
 	isFacingRight = true;
 	speed = 4.0f; // default speed value
-	height = -1;
-	width = -1;
+	height = 0;
+	width = 0;
+	boundingBox = CCRect(0,0,width,height);
 }
 
 Character::~Character() {
@@ -103,6 +104,7 @@ void Character::initBody() {
 		CCSize size = sprite->getContentSize();
 		height = MDUtil::pixelsToMetres(size.height);
 		width = MDUtil::pixelsToMetres(size.width);
+		boundingBox.size = CCSize(width,height);
 	}
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -161,15 +163,27 @@ void Character::stopMoving() {
 }
 
 void Character::setPosition(b2Vec2 &pos) {
-	position = pos;
-	sprite->setPosition(ccp(MDUtil::metresToPixels(pos.x), MDUtil::metresToPixels(pos.y)));
-	body->SetTransform(position,body->GetAngle());
+	MDSprite::setPosition(pos);
+	setPosition();
 }
 
 
 void Character::setPosition(CCPoint pos) {
-	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
-	sprite->setPosition(pos);
+	MDSprite::setPosition(pos);
+	setPosition();
+}
+
+void Character::setPosition() {
 	body->SetTransform(position, body->GetAngle());
 }
 
+void MDSprite::setPosition(b2Vec2 &pos) {
+	position = pos;
+	sprite->setPosition(ccp(MDUtil::metresToPixels(pos.x), MDUtil::metresToPixels(pos.y)));
+}
+
+
+void MDSprite::setPosition(CCPoint pos) {
+	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
+	sprite->setPosition(pos);
+}
