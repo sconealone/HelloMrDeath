@@ -191,6 +191,8 @@ private:
 	By default they do nothing.
 	*/
 	virtual void initAnimations() = 0;
+	virtual void initBodyDef(b2BodyDef *bodyDef);
+	virtual void initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape);
 	void setPosition();
 };
 

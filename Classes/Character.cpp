@@ -107,21 +107,30 @@ void Character::initBody() {
 		boundingBox.size = CCSize(width,height);
 	}
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(0.0f,0.0f);
-	bodyDef.fixedRotation = true;
-	bodyDef.userData = this;
+	initBodyDef(&bodyDef);
 	body = world->CreateBody(&bodyDef);
 
+	
+	b2FixtureDef fixDef;
 	b2PolygonShape shape;
 	shape.SetAsBox(width/2,height/2);
-
-	b2FixtureDef fixDef;
-	fixDef.shape = &shape;
-	fixDef.density = 1.0f; // TODO: placeholder value. please replace
-	fixDef.friction = 0.0f;
+	initFixtureDef(&fixDef, &shape);
 
 	body->CreateFixture(&fixDef);
+}
+
+void Character::initBodyDef(b2BodyDef *bodyDef) {
+	bodyDef->type = b2_dynamicBody;
+	bodyDef->position.Set(0.0f,0.0f);
+	bodyDef->fixedRotation = true;
+	bodyDef->userData = this;
+}
+
+void Character::initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape) {
+
+	fixDef->shape = shape;
+	fixDef->density = 1.0f; // TODO: placeholder value. please replace
+	fixDef->friction = 0.0f;
 }
 
 Character* Character::initCharacterWithNameInWorld(Character* myChar, string name, b2World* world) {
