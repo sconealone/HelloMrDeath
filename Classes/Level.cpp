@@ -16,6 +16,9 @@ Level::Level() {
 	tiledMap = NULL;
 	collidableLayer = NULL;
 	knight = NULL;
+	checkpoints = NULL;
+	numCheckpoints = 0;
+	alreadyWon = false;
 }
 
 
@@ -26,6 +29,8 @@ Level::~Level() {
 	death = NULL;
 	if (knight != NULL) delete knight;
 	knight = NULL;
+	if (checkpoints != NULL) delete [] checkpoints;
+	checkpoints = NULL;
 }
 
 MrDeath* Level::getDeath(){
@@ -44,8 +49,6 @@ bool Level::init() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	#endif
 	
-
-	
 	do {
 		CC_BREAK_IF(!super::init());
 		
@@ -59,6 +62,7 @@ bool Level::init() {
 		initButtons();
 		initWorld();
 		initPC();
+		initCheckpoints();
 		
 		this->schedule(schedule_selector(Level::update), TIMESTEP);
 		initSuccessful = true;
@@ -150,6 +154,24 @@ void Level::initPC() {
 
 }
 
+
+void Level::initCheckpoints() {
+	levelEnd = MDSprite();
+
+	CCSprite* sprite = CCSprite::spriteWithFile("lamp-t.png");
+	CCTMXObjectGroup *obj = tiledMap->objectGroupNamed("Objects");
+	CCStringToStringDictionary *dict = obj->objectNamed("LevelEnd");
+	float x = dict->objectForKey("x")->toFloat();
+	float y = dict->objectForKey("y")->toFloat();
+	CCPoint position = ccp(x, y);
+
+	CCRect boundingBox(26.0f, 45.0f, 12.0f, 25.0f);
+
+	MDSprite::initMDSprite(&levelEnd, sprite, position, boundingBox);
+
+	gameLayer->addChild(sprite, 1);
+}
+
 CCScene* Level::scene() {
 	CCScene* scene = NULL;
 	do {
@@ -176,6 +198,7 @@ void Level::update(float dt) {
 	knight->update();
 	checkPitfalls();
 	checkDeaths();
+	checkCheckpoints();
 	centreCamera();
 }
 
@@ -376,6 +399,37 @@ void Level::checkDeaths() {
 		label->setPosition(ccpAdd(gameLayer->getPosition(), 
 								  ccp(CCDirector::sharedDirector()->getWinSize().width/2, 
 									  CCDirector::sharedDirector()->getWinSize().height/2)));
+		gameLayer->addChild(label);
+	}
+}
+
+// TODO implement behaviour for reaching the end of level, checkpoints
+void Level::checkCheckpoints() {
+	if (checkpoints != NULL && numCheckpoints > 0) {
+		MDSprite* reachedCheckpoint = NULL;
+		for (int i = 0; i < numCheckpoints; ++i) {
+			bool mrDeathReachedCheckpoint = 
+				CCRect::CCRectIntersectsRect(death->getBoundingBox(), 
+				   							 checkpoints[i].getBoundingBox());
+			if (mrDeathReachedCheckpoint) {
+				reachedCheckpoint = &checkpoints[i];
+				break;
+			}
+		}
+		if (reachedCheckpoint != NULL) {
+			// set respawn point to checkpoint
+		}
+	}
+
+	bool mrDeathReachedLevelEnd =
+		!alreadyWon && CCRect::CCRectIntersectsRect(death->getBoundingBox(),
+				  								    levelEnd.getBoundingBox());
+	if (mrDeathReachedLevelEnd) {
+		// end the level
+		alreadyWon = true;
+		CCLabelTTF *label = CCLabelTTF::labelWithString("You have reached the end of this level.", "Artial", 32);
+		label->setColor(ccc3(0x0, 0xff, 0x0));
+		label->setPosition(ccpAdd(death->getPositionInPixels(), ccp(-150.0f, 50.0f)));
 		gameLayer->addChild(label);
 	}
 }

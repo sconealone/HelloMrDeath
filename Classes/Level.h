@@ -56,6 +56,12 @@ public:
 	
 	void checkPitfalls();
 	void checkDeaths();
+
+	/**
+	Check to see if Mr Death has reached a check point,
+	which could include the end of a level
+	*/
+	void checkCheckpoints();
 	
 	/**
 	 * The physics world
@@ -119,6 +125,8 @@ private:
 	Initializes the player character.
 	*/
 	void initPC();
+
+	void initCheckpoints();
 
 	void attack(cocos2d::CCObject* sender);
 	void specialAttack(cocos2d::CCObject* sender);
@@ -187,7 +195,11 @@ private:
 	 * A boolean for whether the player is touching
 	 **/
 	bool isTouching;
+	bool alreadyWon;
 
+	MDSprite* checkpoints;
+	int numCheckpoints;
+	MDSprite levelEnd;
 
 };
 

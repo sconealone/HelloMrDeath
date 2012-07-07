@@ -23,6 +23,8 @@
  </layer>
  <objectgroup name="Objects" width="30" height="24">
   <object name="DeathSpawn" x="67" y="199" width="57" height="53"/>
+  <object name="Knight" x="444" y="376"/>
+  <object name="LevelEnd" x="931" y="567"/>
  </objectgroup>
  <layer name="Collidable" width="30" height="24" opacity="0.78">
   <data encoding="base64" compression="zlib">

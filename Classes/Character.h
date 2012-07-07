@@ -16,12 +16,25 @@
 
 class MDSprite {
 public:
+	MDSprite();
+
 	/**
 	The sprite that is the visual representation of the character
 	*/
 	CC_SYNTHESIZE(cocos2d::CCSprite*, sprite, Sprite);
 	virtual void setPosition(b2Vec2& pos);
 	virtual void setPosition(cocos2d::CCPoint pos);
+
+	/**
+	Initializes a new MDSprite
+	@param mdSprite a non-null mdsprite to initialize
+	@param sprite the CCSprite that represents the visuals
+	@param position the position in the Level to place the centre
+		   of the CCSprite's image
+	@param boundingBox the bounding box, relative to the position
+	*/
+	static void initMDSprite(MDSprite* mdSprite, cocos2d::CCSprite* sprite,
+					         cocos2d::CCPoint position, cocos2d::CCRect boundingBox);
 
 	/**
 	The position of the character in the world, in metres
@@ -58,8 +71,9 @@ public:
 	/**
 	Initializes a new character.
 	By default calls the initSprite and initBody methods
+	@param myChar the Character to be initialized (not null)
 	@param name should be the same name used to name all
-	@param level a reference to the level the character will exist in
+	@param world a reference to the physics world the character will exist in
 	the character's sprites and plist and sprite sheets.
 	eg name.plist, name.png, name1.png
 	*/

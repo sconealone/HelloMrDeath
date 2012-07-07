@@ -201,3 +201,20 @@ void MDSprite::setPosition(CCPoint pos) {
 	position = b2Vec2(MDUtil::pixelsToMetres(pos.x),MDUtil::pixelsToMetres(pos.y));
 	sprite->setPosition(pos);
 }
+
+MDSprite::MDSprite() {
+	sprite = NULL;
+	position = b2Vec2(0.0f, 0.0f);
+	boundingBox = CCRect();
+}
+
+void MDSprite::initMDSprite(MDSprite* mdSprite, cocos2d::CCSprite* sprite,
+							cocos2d::CCPoint position, cocos2d::CCRect boundingBox) {
+	mdSprite->sprite = sprite;
+	CCSize size = sprite->getContentSize();
+	mdSprite->setPosition(position);
+	mdSprite->boundingBox = CCRect(boundingBox);
+	CCPoint oldPos = mdSprite->boundingBox.origin;
+	mdSprite->boundingBox.origin = ccp(oldPos.x - size.width/2 + position.x,
+									   oldPos.y - size.height/2 + position.y);
+}
