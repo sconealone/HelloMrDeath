@@ -19,8 +19,21 @@ Knight::~Knight() {
 }
 
 void Knight::attack(){
+	cout << "attacking";
+	
+	//need to be replaced with a walk animation later
+	CCFiniteTimeAction *moveleft = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x-10,this->getPosition().y));
+	CCFiniteTimeAction *moveright = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x+10,this->getPosition().y));
+	
 	attackAction = initAction(attackAnimation,false);
+
+
+	CCFiniteTimeAction *resumeAction = initAction(standStillAnimation,false);
+	
+	sprite->runAction(CCSequence::actions(moveleft,attackAction,resumeAction,NULL));
+	
 	attackAction->release();
+
 }
 
 void Knight::initAnimations(){
@@ -37,8 +50,17 @@ bool Knight::checkDeathDistance(Level* level){
 }
 
 void Knight::update(){
+
 	Character::update();
-	checkDeathDistance(level);
+
+	b2Vec2 vec = body->GetPosition();
+	setPosition(vec);
+	bool distance = checkDeathDistance(level);
+	if (distance) {
+		this->attack();
+	}
+	
+
 }
 
 

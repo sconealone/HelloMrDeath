@@ -146,7 +146,7 @@ void Level::initPC() {
 		knight = new Knight(this);
 		knight-> initCharacterWithNameInWorld(knight, "knight", world);
 		gameLayer->addChild(knight->getBatchNode(), 0);
-		knight->setPosition(ccp(250,200));
+		knight->setPosition(ccp(250,75));
 		knight->getBatchNode()->addChild(knight->getSprite(), 1);
 		
 
