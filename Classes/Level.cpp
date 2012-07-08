@@ -234,9 +234,9 @@ void Level::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent){
 	if (isRightArrow(location) && isLeftArrow(location)) {
 		// do nothing. don't press arrows at the same time.
 	} else if (isRightArrow(location)) {
-		death->moveRight();
+		death->moveRight(8.0f);
 	} else if (isLeftArrow(location)) {
-		death->moveLeft();
+		death->moveLeft(8.0f);
 	}
 	
 }

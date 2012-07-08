@@ -145,26 +145,26 @@ void Character::attack() {
 }
 
 
-void Character::moveLeft() {
+void Character::moveLeft(float vel) {
 	CCFiniteTimeAction* flip = NULL;
 	if (isFacingRight) { 
 		flip = CCFlipX::actionWithFlipX(true);
 		sprite->runAction(flip);
 	}
 	isFacingRight = false;
-	body->SetLinearVelocity(b2Vec2(-8.0f,body->GetLinearVelocity().y));
+	body->SetLinearVelocity(b2Vec2(vel*-1,body->GetLinearVelocity().y));
 }
 
 
 
-void Character::moveRight() {
+void Character::moveRight(float vel) {
 	CCFiniteTimeAction* flip = NULL;
 	if (!isFacingRight) {
 		flip = CCFlipX::actionWithFlipX(false);
 		sprite->runAction(flip);
 	}
 	isFacingRight = true;
-	body->SetLinearVelocity(b2Vec2(8.0f,body->GetLinearVelocity().y));
+	body->SetLinearVelocity(b2Vec2(vel,body->GetLinearVelocity().y));
 }
 
 void Character::stopMoving() {

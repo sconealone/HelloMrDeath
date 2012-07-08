@@ -97,10 +97,10 @@ public:
 	virtual void setPosition(cocos2d::CCPoint pos);
 
 	// Move left function for characters
-	virtual void moveLeft();
+	virtual void moveLeft(float vel);
 
 	// Move right function for characters
-	virtual void moveRight();
+	virtual void moveRight(float vel);
 
 	virtual void stopMoving();
 

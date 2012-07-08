@@ -11,12 +11,15 @@ Knight::Knight(Level* level) : Character() {
 	this->level = level;
 	hpValue = 3;
 	speed = 4.0f;
+	isFacingRight = false;
 }
 
 Knight::~Knight() {
 	CC_SAFE_RELEASE_NULL(standStillAnimation);
 	CC_SAFE_RELEASE_NULL(attackAnimation);
 }
+
+
 
 void Knight::attack(){
 	cout << "attacking";
@@ -25,14 +28,16 @@ void Knight::attack(){
 	CCFiniteTimeAction *moveleft = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x-10,this->getPosition().y));
 	CCFiniteTimeAction *moveright = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x+10,this->getPosition().y));
 	
-	attackAction = initAction(attackAnimation,false);
-
-
-	CCFiniteTimeAction *resumeAction = initAction(standStillAnimation,false);
+	//attackAction = initAction(attackAnimation,false);
+//
+//
+//	CCFiniteTimeAction *resumeAction = initAction(standStillAnimation,false);
+//	
+//	sprite->runAction(CCSequence::actions(moveleft,attackAction,resumeAction,NULL));
+//	
+//	attackAction->release();
 	
-	sprite->runAction(CCSequence::actions(moveleft,attackAction,resumeAction,NULL));
-	
-	attackAction->release();
+	this->moveLeft(5.0f);
 
 }
 

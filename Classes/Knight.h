@@ -17,8 +17,6 @@ public:
 	virtual void update();
 	
 	virtual void attack();
-	
-	
 
 private:
 	Level* level;
