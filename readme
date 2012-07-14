@@ -4,4 +4,8 @@ Mitch: working on
 -- add pitfall detection so mr. death does not just get stuck in pits
 
 Olivia: working on enemies 
--- sprite sheet and animation etc.
+-- knight now moves properly, flipping sprite needs to be re-worked to get better code 
+TODO:
+-- cool down for the attack
+-- hit detection 
+-- setting the sprite_body offset 
