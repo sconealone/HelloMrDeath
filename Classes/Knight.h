@@ -9,14 +9,22 @@ class Level;
 class Knight : public Character {
 public:
 	Knight(Level* level);
+
 	
-	bool checkDeathDistance(Level* level);
+	float checkDeathDistance(Level* level);
 	
 	virtual ~Knight();
 	
 	virtual void update();
 	
 	virtual void attack();
+	
+	virtual void moveLeft(float vel);
+	
+	virtual void moveRight(float vel);
+	
+protected:
+	virtual void initFixtureDef(b2FixtureDef* fixDef, b2PolygonShape *shape);
 
 private:
 	Level* level;
@@ -29,7 +37,6 @@ private:
 	//note: we need animation for the knight's walking
 	cocos2d::CCAnimation* walkAnimation;
 	cocos2d::CCAnimation* standStillAnimation;
-	
 	
 };
 

@@ -12,6 +12,10 @@ Knight::Knight(Level* level) : Character() {
 	hpValue = 3;
 	speed = 4.0f;
 	isFacingRight = false;
+	boundingBox = CCRect(0.0f, 0.0f, 32.0f, 55.0f);
+	height = MDUtil::pixelsToMetres(boundingBox.size.height);
+	width = MDUtil::pixelsToMetres(boundingBox.size.width);
+	sprite_body_offset = 8;
 }
 
 Knight::~Knight() {
@@ -20,24 +24,56 @@ Knight::~Knight() {
 }
 
 
+void Knight::moveLeft(float vel) {
+	CCFiniteTimeAction* flip = NULL;
+	if (isFacingRight) { 
+		flip = CCFlipX::actionWithFlipX(false);
+		sprite->runAction(flip);
+	}
+	isFacingRight = false;
+	body->SetLinearVelocity(b2Vec2(vel*-1,body->GetLinearVelocity().y));
+}
+
+
+
+void Knight::moveRight(float vel) {
+	CCFiniteTimeAction* flip = NULL;
+	if (!isFacingRight) {
+		flip = CCFlipX::actionWithFlipX(true);
+		sprite->runAction(flip);
+	}
+	isFacingRight = true;
+	body->SetLinearVelocity(b2Vec2(vel,body->GetLinearVelocity().y));
+}
 
 void Knight::attack(){
 	cout << "attacking";
 	
-	//need to be replaced with a walk animation later
-	CCFiniteTimeAction *moveleft = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x-10,this->getPosition().y));
-	CCFiniteTimeAction *moveright = CCMoveTo::actionWithDuration(2.0f, ccp(this->getPosition().x+10,this->getPosition().y));
+	attackAction = initAction(attackAnimation,false);
+
+	CCFiniteTimeAction *resumeAction = initAction(standStillAnimation,false);
 	
-	//attackAction = initAction(attackAnimation,false);
-//
-//
-//	CCFiniteTimeAction *resumeAction = initAction(standStillAnimation,false);
-//	
-//	sprite->runAction(CCSequence::actions(moveleft,attackAction,resumeAction,NULL));
-//	
-//	attackAction->release();
+	int dis = (int)checkDeathDistance(level);
 	
-	this->moveLeft(5.0f);
+	switch (dis) {
+		case -2:
+			this->moveLeft(5.0f);
+			break;
+		case 2:
+			this->moveRight(5.0f);
+			break;
+		case 1:
+			sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
+			break;
+		case -1:
+			sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
+			break;
+							  
+		default:
+			this->stopMoving();
+	}
+	
+	attackAction->release();
 
 }
 
@@ -47,11 +83,13 @@ void Knight::initAnimations(){
 	
 }
 
-bool Knight::checkDeathDistance(Level* level){
+float Knight::checkDeathDistance(Level* level){
 	MrDeath* death = level->getDeath();
 	float death_x = death->getPosition().x;
 	float knight_x = this->getPosition().x;
-	return (death_x - knight_x > -3 && death_x - knight_x < 3);
+	
+	return death_x - knight_x;
+
 }
 
 void Knight::update(){
@@ -68,4 +106,9 @@ void Knight::update(){
 
 }
 
+
+void Knight::initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape) {
+	Character::initFixtureDef(fixDef, shape);
+	fixDef->density = 1.0f;
+}
 

@@ -16,6 +16,7 @@ Character::Character() {
 	height = 0;
 	width = 0;
 	boundingBox = CCRect(0,0,width,height);
+	sprite_body_offset = 0;
 }
 
 Character::~Character() {

@@ -97,7 +97,7 @@ private:
 	float previousYVelocity;
 	bool wasAccelerating;
 	float jumpSpeed;
-	static const int SPRITE_BODY_OFFSET = 8;
+	
 
 };
 #endif

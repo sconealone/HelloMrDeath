@@ -130,6 +130,7 @@ protected:
 	float speed;
 	float height; // metres
 	float width; // metres
+	float sprite_body_offset;
 	
 
 	 /**
@@ -210,6 +211,8 @@ private:
 	*/
 	virtual void initAnimations() = 0;
 	void setPosition();
+	
+	
 };
 
 #endif
