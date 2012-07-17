@@ -72,6 +72,11 @@ public:
 
 	// Tags
 	static const int TRANSITION_TAG = 100;
+	
+	/**
+	 Check contacts between characters
+	 **/
+	void checkContact(b2World* wrd);
 
 private:
 	// functions

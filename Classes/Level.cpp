@@ -434,6 +434,10 @@ void Level::checkCheckpoints() {
 	}
 }
 
+void Level::checkContact(b2World* wrd){
+	wrd = world;
+}
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 void Level::checkKeyboard() {
 	const short KEY_UP = (short) 0x8000;

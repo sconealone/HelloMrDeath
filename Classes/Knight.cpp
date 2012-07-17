@@ -55,23 +55,19 @@ void Knight::attack(){
 	
 	int dis = (int)checkDeathDistance(level);
 	
-	switch (dis) {
-		case -2:
-			this->moveLeft(5.0f);
-			break;
-		case 2:
-			this->moveRight(5.0f);
-			break;
-		case 1:
-			sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
-			break;
-		case -1:
-			sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
-			break;
-							  
-		default:
-			this->stopMoving();
+	if (dis > -4 && dis < -1) {
+		this->moveLeft(5.0f);
 	}
+	else if (dis < 4 && dis > 1){
+		this->moveRight(5.0f);
+	}
+	else if (dis <= 2 && dis >= -2){
+		sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
+	} else {
+		this->stopMoving();
+	}
+
+
 	
 	attackAction->release();
 
