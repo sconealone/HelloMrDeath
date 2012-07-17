@@ -15,7 +15,7 @@ Knight::Knight(Level* level) : Character() {
 	boundingBox = CCRect(0.0f, 0.0f, 32.0f, 55.0f);
 	height = MDUtil::pixelsToMetres(boundingBox.size.height);
 	width = MDUtil::pixelsToMetres(boundingBox.size.width);
-	sprite_body_offset = 8;
+	sprite_body_offset = 14;
 }
 
 Knight::~Knight() {
@@ -92,12 +92,22 @@ float Knight::checkDeathDistance(Level* level){
 
 }
 
+void Knight::setPosition(b2Vec2& pos){
+	Character::setPosition(pos);
+	setPos();
+}
+
+void Knight::setPosition(CCPoint pos){
+	Character::setPosition(pos);
+	setPos();
+}
+
 void Knight::update(){
 
 	Character::update();
 
-	b2Vec2 vec = body->GetPosition();
-	setPosition(vec);
+	//b2Vec2 vec = body->GetPosition();
+	//setPosition(vec);
 	bool distance = checkDeathDistance(level);
 	if (distance) {
 		this->attack();
@@ -111,4 +121,12 @@ void Knight::initFixtureDef(b2FixtureDef *fixDef, b2PolygonShape *shape) {
 	Character::initFixtureDef(fixDef, shape);
 	fixDef->density = 1.0f;
 }
+
+void Knight::setPos(){
+	CCPoint offsetpos = ccpAdd(sprite->getPosition(), ccp(0.0f, this->sprite_body_offset));
+	sprite->setPosition(offsetpos);
+	boundingBox.origin = offsetpos;
+}
+
+
 

@@ -23,6 +23,10 @@ public:
 	
 	virtual void moveRight(float vel);
 	
+	virtual void setPosition(b2Vec2& pos);
+	
+	virtual void setPosition(cocos2d::CCPoint pos);
+	
 protected:
 	virtual void initFixtureDef(b2FixtureDef* fixDef, b2PolygonShape *shape);
 
@@ -30,6 +34,8 @@ private:
 	Level* level;
 	
 	virtual void initAnimations();
+	
+	void setPos();
 	
 	/**
 	 *The animations for the knight's movement

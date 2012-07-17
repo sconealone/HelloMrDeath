@@ -219,3 +219,4 @@ void MDSprite::initMDSprite(MDSprite* mdSprite, cocos2d::CCSprite* sprite,
 	mdSprite->boundingBox.origin = ccp(oldPos.x - size.width/2 + position.x,
 									   oldPos.y - size.height/2 + position.y);
 }
+
