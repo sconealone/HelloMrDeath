@@ -7,5 +7,4 @@ Olivia: working on enemies
 -- knight now moves properly, flipping sprite needs to be re-worked to get better code 
 TODO:
 -- cool down for the attack
--- hit detection 
--- setting the sprite_body offset 
+-- collision and hit detection 
