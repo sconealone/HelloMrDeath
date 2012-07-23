@@ -31,7 +31,11 @@ protected:
 	virtual void initFixtureDef(b2FixtureDef* fixDef, b2PolygonShape *shape);
 
 private:
+	/** The Level this Knight belongs**/
 	Level* level;
+	
+	/** Cool down for the attack **/
+	int coolDownCount;
 	
 	virtual void initAnimations();
 	

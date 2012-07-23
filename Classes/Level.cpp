@@ -19,6 +19,8 @@ Level::Level() {
 	checkpoints = NULL;
 	numCheckpoints = 0;
 	alreadyWon = false;
+	conListener = new ContactListener();
+	coolDownCount = 15;
 }
 
 
@@ -200,7 +202,14 @@ void Level::update(float dt) {
 	checkDeaths();
 	checkCheckpoints();
 	centreCamera();
-	checkContact(world);
+	
+	if (coolDownCount == 0) {
+		checkContact(world);
+		coolDownCount = 15;
+	} else {
+		coolDownCount--;
+	}
+
 }
 
 bool Level::isRightArrow(float x, float y){
@@ -439,20 +448,11 @@ void Level::checkContact(b2World* wrd){
 	wrd = world;
 	
 	for (b2Contact* contact = wrd-> GetContactList(); contact; contact = contact->GetNext()) {
-		b2Fixture* fixA = contact->GetFixtureA();
-		b2Body* bodyA = fixA->GetBody();
-		b2Fixture* fixB = contact->GetFixtureB();
-		b2Body* bodyB = fixB->GetBody();
-		
-		if ((bodyA == death->getCharBody() && bodyB == knight->getCharBody())||
-			(bodyA == knight->getCharBody() && bodyB == death->getCharBody())) {
-			int originHP = death->getHPValue();
-			death->setHPValue(originHP-1);
-			int newHP = death->getHPValue();
-			cout << newHP;
-		}
+		conListener->EndContact(contact,this);
 	}
 }
+
+
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 void Level::checkKeyboard() {

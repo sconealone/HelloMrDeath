@@ -8,10 +8,12 @@
 #include "MrDeath.h"
 #include "Knight.h"
 #include "MDUtil.h"
+#include "ContactListener.h"
 
 class Character;
 class MrDeath;
 class Knight;
+class ContactListener;
 
 class Level: public cocos2d::CCLayer {
 public:
@@ -196,6 +198,9 @@ private:
 	cocos2d::CCMenuItemImage *jumpbutton;
 	cocos2d::CCMenuItemImage *specialbutton;
 	
+	/** Contact and collision listener in the Level **/
+	ContactListener* conListener;
+	
 	/**
 	 * A boolean for whether the player is touching
 	 **/
@@ -205,6 +210,8 @@ private:
 	MDSprite* checkpoints;
 	int numCheckpoints;
 	MDSprite levelEnd;
+	int coolDownCount;
+	
 
 };
 

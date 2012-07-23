@@ -16,6 +16,7 @@ Knight::Knight(Level* level) : Character() {
 	height = MDUtil::pixelsToMetres(boundingBox.size.height);
 	width = MDUtil::pixelsToMetres(boundingBox.size.width);
 	sprite_body_offset = 14;
+	coolDownCount = 30;
 }
 
 Knight::~Knight() {
@@ -60,8 +61,11 @@ void Knight::attack(){
 	else if (dis < 4 && dis > 1){
 		this->moveRight(5.0f);
 	}
-	else if (dis <= 2 && dis >= -2){
-		sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
+	else if (dis <= 1 && dis >= -1){
+		cout << coolDownCount;
+		if (coolDownCount == 0) {
+			sprite->runAction(CCSequence::actions(attackAction, resumeAction, NULL));
+		} 
 	} else {
 		this->stopMoving();
 	}
@@ -100,15 +104,15 @@ void Knight::setPosition(CCPoint pos){
 void Knight::update(){
 
 	Character::update();
-
-	//b2Vec2 vec = body->GetPosition();
-	//setPosition(vec);
-	bool distance = checkDeathDistance(level);
-	if (distance) {
-		this->attack();
+	this->attack();
+	if (coolDownCount > 0) {
+		coolDownCount--;
+	}else {
+		coolDownCount = 30;
 	}
-	
 
+	
+	
 }
 
 
