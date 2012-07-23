@@ -4,7 +4,10 @@ Mitch: working on
 -- add pitfall detection so mr. death does not just get stuck in pits
 
 Olivia: working on enemies 
--- knight now moves properly, flipping sprite needs to be re-worked to get better code 
-TODO:
--- cool down for the attack
--- collision and hit detection 
+-- collision checks are working, MrDeath loses health when he has body contact with the knight. 
+Problems and TODOs:
+-- how to detect whether the sword is touching him? how to detect whether his seith is chopping the knight?
+-- losing health/death animation for MrDeath
+-- clear out the knight after it dies 
+-- need a list of knights in Level mapped to the spawn points on tile map 
+
