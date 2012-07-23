@@ -87,9 +87,14 @@ public:
 
 	// HP value for each character
 	CC_SYNTHESIZE(int, hpValue, HpValue);
-	//int getHPValue(){return hpValue;}
+	int getHPValue(){return hpValue;}
+	int setHPValue(int hp){hpValue = hp;}
 
 	cocos2d::CCSpriteBatchNode* getBatchNode(){return batchNode;}
+	
+	b2Body* getCharBody(){return body;}
+	
+	
 	
 
 
@@ -114,6 +119,8 @@ public:
 	or it could use its AI to decide where  to move.
 	*/
 	virtual void update();
+	
+	
 
 
 	/**
@@ -211,6 +218,7 @@ private:
 	*/
 	virtual void initAnimations() = 0;
 	void setPosition();
+	
 	
 	
 };

@@ -47,7 +47,6 @@ void Knight::moveRight(float vel) {
 }
 
 void Knight::attack(){
-	cout << "attacking";
 	
 	attackAction = initAction(attackAnimation,false);
 
