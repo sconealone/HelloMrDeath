@@ -1,7 +1,3 @@
-Use this to track what you're working on 
+# Hello Mr. Death
 
-Mitch: working on
--- add pitfall detection so mr. death does not just get stuck in pits
-
-Olivia: working on enemies 
--- sprite sheet and animation etc.
+A 2D platformer started by a group of friends. Starring Mr. Death, a lonely reaper out to restore death to a land corrupted by an irresponsibly immortal king. Sadly languishing until Drew returns. Made with cocos2dx.
